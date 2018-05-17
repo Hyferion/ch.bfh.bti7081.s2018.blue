@@ -50,7 +50,7 @@ public class OrderViewImp  extends CustomComponent implements View{
 		//Main
 		// Have some data
 		List<Order> orders = Arrays.asList(
-		    new Order(1, "02.05.2018", "in Bearbeitung", " "),
+		    new Order(1, "02.05.2018", "in Bearbeitung", ""),
 		    new Order(2, "05.08.2017", "Verfügbar", "Drucken"),
 		    new Order(3, "08.12.2015", "Verfügabr", "Drucken"),
 		    new Order(4, "25.05.2012", "Verfügbar", "Drucken")	
@@ -63,7 +63,7 @@ public class OrderViewImp  extends CustomComponent implements View{
 		main.addColumn(Order::getId).setCaption("Bestellung").setResizable(false);
 		main.addColumn(Order::getDate).setCaption("Datum").setResizable(false);
 		main.addColumn(Order::getStatus).setCaption("Status").setResizable(false);
-		main.addColumn(Order::getDrucken).setCaption("Drucken").setResizable(false);
+		main.addColumn(Order::getStatus).setCaption("Drucken").setResizable(false);
 		
 		
 		root.addComponent(main);
