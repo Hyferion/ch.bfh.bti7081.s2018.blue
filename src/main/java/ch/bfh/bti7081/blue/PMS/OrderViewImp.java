@@ -48,7 +48,8 @@ public class OrderViewImp  extends CustomComponent implements View{
 		root.setComponentAlignment(order, Alignment.TOP_LEFT);
 		
 		//Main
-		// Have some data
+		
+		//some data
 		List<Order> orders = Arrays.asList(
 		    new Order(1, "02.05.2018", "in Bearbeitung", ""),
 		    new Order(2, "05.08.2017", "Verfügbar", "Drucken"),
@@ -63,7 +64,7 @@ public class OrderViewImp  extends CustomComponent implements View{
 		main.addColumn(Order::getId).setCaption("Bestellung").setResizable(false);
 		main.addColumn(Order::getDate).setCaption("Datum").setResizable(false);
 		main.addColumn(Order::getStatus).setCaption("Status").setResizable(false);
-		main.addColumn(Order::getStatus).setCaption("Drucken").setResizable(false);
+		main.addColumn(Order::getDrucken).setCaption("Drucken").setResizable(false);
 		
 		
 		root.addComponent(main);
