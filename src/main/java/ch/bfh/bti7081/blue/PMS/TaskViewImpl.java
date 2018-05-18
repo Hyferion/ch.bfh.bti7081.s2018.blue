@@ -2,6 +2,7 @@ package ch.bfh.bti7081.blue.PMS;
 
 import com.vaadin.server.ClassResource;
 import com.vaadin.server.FileDownloader;
+import com.vaadin.shared.ui.ContentMode;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.CheckBox;
@@ -16,8 +17,9 @@ public class TaskViewImpl extends CustomComponent {
 	public TaskViewImpl() {
 		VerticalLayout layout = new VerticalLayout();
 		Label title = new Label("Task 1");//Name of Task
+		title.setStyleName(ValoTheme.LABEL_H1);
 		Label desctitle = new Label("Description");
-		Label description = new Label("Some\nMultiline\nDescription");
+		Label description = new Label("Some\nMultiline\nDescription", ContentMode.PREFORMATTED);
 		Label filetitle = new Label ("Related Files");
 		layout.addComponent(title);
 		layout.addComponent(desctitle);
