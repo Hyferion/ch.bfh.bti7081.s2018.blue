@@ -4,14 +4,10 @@ import javax.servlet.annotation.WebServlet;
 
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
-import com.vaadin.icons.VaadinIcons;
 import com.vaadin.navigator.Navigator;
-import com.vaadin.navigator.View;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
-import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.UI;
-import com.vaadin.ui.VerticalLayout;
 
 /**
  * This UI is the application entry point. A UI may either represent a browser
@@ -23,7 +19,7 @@ import com.vaadin.ui.VerticalLayout;
  * initialize non-component functionality.
  */
 @Theme("mytheme")
-public class MyUI extends UI {
+public class UI_Lars extends UI {
 
 	@Override
 	protected void init(VaadinRequest vaadinRequest) {
@@ -41,7 +37,7 @@ public class MyUI extends UI {
 	}
 
 	@WebServlet(urlPatterns = "/*", name = "MyUIServlet", asyncSupported = true)
-	@VaadinServletConfiguration(ui = MyUI.class, productionMode = false)
+	@VaadinServletConfiguration(ui = UI_Lars.class, productionMode = false)
 	public static class MyUIServlet extends VaadinServlet {
 	}
 }
