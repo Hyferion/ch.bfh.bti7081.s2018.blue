@@ -19,25 +19,35 @@ import com.vaadin.ui.UI;
  * initialize non-component functionality.
  */
 @Theme("mytheme")
-public class UI_Lars extends UI {
+public class MyUI extends UI {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	Navigator navigator;
 
 	@Override
 	protected void init(VaadinRequest vaadinRequest) {
+		navigator = new Navigator(this, this);
+		OrderModel model = new OrderModel();
+		SImonOrderViewImpl2 view2 = new SImonOrderViewImpl2(navigator);
+		SimonOrderViewImpl view = new SimonOrderViewImpl(navigator);
+		LarsOrderViewImp larsView = new LarsOrderViewImp(navigator);
 
-		// Create the model and the Vaadin view implementation
-		OrderViewImp view = new OrderViewImp();
+		navigator.addView("First", view);
+		navigator.addView("Second", view2);
+		navigator.addView("Lars View", larsView);
+		navigator.navigateTo("First");
 		
+		new OrderPresenter(model, view);
+
 		setContent(view);
-		
-	
-		Navigator navigator = new Navigator(this, this);
-		navigator.addView("", OrderViewImp.class);
-		navigator.addView("Home", OrderViewImp.class);;
-		
+
 	}
 
 	@WebServlet(urlPatterns = "/*", name = "MyUIServlet", asyncSupported = true)
-	@VaadinServletConfiguration(ui = UI_Lars.class, productionMode = false)
+	@VaadinServletConfiguration(ui = MyUI.class, productionMode = false)
 	public static class MyUIServlet extends VaadinServlet {
+
 	}
 }
