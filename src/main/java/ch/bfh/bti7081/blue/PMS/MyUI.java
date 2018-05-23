@@ -18,49 +18,16 @@ import com.vaadin.ui.*;
  */
 @Theme("mytheme")
 @Push
-public class MyUI extends UI implements Broadcaster.BroadcastListener{
+public class MyUI extends UI {
 
     @Override
     protected void init(VaadinRequest request) {
 
-        final VerticalLayout layout = new VerticalLayout();
-        layout.setMargin(true);
-        setContent(layout);
+       ChatBox box = new ChatBox();
+       setContent(box);
 
-        final TextArea message = new TextArea("",
-                "The system is going down for maintenance in 10 minutes");
-        layout.addComponent(message);
-
-        final Button button = new Button("Broadcast");
-        layout.addComponent(button);
-        button.addClickListener(new Button.ClickListener() {
-            @Override
-            public void buttonClick(Button.ClickEvent event) {
-                Broadcaster.broadcast(message.getValue());
-            }
-        });
-
-        // Register broadcast listener
-        Broadcaster.register(this);
     }
 
-    @Override
-    public void detach() {
-        Broadcaster.unregister(this);
-        super.detach();
-    }
-
-    @Override
-    public void receiveBroadcast(final String message) {
-        access(new Runnable() {
-            @Override
-            public void run() {
-                Notification n = new Notification("Message received",
-                        message, Notification.Type.TRAY_NOTIFICATION);
-                n.show(getPage());
-            }
-        });
-    }
 
     @WebServlet(urlPatterns = "/*", name = "MyUIServlet", asyncSupported = true)
     @VaadinServletConfiguration(ui = MyUI.class, productionMode = false)

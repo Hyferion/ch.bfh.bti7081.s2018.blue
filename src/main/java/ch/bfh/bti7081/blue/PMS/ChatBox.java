@@ -35,8 +35,8 @@ class ChatBox extends CustomComponent implements Broadcaster.BroadcastListener {
         send.setClickShortcut(KeyCode.ENTER);
         send.addClickListener(event -> { // Java 8
             // Broadcast the input to others
-            broadcast(input.getValue());
-            addMessage(input.getValue()); // Add to self
+            Broadcaster.broadcast(input.getValue());
+         //   addMessage(input.getValue()); // Add to self
 
             input.setValue("");
         });
@@ -47,15 +47,9 @@ class ChatBox extends CustomComponent implements Broadcaster.BroadcastListener {
 
     }
 
-
-    // Send a message
-    private void broadcast(String msg) {
-        Broadcaster.broadcast(msg);
-    }
-
-    private void addMessage(String msg) {
+    /*private void addMessage(String msg) {
         messages.addComponent(new Label(msg));
-    }
+    }*/
 
     @Override
     public void receiveBroadcast(final String message) {
