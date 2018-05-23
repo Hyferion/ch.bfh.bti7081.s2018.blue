@@ -1,16 +1,11 @@
 package ch.bfh.bti7081.blue.PMS;
 
+import com.vaadin.annotations.Push;
 import com.vaadin.event.ShortcutAction.KeyCode;
-import com.vaadin.ui.Button;
-import com.vaadin.ui.CustomComponent;
-import com.vaadin.ui.HorizontalLayout;
-import com.vaadin.ui.Label;
-import com.vaadin.ui.Panel;
-import com.vaadin.ui.TextField;
-import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.*;
 
-
-class ChatBox extends CustomComponent {
+@Push
+class ChatBox extends CustomComponent implements Broadcaster.BroadcastListener {
     private static final long serialVersionUID = 4889740559403910624L;
 
     VerticalLayout messages = new VerticalLayout();
@@ -47,15 +42,30 @@ class ChatBox extends CustomComponent {
         });
         sendBar.addComponent(send);
         content.addComponent(sendBar);
+
+        Broadcaster.register(this);
+
     }
 
 
     // Send a message
     private void broadcast(String msg) {
-
+        Broadcaster.broadcast(msg);
     }
 
     private void addMessage(String msg) {
         messages.addComponent(new Label(msg));
     }
+
+    @Override
+    public void receiveBroadcast(final String message) {
+              messages.addComponent(new Label(message));
+    }
+
+    @Override
+    public void detach() {
+        Broadcaster.unregister(this);
+        super.detach();
+    }
+
 }
