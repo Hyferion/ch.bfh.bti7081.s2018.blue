@@ -40,6 +40,7 @@ public class MyUIRelativeHelper extends UI {
 		LoginViewImpl loginViewImpl = new LoginViewImpl();
 		LoginViewPresenter loginViewPresenter = new LoginViewPresenter(loginViewModel, loginViewImpl, navigator);
 		navigator.addView("LoginView", loginViewImpl);
+		navigator.addView("", loginViewImpl);
 
 		boolean isLoggedIn = getSession().getAttribute("user") != null;
 
