@@ -1,20 +1,13 @@
-package ch.bfh.bti7081.blue.PMS;
+package ch.bfh.bti7081.blue.PMS.view;
 
 import com.vaadin.navigator.Navigator;
-import com.vaadin.annotations.Theme;
-import com.vaadin.annotations.VaadinServletConfiguration;
-import com.vaadin.annotations.Widgetset;
-import com.vaadin.navigator.Navigator;
-import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.server.Responsive;
 import com.vaadin.server.VaadinRequest;
-import com.vaadin.server.VaadinServlet;
 import com.vaadin.ui.ComponentContainer;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.themes.ValoTheme;
 
 import java.util.LinkedHashMap;
-import javax.servlet.annotation.WebServlet;
 
 /**
  * 
@@ -55,9 +48,9 @@ public class TheUI extends UI {
             addStyleName(ValoTheme.UI_WITH_MENU);
             
             // create and register the views
-            navigator.addView(MAIN_VIEW, new MainView());
-            navigator.addView(CALENDER_VIEW, new CalenderView()); //muss noch erstellt werden
-            navigator.addView(CHAT_VIEW, new ChatView()); // muss noch erstellt werden
+           // navigator.addView(MAIN_VIEW, new MainView());
+            //navigator.addView(CALENDER_VIEW, new CalenderView()); //muss noch erstellt werden
+            //navigator.addView(CHAT_VIEW, new ChatView()); // muss noch erstellt werden
     }
     
     protected LinkedHashMap<String, String> getNavigationEntries() {
@@ -67,10 +60,5 @@ public class TheUI extends UI {
         entires.put("chat", "Chat");
         
         return  entires;
-    }
-
-    @WebServlet(urlPatterns = "/*", name = "MyUIServlet", asyncSupported = true)
-    @VaadinServletConfiguration(ui = TheUI.class, productionMode = false)
-    public static class MyUIServlet extends VaadinServlet {
     }
 }

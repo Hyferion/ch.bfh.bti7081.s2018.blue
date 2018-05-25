@@ -1,9 +1,10 @@
-package ch.bfh.bti7081.blue.PMS;
+package ch.bfh.bti7081.blue.PMS.presenter;
 
 import java.util.ArrayList;
 
+import ch.bfh.bti7081.blue.PMS.model.SimonOrderModel;
+import ch.bfh.bti7081.blue.PMS.view.SimonOrderView;
 import com.vaadin.navigator.Navigator;
-import com.vaadin.navigator.View;
 import com.vaadin.ui.CheckBox;
 
 public class SimonOrderPresenter implements SimonOrderView.OrderViewListener {

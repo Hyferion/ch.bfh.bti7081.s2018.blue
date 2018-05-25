@@ -1,11 +1,13 @@
-package ch.bfh.bti7081.blue.PMS;
+package ch.bfh.bti7081.blue.PMS.view;
 
+import ch.bfh.bti7081.blue.PMS.presenter.Broadcaster;
 import com.vaadin.annotations.Push;
 import com.vaadin.event.ShortcutAction.KeyCode;
+import com.vaadin.navigator.View;
 import com.vaadin.ui.*;
 
 @Push
-class ChatBox extends CustomComponent implements Broadcaster.BroadcastListener {
+public class ChatBox extends CustomComponent implements Broadcaster.BroadcastListener, View {
     private static final long serialVersionUID = 4889740559403910624L;
 
     VerticalLayout messages = new VerticalLayout();

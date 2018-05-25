@@ -48,9 +48,9 @@ public class MainViewImp extends CustomComponent implements View {
 		HorizontalLayout but = new HorizontalLayout();
 		
 		Button butBest = new Button("Bestellungen",  e -> getUI().getNavigator().navigateTo("Order"));
-		Button butChat = new Button("Chat");
-		Button butKalender = new Button("Kander");
-		Button logout = new Button("Logout_Bye", e -> logOutButtonClick());
+		Button butChat = new Button("Chat", e -> getUI().getNavigator().navigateTo("Chat"));
+		Button butKalender = new Button("Kalender");
+		Button logout = new Button("Logout", e -> logOutButtonClick());
 
 		but.addComponent(butBest);
 		but.addComponent(butChat);

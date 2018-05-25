@@ -1,10 +1,9 @@
-package ch.bfh.bti7081.blue.PMS;
+package ch.bfh.bti7081.blue.PMS.view;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import com.vaadin.navigator.Navigator;
-import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
@@ -16,8 +15,6 @@ import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
-
-import ch.bfh.bti7081.blue.PMS.SimonOrderViewInterface.OrderViewListener;
 
 public class SimonOrderView extends CustomComponent implements SimonOrderViewInterface, ClickListener {
 	

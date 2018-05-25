@@ -1,12 +1,10 @@
-package ch.bfh.bti7081.blue.PMS;
+package ch.bfh.bti7081.blue.PMS.view;
 
-import javax.servlet.annotation.WebServlet;
-
+import ch.bfh.bti7081.blue.PMS.model.SimonOrderModel;
+import ch.bfh.bti7081.blue.PMS.presenter.SimonOrderPresenter;
 import com.vaadin.annotations.Theme;
-import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.navigator.Navigator;
 import com.vaadin.server.VaadinRequest;
-import com.vaadin.server.VaadinServlet;
 import com.vaadin.ui.UI;
 
 /**
@@ -32,22 +30,16 @@ public class SimonMyUI extends UI {
 		SimonOrderModel model = new SimonOrderModel();
 		SimonOrderView orderView = new SimonOrderView(navigator);
 		SimonOrderedView orderedView = new SimonOrderedView(navigator);
-		LarsOrderViewImp larsView = new LarsOrderViewImp(navigator);
+		//LarsOrderViewImp larsView = new LarsOrderViewImp(navigator);
 
 		navigator.addView("orderView", orderView);
 		navigator.addView("orderedView", orderedView);
-		navigator.addView("Lars View", larsView);
+		//navigator.addView("Lars View", larsView);
 		navigator.navigateTo("orderView");
 		
 		new SimonOrderPresenter(model, orderView);
 	
 		setContent(orderView);
-
-	}
-
-	@WebServlet(urlPatterns = "/*", name = "MyUIServlet", asyncSupported = true)
-	@VaadinServletConfiguration(ui = SimonMyUI.class, productionMode = false)
-	public static class MyUIServlet extends VaadinServlet {
 
 	}
 }

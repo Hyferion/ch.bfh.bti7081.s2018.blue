@@ -1,4 +1,4 @@
-package ch.bfh.bti7081.blue.PMS;
+package ch.bfh.bti7081.blue.PMS.model;
 
 public class SimonOrderModel {
 	private double value = 0.0;

@@ -1,5 +1,7 @@
 package ch.bfh.bti7081.blue.PMS.presenter;
 
+import ch.bfh.bti7081.blue.PMS.CalendarUI;
+import ch.bfh.bti7081.blue.PMS.model.ChatModel;
 import com.vaadin.navigator.Navigator;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
@@ -16,6 +18,7 @@ import ch.bfh.bti7081.blue.PMS.presenter.interfaces.LoginViewButtonClickListener
 import ch.bfh.bti7081.blue.PMS.view.LoginViewImpl;
 import ch.bfh.bti7081.blue.PMS.view.MainViewImp;
 import ch.bfh.bti7081.blue.PMS.view.OrderStatusViewImp;
+import ch.bfh.bti7081.blue.PMS.view.*;
 
 public class LoginViewPresenter extends CustomComponent implements LoginViewButtonClickListener, View {
 
@@ -73,13 +76,23 @@ public class LoginViewPresenter extends CustomComponent implements LoginViewButt
 
 		MainViewImp view = new MainViewImp();
 
-		// Contact View
+		// OrderStatus View
 		OrderStatusViewImp contactViewImpl = new OrderStatusViewImp();
 		OrderStatusModel contactModel = new OrderStatusModel();
 		new OrderStatusViewPresenter(contactModel, contactViewImpl);
 
+
+		//Chat View
+		ChatBox box = new ChatBox();
+		ChatModel chatModel = new ChatModel();
+
+		//Calender View
+		//CalendarUI calendarview = new CalendarUI();
+
 		navigator.addView("HomeView", view);
 		navigator.addView("Order", contactViewImpl);
+		navigator.addView("Chat", box);
+	//	navigator.addView("Calendar",calendarview);
 
 	}
 
