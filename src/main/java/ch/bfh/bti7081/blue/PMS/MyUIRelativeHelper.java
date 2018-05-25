@@ -25,7 +25,7 @@ import ch.bfh.bti7081.blue.PMS.view.LoginViewImpl;
  */
 
 @Theme("mytheme")
-public class MyUI extends UI {
+public class MyUIRelativeHelper extends UI {
 
 	private static final long serialVersionUID = 8756061847229359826L;
 	private static boolean startup = true;
@@ -76,7 +76,7 @@ public class MyUI extends UI {
 	}
 
 	@WebServlet(urlPatterns = "/*", name = "MyUIServlet", asyncSupported = true)
-	@VaadinServletConfiguration(ui = MyUI.class, productionMode = false)
+	@VaadinServletConfiguration(ui = MyUIRelativeHelper.class, productionMode = false)
 	public static class MyUIServlet extends VaadinServlet {
 		private static final long serialVersionUID = 7729956322024855965L;
 	}
