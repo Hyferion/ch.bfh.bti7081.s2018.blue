@@ -26,7 +26,7 @@ public class SimonOrderPresenter implements SimonOrderView.OrderViewListener {
 		}
 		
 			if (operation.equals("Order history")) {
-			navigator.navigateTo("Lars View");
+			navigator.navigateTo("OrderStatus");
 		}		
 	}
 	

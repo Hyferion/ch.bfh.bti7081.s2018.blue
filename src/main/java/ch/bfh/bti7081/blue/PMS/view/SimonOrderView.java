@@ -26,7 +26,7 @@ public class SimonOrderView extends CustomComponent implements SimonOrderViewInt
 	ArrayList<CheckBox> checkBoxList = new ArrayList<CheckBox>();
 	List<OrderViewListener> listeners = new ArrayList<OrderViewListener>();
 
-	public SimonOrderView(Navigator navigator) {
+	public SimonOrderView() {
 		this.navigator = navigator;
 		VerticalLayout mainLayout = new VerticalLayout(); // mainLayout
 

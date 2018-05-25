@@ -1,4 +1,4 @@
-package ch.bfh.bti7081.blue.PMS.view;
+/*package ch.bfh.bti7081.blue.PMS.view;
 
 import ch.bfh.bti7081.blue.PMS.model.SimonOrderModel;
 import ch.bfh.bti7081.blue.PMS.presenter.SimonOrderPresenter;
@@ -16,11 +16,13 @@ import com.vaadin.ui.UI;
  * intended to be overridden to add component to the user interface and
  * initialize non-component functionality.
  */
+/*
 @Theme("mytheme")
 public class SimonMyUI extends UI {
 	/**
 	 * 
 	 */
+/*
 	private static final long serialVersionUID = 1L;
 	Navigator navigator;
 
@@ -42,4 +44,4 @@ public class SimonMyUI extends UI {
 		setContent(orderView);
 
 	}
-}
+}*/

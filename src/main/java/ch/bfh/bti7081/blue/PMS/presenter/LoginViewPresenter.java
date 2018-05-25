@@ -12,11 +12,13 @@ import ch.bfh.bti7081.blue.PMS.model.ChatModel;
 import ch.bfh.bti7081.blue.PMS.model.LoginAccount;
 import ch.bfh.bti7081.blue.PMS.model.LoginViewModel;
 import ch.bfh.bti7081.blue.PMS.model.OrderStatusModel;
+import ch.bfh.bti7081.blue.PMS.model.SimonOrderModel;
 import ch.bfh.bti7081.blue.PMS.presenter.interfaces.LoginViewButtonClickListener;
 import ch.bfh.bti7081.blue.PMS.view.ChatBox;
 import ch.bfh.bti7081.blue.PMS.view.LoginViewImpl;
 import ch.bfh.bti7081.blue.PMS.view.MainViewImp;
 import ch.bfh.bti7081.blue.PMS.view.OrderStatusViewImp;
+import ch.bfh.bti7081.blue.PMS.view.*;
 
 public class LoginViewPresenter extends CustomComponent implements LoginViewButtonClickListener, View {
 
@@ -78,8 +80,13 @@ public class LoginViewPresenter extends CustomComponent implements LoginViewButt
 		OrderStatusViewImp orderStatusViewImp = new OrderStatusViewImp();
 		OrderStatusModel orderStatusModel = new OrderStatusModel();
 		new OrderStatusViewPresenter(orderStatusModel, orderStatusViewImp);
-
-
+		
+		
+		// Order View
+		SimonOrderView simonOrderView = new SimonOrderView();
+		SimonOrderModel simonOrderModel = new SimonOrderModel();
+		new SimonOrderPresenter(simonOrderModel, simonOrderView);
+		
 		//Chat View
 		ChatBox box = new ChatBox();
 		ChatModel chatModel = new ChatModel();
@@ -88,8 +95,9 @@ public class LoginViewPresenter extends CustomComponent implements LoginViewButt
 		//CalendarUI calendarview = new CalendarUI();
 
 		navigator.addView("HomeView", view);
-		navigator.addView("Order", orderStatusViewImp);
+		navigator.addView("OrderStatus", orderStatusViewImp);
 		navigator.addView("Chat", box);
+		navigator.addView("Order", simonOrderView);
 	//	navigator.addView("Calendar",calendarview);
 
 	}
