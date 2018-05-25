@@ -1,4 +1,4 @@
-package ch.bfh.bti7081.blue.PMS;
+/*package ch.bfh.bti7081.blue.PMS;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -31,6 +31,7 @@ import javafx.concurrent.Task;
  * The UI is initialized using {@link #init(VaadinRequest)}. This method is intended to be 
  * overridden to add component to the user interface and initialize non-component functionality.
  */
+/*
 @Theme("mytheme")
 public class CalendarUI extends UI {
 	
@@ -69,4 +70,4 @@ public class CalendarUI extends UI {
     }
     
     
-}
+}*/
