@@ -52,7 +52,6 @@ public class MainViewImp extends CustomComponent implements View {
 		Button butKalender = new Button("Kander");
 		Button logout = new Button("Logout_Bye", e -> logOutButtonClick());
 
-		
 		but.addComponent(butBest);
 		but.addComponent(butChat);
 		but.addComponent(butKalender);
