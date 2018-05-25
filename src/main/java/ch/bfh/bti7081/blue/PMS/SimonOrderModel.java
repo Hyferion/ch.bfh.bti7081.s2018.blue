@@ -1,6 +1,6 @@
 package ch.bfh.bti7081.blue.PMS;
 
-public class OrderModel {
+public class SimonOrderModel {
 	private double value = 0.0;
 
 	public void clear() {

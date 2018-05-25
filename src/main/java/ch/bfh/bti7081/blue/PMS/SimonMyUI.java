@@ -19,7 +19,7 @@ import com.vaadin.ui.UI;
  * initialize non-component functionality.
  */
 @Theme("mytheme")
-public class MyUI extends UI {
+public class SimonMyUI extends UI {
 	/**
 	 * 
 	 */
@@ -29,24 +29,24 @@ public class MyUI extends UI {
 	@Override
 	protected void init(VaadinRequest vaadinRequest) {
 		navigator = new Navigator(this, this);
-		OrderModel model = new OrderModel();
-		SImonOrderViewImpl2 view2 = new SImonOrderViewImpl2(navigator);
-		SimonOrderViewImpl view = new SimonOrderViewImpl(navigator);
+		SimonOrderModel model = new SimonOrderModel();
+		SimonOrderView orderView = new SimonOrderView(navigator);
+		SimonOrderedView orderedView = new SimonOrderedView(navigator);
 		LarsOrderViewImp larsView = new LarsOrderViewImp(navigator);
 
-		navigator.addView("First", view);
-		navigator.addView("Second", view2);
+		navigator.addView("orderView", orderView);
+		navigator.addView("orderedView", orderedView);
 		navigator.addView("Lars View", larsView);
-		navigator.navigateTo("First");
+		navigator.navigateTo("orderView");
 		
-		new OrderPresenter(model, view);
-
-		setContent(view);
+		new SimonOrderPresenter(model, orderView);
+	
+		setContent(orderView);
 
 	}
 
 	@WebServlet(urlPatterns = "/*", name = "MyUIServlet", asyncSupported = true)
-	@VaadinServletConfiguration(ui = MyUI.class, productionMode = false)
+	@VaadinServletConfiguration(ui = SimonMyUI.class, productionMode = false)
 	public static class MyUIServlet extends VaadinServlet {
 
 	}
