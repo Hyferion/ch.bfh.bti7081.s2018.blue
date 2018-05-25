@@ -50,7 +50,11 @@ public class MainViewImp extends CustomComponent implements View {
 		Button butBest = new Button("Bestellungen",  e -> getUI().getNavigator().navigateTo("Order"));
 		Button butChat = new Button("Chat");
 		Button butKalender = new Button("Kander");
+<<<<<<< HEAD
 		Button logout = new Button("Logout_Bye", e -> logOutButtonClick());
+=======
+		Button logout = new Button("Logout", e -> logOutButtonClick());
+>>>>>>> branch 'lars_gertsch' of https://github.com/Hyferion/ch.bfh.bti7081.s2018.blue.git
 
 		
 		but.addComponent(butBest);
