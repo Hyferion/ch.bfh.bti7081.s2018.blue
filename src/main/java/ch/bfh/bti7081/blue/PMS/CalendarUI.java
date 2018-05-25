@@ -32,25 +32,39 @@ import javafx.concurrent.Task;
  * overridden to add component to the user interface and initialize non-component functionality.
  */
 @Theme("mytheme")
-public class MyUI extends UI {
-
-
+public class CalendarUI extends UI {
+	
+	private VerticalLayout vLayoutCalendar = new VerticalLayout();
+	private VerticalLayout vLayoutTasks = new VerticalLayout();
+	private HorizontalLayout hLayoutTasks = new HorizontalLayout();
+	private NativeSelect<String> nsFilter = new NativeSelect<>();
+	private Button newTaskButton = new Button("+ New Task");
+	private Label label = new Label("Calendar");
+	private Grid<Task> grid = new Grid<>(Task.class);
+	private TaskDBManager tdm = new TaskDBManager();
+	
     @Override
     protected void init(VaadinRequest vaadinRequest) {
-    	
-//    	VerticalLayout vLayout = new VerticalLayout();
 //    	CalendarViewImpl view = new CalendarViewImpl();
-//    	
-//    	vLayout.addComponent(view);
-//    	setContent(vLayout);
-    	setContent(ExampleUI.start());
+    	
+    	nsFilter.setItems("Today", "Next 7 Days", "Next 14 Days", "Next 30 Days", "Show All");
+    	nsFilter.setEmptySelectionAllowed(false);
+//    	nsFilter.addValueChangeListener(e -> grid.setItems(tdm.queryTasks(nsFilter.getValue())));
+    	
+    	
+    	
+    	hLayoutTasks.addComponents(nsFilter, newTaskButton);
+    	vLayoutTasks.addComponents(hLayoutTasks, grid);
+    	vLayoutCalendar.addComponents(label, vLayoutTasks);
+    	setContent(vLayoutCalendar);
+//    	setContent(ExampleUI.start());
     	
     }
 
     
     
     @WebServlet(urlPatterns = "/*", name = "MyUIServlet", asyncSupported = true)
-    @VaadinServletConfiguration(ui = MyUI.class, productionMode = false)
+    @VaadinServletConfiguration(ui = CalendarUI.class, productionMode = false)
     public static class MyUIServlet extends VaadinServlet {
     }
     
