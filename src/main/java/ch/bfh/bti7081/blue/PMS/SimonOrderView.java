@@ -43,7 +43,7 @@ public class SimonOrderView extends CustomComponent implements SimonOrderViewInt
 
 		Label captionFirstColumn = new Label("Medicine");
 		captionFirstColumn.addStyleName(ValoTheme.LABEL_H2);
-		GridLayout.addComponent(captionFirstColumn);
+		GridLayout.addComponent(captionFirstColumn); 
 
 		Label captionSecondColumn = new Label("Description");
 		captionSecondColumn.addStyleName(ValoTheme.LABEL_H2);
