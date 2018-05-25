@@ -1,4 +1,4 @@
-package ch.bfh.bti7081.blue.PMS;
+/*package ch.bfh.bti7081.blue.PMS;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -88,4 +88,4 @@ public class ExampleUI {
 
 	}
 
-}
+}*/

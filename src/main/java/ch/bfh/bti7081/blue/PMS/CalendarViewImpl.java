@@ -1,4 +1,4 @@
-package ch.bfh.bti7081.blue.PMS;
+/*package ch.bfh.bti7081.blue.PMS;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,4 +50,4 @@ public class CalendarViewImpl extends CustomComponent implements CalendarView, C
 
 	
 	
-}
+}*/

@@ -1,4 +1,4 @@
-package ch.bfh.bti7081.blue.PMS.view;
+package ch.bfh.bti7081.blue.PMS.view.interfaces;
 
 import java.util.ArrayList;
 

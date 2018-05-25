@@ -13,6 +13,8 @@ import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
 
+import ch.bfh.bti7081.blue.PMS.view.interfaces.SimonOrderViewInterface;
+
 public class SimonOrderedView extends CustomComponent implements SimonOrderViewInterface, ClickListener {
 
 	private static final long serialVersionUID = 3958839843793423943L;

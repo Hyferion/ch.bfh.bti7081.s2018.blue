@@ -77,9 +77,9 @@ public class LoginViewPresenter extends CustomComponent implements LoginViewButt
 		MainViewImp view = new MainViewImp();
 
 		// OrderStatus View
-		OrderStatusViewImp contactViewImpl = new OrderStatusViewImp();
-		OrderStatusModel contactModel = new OrderStatusModel();
-		new OrderStatusViewPresenter(contactModel, contactViewImpl);
+		OrderStatusViewImp orderStatusViewImp = new OrderStatusViewImp();
+		OrderStatusModel orderStatusModel = new OrderStatusModel();
+		new OrderStatusViewPresenter(orderStatusModel, orderStatusViewImp);
 
 
 		//Chat View
@@ -90,7 +90,7 @@ public class LoginViewPresenter extends CustomComponent implements LoginViewButt
 		//CalendarUI calendarview = new CalendarUI();
 
 		navigator.addView("HomeView", view);
-		navigator.addView("Order", contactViewImpl);
+		navigator.addView("Order", orderStatusViewImp);
 		navigator.addView("Chat", box);
 	//	navigator.addView("Calendar",calendarview);
 
