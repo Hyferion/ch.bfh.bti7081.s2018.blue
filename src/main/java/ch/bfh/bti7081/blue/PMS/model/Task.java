@@ -1,4 +1,4 @@
-package ch.bfh.bti7081.blue.PMS;
+package ch.bfh.bti7081.blue.PMS.model;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
