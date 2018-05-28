@@ -17,4 +17,6 @@ public class LoginViewModel {
 		DBConnector.getDBConnector().setAccountUsername(accountUsername);
 	}
 	
+	
+	
 }

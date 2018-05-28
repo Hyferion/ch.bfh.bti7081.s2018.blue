@@ -10,6 +10,8 @@ import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
 
+import ch.bfh.bti7081.blue.PMS.model.OrderStatus;
+
 public class MainViewImp extends CustomComponent implements View {
 
 	/**
@@ -19,7 +21,7 @@ public class MainViewImp extends CustomComponent implements View {
 
 	public MainViewImp() {
 
-		HeaderFooter root = new HeaderFooter();
+		HeaderFooter root = new HeaderFooter("Hello ");
 
 		setSizeFull();
 

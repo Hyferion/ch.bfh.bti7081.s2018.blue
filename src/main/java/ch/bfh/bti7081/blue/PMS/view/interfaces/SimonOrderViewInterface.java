@@ -4,14 +4,17 @@ import java.util.ArrayList;
 
 import com.vaadin.navigator.Navigator;
 import com.vaadin.navigator.View;
+import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.CheckBox;
 
 public interface SimonOrderViewInterface extends View {
 
 	interface OrderViewListener {
-		
-	//	void buttonClick(String operationr, ArrayList<CheckBox> checkBoxList);
-		void buttonClick(String operationr);
+
+		void buttonClick(String string);
+
 	}
+
+	void buttonClick(ClickEvent event);
 
 }

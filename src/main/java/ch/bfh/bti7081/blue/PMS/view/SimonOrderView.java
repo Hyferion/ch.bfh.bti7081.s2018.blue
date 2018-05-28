@@ -19,32 +19,31 @@ import com.vaadin.ui.themes.ValoTheme;
 import ch.bfh.bti7081.blue.PMS.view.interfaces.SimonOrderViewInterface;
 
 public class SimonOrderView extends CustomComponent implements SimonOrderViewInterface, ClickListener {
-	
+
 	private static final long serialVersionUID = 3958839843793423943L;
 
 	ArrayList<CheckBox> checkBoxList = new ArrayList<CheckBox>();
 	List<OrderViewListener> listeners = new ArrayList<OrderViewListener>();
 
 	public SimonOrderView() {
-		
-		HeaderFooter root = new HeaderFooter();
-		
-		VerticalLayout mainLayout = new VerticalLayout(); 
+
+		//Set root Layout with title
+		HeaderFooter root = new HeaderFooter("Order prescription"); 
+
+		//MainLayout for this view
+		VerticalLayout mainLayout = new VerticalLayout();
 		mainLayout.setSizeFull(); // mainLayout
-
-		Label text = new Label("Prescription Order"); // caption
-		text.addStyleName(ValoTheme.LABEL_H1);
-		mainLayout.addComponent(text);
-
-		GridLayout GridLayout = new GridLayout(3, 5); // gridLayout for all
-														// medicine
+		
+		//GridLayout to dispaly all the medicine with a Checkbox to select a certain medicine
+		GridLayout GridLayout = new GridLayout(3, 5); 
 		mainLayout.addComponent(GridLayout);
 		GridLayout.setSpacing(true);
 		GridLayout.setSizeFull();
-
+		
+		//Captions for the table
 		Label captionFirstColumn = new Label("Medicine");
 		captionFirstColumn.addStyleName(ValoTheme.LABEL_H2);
-		GridLayout.addComponent(captionFirstColumn); 
+		GridLayout.addComponent(captionFirstColumn);
 
 		Label captionSecondColumn = new Label("Description");
 		captionSecondColumn.addStyleName(ValoTheme.LABEL_H2);
@@ -54,13 +53,16 @@ public class SimonOrderView extends CustomComponent implements SimonOrderViewInt
 		captionThirdColumn.addStyleName(ValoTheme.LABEL_H2);
 		GridLayout.addComponent(captionThirdColumn);
 
+		//Fill the table with informations from the database
 		for (int i = 0; i < 5; i++) {
 			GridLayout.addComponent(new Label("jajajaja"));
 			GridLayout.addComponent(new Label("adasf"));
 			checkBoxList.add(new CheckBox("", false));
 			GridLayout.addComponent(checkBoxList.get(i));
 		}
-
+		
+		
+		//HorizontalLayout for the Buttons "Order history" and "Send order"
 		HorizontalLayout horizontalLayout = new HorizontalLayout();
 		horizontalLayout.setSizeFull();
 
@@ -68,24 +70,22 @@ public class SimonOrderView extends CustomComponent implements SimonOrderViewInt
 		ButtonHistory.setHeight("80");
 		ButtonHistory.setWidth("150");
 		horizontalLayout.addComponent(ButtonHistory);
-		horizontalLayout.setComponentAlignment(ButtonHistory, Alignment.BOTTOM_LEFT);
+		horizontalLayout.setComponentAlignment(ButtonHistory, Alignment.TOP_LEFT);
 
 		Button ButtonSend = new Button("Send Order", this);
 		ButtonSend.setHeight("120");
 		ButtonSend.setWidth("150");
 		horizontalLayout.addComponent(ButtonSend);
-		horizontalLayout.setComponentAlignment(ButtonSend, Alignment.BOTTOM_RIGHT);
+		horizontalLayout.setComponentAlignment(ButtonSend, Alignment.TOP_RIGHT);
 
+		//Add horziontalLayout to the mainLayout
 		mainLayout.addComponent(horizontalLayout);
-		root.getlayout().addComponent(mainLayout,1);
 		
+		//Add mainLayout to the root View
+		root.getlayout().addComponent(mainLayout, 1);
 
 		setCompositionRoot(root);
-		
-		
-
 	}
-
 
 	public void addListener(OrderViewListener listener) {
 		listeners.add(listener);
@@ -97,5 +97,4 @@ public class SimonOrderView extends CustomComponent implements SimonOrderViewInt
 		for (OrderViewListener listener : listeners)
 			listener.buttonClick(event.getButton().getCaption());
 	}
-
 }

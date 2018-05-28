@@ -19,12 +19,12 @@ import ch.bfh.bti7081.blue.PMS.view.interfaces.SimonOrderViewInterface;
 public class HeaderFooter extends CustomComponent implements View {
 	
 	VerticalLayout root = new VerticalLayout();
+	String titleName;
 
-	public HeaderFooter() {
+	public HeaderFooter(String titleName) {
+		this.titleName = titleName;
 
 		setSizeFull();
-
-		// Set the root layout for the UI
 
 		root.setSizeFull();
 		setCompositionRoot(root);
@@ -33,6 +33,7 @@ public class HeaderFooter extends CustomComponent implements View {
 		HorizontalLayout titleBar = new HorizontalLayout();
 		titleBar.setSizeFull();
 		root.addComponent(titleBar);
+		titleBar.setHeight("100");
 		
 
 		Button home = new Button("Home", e -> getUI().getNavigator().navigateTo("HomeView"));
@@ -40,10 +41,8 @@ public class HeaderFooter extends CustomComponent implements View {
 		titleBar.addComponent(home);
 		titleBar.setComponentAlignment(home, Alignment.TOP_LEFT);
 
-		titleBar.addComponent(home);
-		titleBar.setComponentAlignment(home, Alignment.TOP_LEFT);
-
-		Label title = new Label("Relative Helper");
+		
+		Label title = new Label(titleName);
 		title.addStyleName(ValoTheme.LABEL_H1);
 		title.setSizeUndefined();
 		titleBar.addComponent(title);
@@ -55,8 +54,6 @@ public class HeaderFooter extends CustomComponent implements View {
 		titleBar.setComponentAlignment(logout, Alignment.TOP_RIGHT);
 
 		logout.addClickListener(e -> logOutButtonClick()); 
-
-	
 
 		// Footer
 		HorizontalLayout footerBar = new HorizontalLayout();
@@ -86,5 +83,12 @@ public class HeaderFooter extends CustomComponent implements View {
 	public VerticalLayout getlayout(){
 		return root;
 	}
+	
+	
+	public VerticalLayout SetTitle(){
+		return root;
+	}
+	
+	
 
 }

@@ -9,6 +9,7 @@ import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.CustomComponent;
+import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
@@ -22,42 +23,48 @@ public class SimonOrderedView extends CustomComponent implements SimonOrderViewI
 
 	public SimonOrderedView() {
 		
-		HeaderFooter root = new HeaderFooter();
+		//Set root Layout with title
+		HeaderFooter root = new HeaderFooter("Danke für Ihre Bestellung");
+		
+		//Mainlayout for this View
+		VerticalLayout orderedLayout = new VerticalLayout();
+	
+		//HorizontalLayout to set a text and a botton
+		HorizontalLayout horizontalLayout = new HorizontalLayout();
 
-		VerticalLayout orderedLayout = new VerticalLayout(); // mainLayout
-
-		Label text = new Label("Danke für Ihre Bestellung."); // caption
-		text.addStyleName(ValoTheme.LABEL_H1);
-		orderedLayout.addComponent(text);
-
-		Label textOrderHistory = new Label("Um Ihre Bestellungen anzusehen drücken Sie auf \"Order history\""); // caption
-		textOrderHistory.addStyleName(ValoTheme.LABEL_H2);
-		orderedLayout.addComponent(textOrderHistory);
+		Label textOrderHistory = new Label("Um Ihre Bestellungen anzusehen drücken Sie auf \"Order history\""); 
+		textOrderHistory.addStyleName(ValoTheme.LABEL_H3);
+		horizontalLayout.addComponent(textOrderHistory);
 
 		Button ButtonHistory = new Button("Order history", this);
-		orderedLayout.addComponent(ButtonHistory);
-		orderedLayout.setComponentAlignment(ButtonHistory, Alignment.BOTTOM_LEFT);
+		horizontalLayout.addComponent(ButtonHistory);
+		horizontalLayout.setComponentAlignment(ButtonHistory, Alignment.MIDDLE_LEFT);
+		
+		orderedLayout.addComponent(horizontalLayout);
+		
+		
+		//Another HorizontalLayout to set a text and a botton
+		HorizontalLayout horizontalLayout1 = new HorizontalLayout();
 
 		Label textOrderAgain = new Label("Um eine neue Bestellung aufzugeben drücken Sie auf \"Order again\"");
-		textOrderAgain.addStyleName(ValoTheme.LABEL_H2);
-
-		orderedLayout.addComponent(textOrderAgain);
+		textOrderAgain.addStyleName(ValoTheme.LABEL_H3);
+		horizontalLayout1.addComponent(textOrderAgain);
 
 		Button OrderAgain = new Button("Order again", this);
-		orderedLayout.addComponent(OrderAgain);
-		orderedLayout.setComponentAlignment(OrderAgain, Alignment.BOTTOM_LEFT);
+		horizontalLayout1.addComponent(OrderAgain);
+		horizontalLayout1.setComponentAlignment(OrderAgain, Alignment.MIDDLE_LEFT);
+		
+		orderedLayout.addComponent(horizontalLayout1);
 		
 		root.getlayout().addComponent(orderedLayout,1);
 
 		setCompositionRoot(root);
-
 	}
 
 	List<OrderViewListener> listeners = new ArrayList<OrderViewListener>();
 
 	public void addListener(OrderViewListener listener) {
 		listeners.add(listener);
-
 	}
 
 	@Override
@@ -65,7 +72,5 @@ public class SimonOrderedView extends CustomComponent implements SimonOrderViewI
 		System.out.println(listeners.toString());
 		for (OrderViewListener listener : listeners)
 			listener.buttonClick(event.getButton().getCaption());
-
 	}
-
 }
