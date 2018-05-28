@@ -8,17 +8,15 @@ import com.vaadin.ui.Notification;
 import com.vaadin.ui.UI;
 
 import ch.bfh.bti7081.blue.PMS.Util;
-import ch.bfh.bti7081.blue.PMS.model.ChatModel;
 import ch.bfh.bti7081.blue.PMS.model.LoginAccount;
 import ch.bfh.bti7081.blue.PMS.model.LoginViewModel;
 import ch.bfh.bti7081.blue.PMS.model.OrderStatusModel;
 import ch.bfh.bti7081.blue.PMS.model.SimonOrderModel;
 import ch.bfh.bti7081.blue.PMS.presenter.interfaces.LoginViewButtonClickListener;
-import ch.bfh.bti7081.blue.PMS.view.ChatBox;
 import ch.bfh.bti7081.blue.PMS.view.LoginViewImpl;
 import ch.bfh.bti7081.blue.PMS.view.MainViewImp;
 import ch.bfh.bti7081.blue.PMS.view.OrderStatusViewImp;
-import ch.bfh.bti7081.blue.PMS.view.*;
+import ch.bfh.bti7081.blue.PMS.view.SimonOrderView;
 
 public class LoginViewPresenter extends CustomComponent implements LoginViewButtonClickListener, View {
 
@@ -77,28 +75,27 @@ public class LoginViewPresenter extends CustomComponent implements LoginViewButt
 		MainViewImp view = new MainViewImp();
 
 		// OrderStatus View
-		OrderStatusViewImp orderStatusViewImp = new OrderStatusViewImp();
-		OrderStatusModel orderStatusModel = new OrderStatusModel();
-		new OrderStatusViewPresenter(orderStatusModel, orderStatusViewImp);
+		OrderStatusViewImp OrderStatusImpl = new OrderStatusViewImp();
+		OrderStatusModel OrderStatusModel = new OrderStatusModel();
+		new OrderStatusViewPresenter(OrderStatusModel, OrderStatusImpl);
 		
 		
-		// Order View
-		SimonOrderView simonOrderView = new SimonOrderView();
-		SimonOrderModel simonOrderModel = new SimonOrderModel();
-		new SimonOrderPresenter(simonOrderModel, simonOrderView);
-		
-		//Chat View
-		ChatBox box = new ChatBox();
-		ChatModel chatModel = new ChatModel();
-
-		//Calender View
-		//CalendarUI calendarview = new CalendarUI();
+		//OrderView		
+		SimonOrderView orderView = new SimonOrderView();
+		SimonOrderModel model = new SimonOrderModel();
+		new SimonOrderPresenter(model, orderView);
 
 		navigator.addView("HomeView", view);
-		navigator.addView("OrderStatus", orderStatusViewImp);
-		navigator.addView("Chat", box);
-		navigator.addView("Order", simonOrderView);
-	//	navigator.addView("Calendar",calendarview);
+		navigator.addView("Order", OrderStatusImpl);
+		
+		navigator.addView("OrderView", orderView);
+		//navigator.addView("OrderedView",);
+		
+
+		//SimonOrderedView orderedView = new SimonOrderedView();
+		
+		
+		
 
 	}
 
