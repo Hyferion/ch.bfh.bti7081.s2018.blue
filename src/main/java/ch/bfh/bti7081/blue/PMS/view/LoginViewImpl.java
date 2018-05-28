@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
+import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.FormLayout;
@@ -41,6 +42,7 @@ public class LoginViewImpl extends CustomComponent implements View {
 		panel.setSizeUndefined();
 		panel.addStyleName("loginPanel");
 		vLayout.addComponent(panel);
+		vLayout.setComponentAlignment(panel, Alignment.MIDDLE_CENTER);
 		
 		FormLayout content = new FormLayout();
 		content.addStyleName("loginPanel");
@@ -90,6 +92,7 @@ public class LoginViewImpl extends CustomComponent implements View {
 	public String getLoginPassword() {
 		return loginPassword.getValue();
 	}
+
 
 	@Override
 	public void enter(ViewChangeEvent event) {

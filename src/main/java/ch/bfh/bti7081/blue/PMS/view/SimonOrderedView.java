@@ -14,41 +14,42 @@ import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
 
 import ch.bfh.bti7081.blue.PMS.view.interfaces.SimonOrderViewInterface;
+import ch.bfh.bti7081.blue.PMS.view.interfaces.SimonOrderViewInterface.OrderViewListener;
 
 public class SimonOrderedView extends CustomComponent implements SimonOrderViewInterface, ClickListener {
 
 	private static final long serialVersionUID = 3958839843793423943L;
-	private Navigator navigator;
 
-	public SimonOrderedView(Navigator navigator)  {
-		this.navigator = navigator;
+	public SimonOrderedView() {
+		
+		HeaderFooter root = new HeaderFooter();
+
 		VerticalLayout orderedLayout = new VerticalLayout(); // mainLayout
 
 		Label text = new Label("Danke für Ihre Bestellung."); // caption
 		text.addStyleName(ValoTheme.LABEL_H1);
 		orderedLayout.addComponent(text);
-		
 
-		Label textOrderHistory = new Label("Um Ihre Besttelungen anzusehen drücken Sie auf \"Order history\""); // caption
+		Label textOrderHistory = new Label("Um Ihre Bestellungen anzusehen drücken Sie auf \"Order history\""); // caption
 		textOrderHistory.addStyleName(ValoTheme.LABEL_H2);
 		orderedLayout.addComponent(textOrderHistory);
-		
 
-		Button ButtonHistory = new Button("Order history", this);	
+		Button ButtonHistory = new Button("Order history", this);
 		orderedLayout.addComponent(ButtonHistory);
 		orderedLayout.setComponentAlignment(ButtonHistory, Alignment.BOTTOM_LEFT);
-		
 
 		Label textOrderAgain = new Label("Um eine neue Bestellung aufzugeben drücken Sie auf \"Order again\"");
 		textOrderAgain.addStyleName(ValoTheme.LABEL_H2);
-		
+
 		orderedLayout.addComponent(textOrderAgain);
-		
+
 		Button OrderAgain = new Button("Order again", this);
 		orderedLayout.addComponent(OrderAgain);
 		orderedLayout.setComponentAlignment(OrderAgain, Alignment.BOTTOM_LEFT);
 		
-		setCompositionRoot(orderedLayout);
+		root.getlayout().addComponent(orderedLayout,1);
+
+		setCompositionRoot(root);
 
 	}
 
@@ -58,12 +59,13 @@ public class SimonOrderedView extends CustomComponent implements SimonOrderViewI
 		listeners.add(listener);
 
 	}
-	
-	
 
 	@Override
 	public void buttonClick(ClickEvent event) {
-		
+		System.out.println(listeners.toString());
+		for (OrderViewListener listener : listeners)
+			listener.buttonClick(event.getButton().getCaption());
+
 	}
 
 }

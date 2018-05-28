@@ -22,13 +22,15 @@ public class SimonOrderView extends CustomComponent implements SimonOrderViewInt
 	
 	private static final long serialVersionUID = 3958839843793423943L;
 
-	private Navigator navigator;
 	ArrayList<CheckBox> checkBoxList = new ArrayList<CheckBox>();
 	List<OrderViewListener> listeners = new ArrayList<OrderViewListener>();
 
 	public SimonOrderView() {
 		
-		VerticalLayout mainLayout = new VerticalLayout(); // mainLayout
+		HeaderFooter root = new HeaderFooter();
+		
+		VerticalLayout mainLayout = new VerticalLayout(); 
+		mainLayout.setSizeFull(); // mainLayout
 
 		Label text = new Label("Prescription Order"); // caption
 		text.addStyleName(ValoTheme.LABEL_H1);
@@ -60,8 +62,7 @@ public class SimonOrderView extends CustomComponent implements SimonOrderViewInt
 		}
 
 		HorizontalLayout horizontalLayout = new HorizontalLayout();
-		horizontalLayout.setWidth("1500");
-		horizontalLayout.setHeight("300");
+		horizontalLayout.setSizeFull();
 
 		Button ButtonHistory = new Button("Order history", this);
 		ButtonHistory.setHeight("80");
@@ -70,14 +71,18 @@ public class SimonOrderView extends CustomComponent implements SimonOrderViewInt
 		horizontalLayout.setComponentAlignment(ButtonHistory, Alignment.BOTTOM_LEFT);
 
 		Button ButtonSend = new Button("Send Order", this);
-		ButtonSend.setHeight("150");
+		ButtonSend.setHeight("120");
 		ButtonSend.setWidth("150");
 		horizontalLayout.addComponent(ButtonSend);
 		horizontalLayout.setComponentAlignment(ButtonSend, Alignment.BOTTOM_RIGHT);
 
 		mainLayout.addComponent(horizontalLayout);
+		root.getlayout().addComponent(mainLayout,1);
+		
 
-		setCompositionRoot(mainLayout);
+		setCompositionRoot(root);
+		
+		
 
 	}
 
@@ -90,7 +95,7 @@ public class SimonOrderView extends CustomComponent implements SimonOrderViewInt
 	@Override
 	public void buttonClick(ClickEvent event) {
 		for (OrderViewListener listener : listeners)
-			listener.buttonClick(event.getButton().getCaption(), checkBoxList);
+			listener.buttonClick(event.getButton().getCaption());
 	}
 
 }

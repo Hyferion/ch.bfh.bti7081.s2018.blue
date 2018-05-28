@@ -11,12 +11,13 @@ import ch.bfh.bti7081.blue.PMS.Util;
 import ch.bfh.bti7081.blue.PMS.model.LoginAccount;
 import ch.bfh.bti7081.blue.PMS.model.LoginViewModel;
 import ch.bfh.bti7081.blue.PMS.model.OrderStatusModel;
-import ch.bfh.bti7081.blue.PMS.model.SimonOrderModel;
+import ch.bfh.bti7081.blue.PMS.model.OrderModel;
 import ch.bfh.bti7081.blue.PMS.presenter.interfaces.LoginViewButtonClickListener;
 import ch.bfh.bti7081.blue.PMS.view.LoginViewImpl;
 import ch.bfh.bti7081.blue.PMS.view.MainViewImp;
 import ch.bfh.bti7081.blue.PMS.view.OrderStatusViewImp;
 import ch.bfh.bti7081.blue.PMS.view.SimonOrderView;
+import ch.bfh.bti7081.blue.PMS.view.SimonOrderedView;
 
 public class LoginViewPresenter extends CustomComponent implements LoginViewButtonClickListener, View {
 
@@ -71,29 +72,29 @@ public class LoginViewPresenter extends CustomComponent implements LoginViewButt
 	}
 
 	public void initializeViewsAfterLogin() {
-
+		
+		
+		//HomeView
 		MainViewImp view = new MainViewImp();
+		navigator.addView("HomeView", view);
 
-		// OrderStatus View
+		//OrderStatus View
 		OrderStatusViewImp OrderStatusImpl = new OrderStatusViewImp();
 		OrderStatusModel OrderStatusModel = new OrderStatusModel();
 		new OrderStatusViewPresenter(OrderStatusModel, OrderStatusImpl);
-		
-		
+		navigator.addView("Order", OrderStatusImpl);
+				
 		//OrderView		
 		SimonOrderView orderView = new SimonOrderView();
-		SimonOrderModel model = new SimonOrderModel();
+		OrderModel model = new OrderModel();
 		new SimonOrderPresenter(model, orderView);
-
-		navigator.addView("HomeView", view);
-		navigator.addView("Order", OrderStatusImpl);
-		
 		navigator.addView("OrderView", orderView);
-		//navigator.addView("OrderedView",);
 		
-
-		//SimonOrderedView orderedView = new SimonOrderedView();
-		
+		//OrderedView
+		SimonOrderedView orderedView = new SimonOrderedView();
+		new SimonOrderedPresenter(model, orderedView);
+		navigator.addView("OrderedView", orderedView);
+	
 		
 		
 

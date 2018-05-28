@@ -11,7 +11,6 @@ import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
 
 public class MainViewImp extends CustomComponent implements View {
-	
 
 	/**
 	 * 
@@ -20,65 +19,41 @@ public class MainViewImp extends CustomComponent implements View {
 
 	public MainViewImp() {
 
+		HeaderFooter root = new HeaderFooter();
+
 		setSizeFull();
 
-		// Set the root layout for the UI
-		VerticalLayout root = new VerticalLayout();
-		root.setSizeFull();
-		setCompositionRoot(root);
-
-		// Header
-		HorizontalLayout titleBar = new HorizontalLayout();
-		titleBar.setSizeFull();
-		root.addComponent(titleBar);
-
-		Button home = new Button("Home", e -> getUI().getNavigator().navigateTo("Home"));
-		home.setIcon(VaadinIcons.HOME);
-		titleBar.addComponent(home);
-		titleBar.setComponentAlignment(home, Alignment.TOP_LEFT);
-
-		Label title = new Label("Relative Helper");
-		title.addStyleName(ValoTheme.LABEL_H1);
-		title.setSizeUndefined();
-		titleBar.addComponent(title);
-		titleBar.setComponentAlignment(title, Alignment.TOP_LEFT);
-
-		// Main
-		
 		HorizontalLayout but = new HorizontalLayout();
+		but.setSpacing(true);
 		
-		Button butBest = new Button("Bestellungen",  e -> getUI().getNavigator().navigateTo("Order"));
+		Button butBest = new Button("Bestellungen", e -> getUI().getNavigator().navigateTo("OrderView"));
 		Button butChat = new Button("Chat", e -> getUI().getNavigator().navigateTo("Chat"));
 		Button butKalender = new Button("Kalender");
-		Button logout = new Button("Logout", e -> logOutButtonClick());
+		
+		
+		butBest.addStyleName(ValoTheme.BUTTON_LARGE);
+		butBest.setWidth("300");
+		butBest.setHeight("200");
+		butChat.addStyleName(ValoTheme.BUTTON_LARGE);
+		butChat.setWidth("300");
+		butChat.setHeight("200");
+		butKalender.addStyleName(ValoTheme.BUTTON_LARGE);
+		butKalender.setWidth("300");
+		butKalender.setHeight("200");
 
+		
 		but.addComponent(butBest);
 		but.addComponent(butChat);
 		but.addComponent(butKalender);
-		but.addComponent(logout);
-		root.addComponent(but);
-		
 
-		// Footer
-		HorizontalLayout footerBar = new HorizontalLayout();
-		footerBar.setSizeFull();
-		footerBar.setDefaultComponentAlignment(Alignment.TOP_CENTER);
-		root.addComponent(footerBar);
+		but.setComponentAlignment(butBest, Alignment.MIDDLE_CENTER);
+		but.setComponentAlignment(butChat, Alignment.MIDDLE_CENTER);
+		but.setComponentAlignment(butKalender, Alignment.MIDDLE_CENTER);
 
-		Label footer = new Label("Platzhalter Footer");
-		footer.addStyleName(ValoTheme.LABEL_H1);
-		footerBar.addComponent(footer);
+		root.getlayout().addComponent(but, 1);
+		root.getlayout().setComponentAlignment(but, Alignment.MIDDLE_CENTER);
 
-		root.setExpandRatio(titleBar, 0.05f);
-		root.setExpandRatio(but, 0.8f);
-		root.setExpandRatio(footerBar, 0.15f);
-
-	}
-
-	public void logOutButtonClick() {
-		getUI().getSession().setAttribute("user", null);
-		getUI().getNavigator().navigateTo("LoginView");
-
+		setCompositionRoot(root);
 	}
 
 }
