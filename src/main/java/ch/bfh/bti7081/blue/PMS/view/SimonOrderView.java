@@ -27,7 +27,7 @@ public class SimonOrderView extends CustomComponent implements SimonOrderViewInt
 	List<OrderViewListener> listeners = new ArrayList<OrderViewListener>();
 
 	public SimonOrderView() {
-		this.navigator = navigator;
+		
 		VerticalLayout mainLayout = new VerticalLayout(); // mainLayout
 
 		Label text = new Label("Prescription Order"); // caption
@@ -90,7 +90,7 @@ public class SimonOrderView extends CustomComponent implements SimonOrderViewInt
 	@Override
 	public void buttonClick(ClickEvent event) {
 		for (OrderViewListener listener : listeners)
-			listener.buttonClick(event.getButton().getCaption(), navigator, checkBoxList);
+			listener.buttonClick(event.getButton().getCaption(), checkBoxList);
 	}
 
 }

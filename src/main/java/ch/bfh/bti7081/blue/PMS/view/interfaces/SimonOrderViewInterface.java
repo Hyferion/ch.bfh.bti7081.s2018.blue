@@ -9,7 +9,7 @@ import com.vaadin.ui.CheckBox;
 public interface SimonOrderViewInterface extends View {
 
 	interface OrderViewListener {
-		void buttonClick(String operationr, Navigator navigator, ArrayList<CheckBox> checkBoxList);
+		void buttonClick(String operationr, ArrayList<CheckBox> checkBoxList);
 	}
 
 	public void addListener(OrderViewListener listener);

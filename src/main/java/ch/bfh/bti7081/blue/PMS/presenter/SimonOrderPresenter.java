@@ -6,8 +6,9 @@ import ch.bfh.bti7081.blue.PMS.model.SimonOrderModel;
 import ch.bfh.bti7081.blue.PMS.view.SimonOrderView;
 import com.vaadin.navigator.Navigator;
 import com.vaadin.ui.CheckBox;
+import com.vaadin.ui.CustomComponent;
 
-public class SimonOrderPresenter implements SimonOrderView.OrderViewListener {
+public class SimonOrderPresenter extends CustomComponent  implements SimonOrderView.OrderViewListener {
 
 	private SimonOrderModel model;
 	private SimonOrderView view;
@@ -18,15 +19,15 @@ public class SimonOrderPresenter implements SimonOrderView.OrderViewListener {
 		view.addListener(this);
 	}
 
-	public void buttonClick(String operation, Navigator navigator, ArrayList<CheckBox> checkBoxList) {
+	public void buttonClick(String operation, ArrayList<CheckBox> checkBoxList) {
 			if (operation.equals("Send Order")) {
-			navigator.navigateTo("orderedView");
+			getUI().getNavigator().navigateTo("orderedView");
 			for (CheckBox test : checkBoxList) 
 			System.out.println("State: "+test.getValue());
 		}
 		
 			if (operation.equals("Order history")) {
-			navigator.navigateTo("OrderStatus");
+			getUI().getNavigator().navigateTo("orderedView");
 		}		
 	}
 	
