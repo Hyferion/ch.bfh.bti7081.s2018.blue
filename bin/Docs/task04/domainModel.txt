@@ -1,0 +1,10 @@
+Classes:
+- User
+	- Patient
+	- Relative
+	- Doctor?
+- Order
+- Medikament
+- Rezept
+
+- Suchtkrankheiten

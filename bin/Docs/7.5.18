@@ -1,0 +1,28 @@
+Daily Scrum meeting 7.5.18
+
+Anwesend: Fabio, Lars, Steve
+
+
+Branches sehen Sinnvoll aus
+
+Für jeden wird einen Branch erstellt. Es wird ein Testing Branch erstellt. 
+PR (Pull Requests) auf den Master branch sollten von mind. einer anderern Person abgenickt werden. 
+
+Lars: Im moment wird noch ein wenig Vaadin studiert.
+
+Wir brauchen eine Layout Convention, da jeder im ersten Scrum ein GUI erstellt und so später weniger geändert werden muss.
+
+Folgende Layout-Conventions werden festgelegt:
+
+- Home Button wird Oben Links festgelegt.
+
+- Es muss platz für einen Footer geben. Ganz unten ganze breite.
+
+- Es muss Platz für einen Header geben. Ganz oben ganze breite. Oben Links im Header ist der Home Button.
+
+- Main View sollte an KlassenDiagramm angelegt sein
+
+
+Lars: Medikamentenbestellung wird so implementiert das nur vom Arzt verschriebene Medikamente zur Auswahl stehen und auch nur diese bestellt werden können.
+
+
