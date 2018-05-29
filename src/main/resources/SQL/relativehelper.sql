@@ -42,8 +42,34 @@ CREATE TABLE `loginaccount` (
 
 LOCK TABLES `loginaccount` WRITE;
 /*!40000 ALTER TABLE `loginaccount` DISABLE KEYS */;
-INSERT INTO `loginaccount` VALUES ('1',NULL,NULL,NULL,'1',NULL,NULL),('2',NULL,NULL,NULL,'2',NULL,NULL);
+INSERT INTO `loginaccount` VALUES ('1','Thun','Lars','Gertsch','1','Mittlere Strasse 22','3600'),('2','Thun','Simon','Herrmann','2','Mittlere Strasse 22','3600');
 /*!40000 ALTER TABLE `loginaccount` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `orderstatus`
+--
+
+DROP TABLE IF EXISTS `orderstatus`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `orderstatus` (
+  `ID` varchar(45) NOT NULL,
+  `DATE` varchar(45) DEFAULT NULL,
+  `STATUS` varchar(45) DEFAULT NULL,
+  `LOGINACCOUNT_USERNAME` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `orderstatus`
+--
+
+LOCK TABLES `orderstatus` WRITE;
+/*!40000 ALTER TABLE `orderstatus` DISABLE KEYS */;
+INSERT INTO `orderstatus` VALUES ('1','3','Verfügbar','1'),('2','sdf','sf','1'),('3','sdf','sdf','1');
+/*!40000 ALTER TABLE `orderstatus` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -55,4 +81,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-05-25 10:51:16
+-- Dump completed on 2018-05-29  9:11:54
