@@ -43,7 +43,7 @@ public class SimonOrderedView extends CustomComponent implements SimonOrderViewI
 		orderedLayout.addComponent(horizontalLayout);
 		
 		
-		//Another HorizontalLayout to set a text and a botton
+		//Another HorizontalLayout to set a text and a button
 		HorizontalLayout horizontalLayout1 = new HorizontalLayout();
 
 		Label textOrderAgain = new Label("Um eine neue Bestellung aufzugeben drücken Sie auf \"Order again\"");
