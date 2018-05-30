@@ -3,7 +3,11 @@ package ch.bfh.bti7081.blue.PMS.view;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.vaadin.navigator.Navigator;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.Query;
+
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
@@ -16,6 +20,8 @@ import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
 
+import ch.bfh.bti7081.blue.PMS.model.ChatModel;
+import ch.bfh.bti7081.blue.PMS.model.OrderModel;
 import ch.bfh.bti7081.blue.PMS.view.interfaces.SimonOrderViewInterface;
 
 public class SimonOrderView extends CustomComponent implements SimonOrderViewInterface, ClickListener {
@@ -40,6 +46,10 @@ public class SimonOrderView extends CustomComponent implements SimonOrderViewInt
 		GridLayout.setSpacing(true);
 		GridLayout.setSizeFull();
 		
+	    Query q = em.createQuery("Select t FROM OrderModel t where t.LOGINACCOUNT_USERNAME < 2");  
+        List<OrderModel> chmod = q.getResultList();
+        
+		
 		//Captions for the table
 		Label captionFirstColumn = new Label("Medicine");
 		captionFirstColumn.addStyleName(ValoTheme.LABEL_H2);
@@ -53,14 +63,17 @@ public class SimonOrderView extends CustomComponent implements SimonOrderViewInt
 		captionThirdColumn.addStyleName(ValoTheme.LABEL_H2);
 		GridLayout.addComponent(captionThirdColumn);
 
-		//Fill the table with informations from the database
-		for (int i = 0; i < 5; i++) {
-			GridLayout.addComponent(new Label("jajajaja"));
-			GridLayout.addComponent(new Label("adasf"));
-			checkBoxList.add(new CheckBox("", false));
-			GridLayout.addComponent(checkBoxList.get(i));
-		}
 		
+		int i = 0;
+		for (OrderModel mod : chmod) {
+			GridLayout.addComponent(new Label(mod.getName()));
+			GridLayout.addComponent(new Label(mod.getDescription()));
+			checkBoxList.add(new CheckBox("", false));
+			GridLayout.addComponent(checkBoxList.get(i++));
+		}
+	         
+		
+	
 		
 		//HorizontalLayout for the Buttons "Order history" and "Send order"
 		HorizontalLayout horizontalLayout = new HorizontalLayout();
@@ -86,6 +99,10 @@ public class SimonOrderView extends CustomComponent implements SimonOrderViewInt
 
 		setCompositionRoot(root);
 	}
+	
+	
+	private EntityManagerFactory emFactory = Persistence.createEntityManagerFactory("relativeHelper");
+    private EntityManager em = emFactory.createEntityManager();
 
 	public void addListener(OrderViewListener listener) {
 		listeners.add(listener);
