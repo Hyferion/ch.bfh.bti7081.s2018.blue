@@ -24,13 +24,12 @@ public class ChatBox extends CustomComponent implements Broadcaster.BroadcastLis
     private EntityManager em = emFactory.createEntityManager();
 
     public ChatBox() {
-
-
-        setSizeFull();
+        HeaderFooter root = new HeaderFooter("Chat");
+       // setSizeFull();
 
         VerticalLayout content = new VerticalLayout();
-        content.setSizeFull();
-        setCompositionRoot(content);
+       // content.setSizeFull();
+        setCompositionRoot(root);
 
         Panel messagesPanel = new Panel();
         messagesPanel.setSizeFull();
@@ -49,26 +48,29 @@ public class ChatBox extends CustomComponent implements Broadcaster.BroadcastLis
         Query q = em.createQuery("select t from ChatModel t");
         List<ChatModel> chmod = q.getResultList();
         for (ChatModel mod : chmod) {
-           addMessage(mod.getMessage());
+           addMessage(mod.getUsername()+ ": " + mod.getMessage());
         }
 
         Button send = new Button("Send");
         send.setClickShortcut(KeyCode.ENTER);
         send.addClickListener(event -> { // Java 8
             // Broadcast the input to others
-            Broadcaster.broadcast(input.getValue());
+            Broadcaster.broadcast(UI.getCurrent().getSession().getAttribute("user").toString() + ":" + input.getValue());
          //   addMessage(input.getValue()); // Add to self
             em.getTransaction().begin();
             ChatModel chmods = new ChatModel();
             chmods.setMessage(input.getValue());
+            chmods.setUsername(UI.getCurrent().getSession().getAttribute("user").toString());
             em.persist(chmods);
             em.getTransaction().commit();
+
 
             input.setValue("");
 
         });
         sendBar.addComponent(send);
         content.addComponent(sendBar);
+        root.getlayout().addComponent(content,1);
 
         Broadcaster.register(this);
 
