@@ -52,7 +52,7 @@ public class OrderStatusViewImp extends CustomComponent implements View{
 		if ((p.getStatus().equals("Verfügbar"))) {
 			Button button = new Button(VaadinIcons.PRINT);
 			button.addStyleName(ValoTheme.BUTTON_SMALL);
-			Resource res = new FileResource(new File("C:\\Workspaces\\workspace_SEAD\\myapplication\\file.pdf"));
+			Resource res = new FileResource(new File("C:\\Users\\Lars Gertsch\\git\\ch.bfh.bti7081.s2018.blue\\file.pdf"));
 			FileDownloader fd = new FileDownloader(res);
 			fd.extend(button);
 			return button;
