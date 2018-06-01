@@ -8,11 +8,14 @@ import com.vaadin.ui.Notification;
 import com.vaadin.ui.UI;
 
 import ch.bfh.bti7081.blue.PMS.Util;
+import ch.bfh.bti7081.blue.PMS.model.InformationModel;
 import ch.bfh.bti7081.blue.PMS.model.LoginAccount;
 import ch.bfh.bti7081.blue.PMS.model.LoginViewModel;
 import ch.bfh.bti7081.blue.PMS.model.OrderStatusModel;
 import ch.bfh.bti7081.blue.PMS.model.OrderModel;
 import ch.bfh.bti7081.blue.PMS.presenter.interfaces.LoginViewButtonClickListener;
+import ch.bfh.bti7081.blue.PMS.view.InformationView;
+import ch.bfh.bti7081.blue.PMS.view.InformationViewImp;
 import ch.bfh.bti7081.blue.PMS.view.LoginViewImpl;
 import ch.bfh.bti7081.blue.PMS.view.MainViewImp;
 import ch.bfh.bti7081.blue.PMS.view.OrderStatusViewImp;
@@ -83,6 +86,12 @@ public class LoginViewPresenter extends CustomComponent implements LoginViewButt
 		OrderStatusModel OrderStatusModel = new OrderStatusModel();
 		new OrderStatusViewPresenter(OrderStatusModel, OrderStatusImpl);
 		navigator.addView("Order", OrderStatusImpl);
+		
+		//Information View
+		InformationViewImp InformationImp = new InformationViewImp();
+		InformationModel InformationModel = new InformationModel();
+		new InformationPresenter(InformationModel, InformationImp);
+		navigator.addView("InformationView", InformationImp);
 				
 		//OrderView		
 		SimonOrderView orderView = new SimonOrderView();

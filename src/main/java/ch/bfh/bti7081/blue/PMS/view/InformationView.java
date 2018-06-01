@@ -22,7 +22,7 @@ public class InformationView extends CustomComponent implements View {
 				mainLayout.setSizeFull(); // mainLayout
 				
 				//GridLayout to display all addictions
-				GridLayout GridLayout = new GridLayout(10, 0); 
+				GridLayout GridLayout = new GridLayout(10, 1); 
 				mainLayout.addComponent(GridLayout);
 				GridLayout.setSpacing(true);
 				GridLayout.setSizeFull();
