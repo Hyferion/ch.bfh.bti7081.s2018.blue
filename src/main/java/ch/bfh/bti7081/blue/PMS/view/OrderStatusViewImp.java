@@ -7,18 +7,15 @@ import com.vaadin.navigator.View;
 import com.vaadin.server.FileDownloader;
 import com.vaadin.server.FileResource;
 import com.vaadin.server.Resource;
-import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.Grid;
-import com.vaadin.ui.HorizontalLayout;
-import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
 
 import ch.bfh.bti7081.blue.PMS.model.OrderStatus;
 
-public class OrderStatusViewImp extends CustomComponent implements View {
+public class OrderStatusViewImp extends CustomComponent implements View{
 
 	/**
 	 * 
@@ -29,38 +26,12 @@ public class OrderStatusViewImp extends CustomComponent implements View {
 
 	public OrderStatusViewImp() {
 
-		setSizeFull();
+		// Set root Layout with title
+		HeaderFooter root = new HeaderFooter("Bestellstatus");
 
-		// Set the root layout for the UI
-		VerticalLayout root = new VerticalLayout();
-		root.setSizeFull();
-		setCompositionRoot(root);
-
-		// Header
-		HorizontalLayout titleBar = new HorizontalLayout();
-		titleBar.setSizeFull();
-		root.addComponent(titleBar);
-
-		Button home = new Button("Home", e -> getUI().getNavigator().navigateTo("HomeView"));
-		home.setIcon(VaadinIcons.HOME);
-		titleBar.addComponent(home);
-		titleBar.setComponentAlignment(home, Alignment.TOP_LEFT);
-
-		titleBar.addComponent(home);
-		titleBar.setComponentAlignment(home, Alignment.TOP_LEFT);
-
-		Label title = new Label("Relative Helper");
-		title.addStyleName(ValoTheme.LABEL_H1);
-		title.setSizeUndefined();
-		titleBar.addComponent(title);
-		titleBar.setComponentAlignment(title, Alignment.TOP_LEFT);
-
-		Label order = new Label("Bestellungen");
-		order.addStyleName(ValoTheme.LABEL_H1);
-		root.addComponent(order);
-		root.setComponentAlignment(order, Alignment.TOP_LEFT);
-
-		// Main
+		// MainLayout for this view
+		VerticalLayout mainLayout = new VerticalLayout();
+		mainLayout.setSizeFull(); // mainLayout
 
 		grid = new Grid<>();
 		grid.setSizeFull();
@@ -68,38 +39,20 @@ public class OrderStatusViewImp extends CustomComponent implements View {
 		grid.addColumn(OrderStatus::getDate).setCaption("Datum").setResizable(false);
 		grid.addColumn(OrderStatus::getStatus).setCaption("Status").setResizable(false);
 		grid.addComponentColumn(this::printButton);
-		root.addComponent(grid);
+		mainLayout.addComponent(grid);
 
-		// Footer
-		HorizontalLayout footerBar = new HorizontalLayout();
-		footerBar.setSizeFull();
-		footerBar.setDefaultComponentAlignment(Alignment.TOP_CENTER);
-		root.addComponent(footerBar);
+		// Add mainLayout to the root View
+		root.getlayout().addComponent(mainLayout, 1);
 
-		Button logout = new Button("Logout");
-		logout.setIcon(VaadinIcons.HAND);
-
-		logout.addClickListener(e -> logOutButtonClick());
-
-		Label footer = new Label("Platzhalter Footer");
-		footer.addStyleName(ValoTheme.LABEL_H1);
-		footerBar.addComponent(footer);
-
-		footerBar.addComponent(logout);
-
-		root.setExpandRatio(titleBar, 0.05f);
-		root.setExpandRatio(order, 0.2f);
-		root.setExpandRatio(grid, 0.6f);
-		root.setExpandRatio(footerBar, 0.15f);
+		setCompositionRoot(root);
 
 	}
 
 	private Button printButton(OrderStatus p) {
-		System.out.println(p.getStatus());
 		if ((p.getStatus().equals("Verfügbar"))) {
 			Button button = new Button(VaadinIcons.PRINT);
 			button.addStyleName(ValoTheme.BUTTON_SMALL);
-			Resource res = new FileResource(new File("C:\\Workspaces\\workspace_SEAD\\myapplication\\file.pdf"));
+			Resource res = new FileResource(new File("C:\\Users\\Lars Gertsch\\git\\ch.bfh.bti7081.s2018.blue\\file.pdf"));
 			FileDownloader fd = new FileDownloader(res);
 			fd.extend(button);
 			return button;
@@ -112,10 +65,5 @@ public class OrderStatusViewImp extends CustomComponent implements View {
 		return this.grid;
 	}
 
-	public void logOutButtonClick() {
-		getUI().getSession().setAttribute("user", null);
-		getUI().getNavigator().navigateTo("LoginView");
-
-	}
 
 }

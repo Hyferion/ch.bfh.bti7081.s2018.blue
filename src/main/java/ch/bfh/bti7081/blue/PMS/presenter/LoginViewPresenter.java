@@ -22,6 +22,7 @@ public class LoginViewPresenter extends CustomComponent implements LoginViewButt
 	private boolean passwordMatched;
 	private boolean userMatched;
 	private String username;
+	private String firstname;
 	private UI ui = UI.getCurrent();
 	
 	public LoginViewPresenter(LoginViewModel loginViewModel, LoginViewImpl loginViewImpl, Navigator navigator) {
@@ -34,7 +35,9 @@ public class LoginViewPresenter extends CustomComponent implements LoginViewButt
 	public void loginButtonClick() {
 		if (validateLogin()) {
 			username = loginViewModel.getLoginAccount().getUsername();
+			firstname = loginViewModel.getLoginAccount().getFirstName();
 			ui.getSession().setAttribute("user", username);
+			ui.getSession().setAttribute("firstname", firstname);
 			initializeViewsAfterLogin();
 			navigator.navigateTo("HomeView");
 		}

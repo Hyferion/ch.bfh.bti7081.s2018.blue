@@ -7,9 +7,11 @@ import com.vaadin.ui.Button;
 import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
+import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
 
+import ch.bfh.bti7081.blue.PMS.model.LoginViewModel;
 import ch.bfh.bti7081.blue.PMS.model.OrderStatus;
 
 public class MainViewImp extends CustomComponent implements View {
@@ -19,9 +21,12 @@ public class MainViewImp extends CustomComponent implements View {
 	 */
 	private static final long serialVersionUID = 1L;
 
+
+	
 	public MainViewImp() {
 
-		HeaderFooter root = new HeaderFooter("Hello ");
+		HeaderFooter root = new HeaderFooter("Hello" + " " + UI.getCurrent().getSession().getAttribute("firstname").toString());
+		
 
 		setSizeFull();
 
