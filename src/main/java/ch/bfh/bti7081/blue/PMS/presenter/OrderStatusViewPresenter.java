@@ -10,11 +10,10 @@ import ch.bfh.bti7081.blue.PMS.model.OrderStatusModel;
 import ch.bfh.bti7081.blue.PMS.view.OrderStatusViewImp;
 
 public class OrderStatusViewPresenter implements View {
-
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -4703164551714113678L;
 	private OrderStatusModel orderStatusModel;
 	private OrderStatusViewImp orderStatusViewImp;
 	private Set<OrderStatus> orders;
