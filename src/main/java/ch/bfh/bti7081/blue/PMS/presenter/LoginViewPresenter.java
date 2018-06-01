@@ -7,6 +7,8 @@ import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.UI;
 
+import ch.bfh.bti7081.blue.PMS.CalendarPresenter;
+//import ch.bfh.bti7081.blue.PMS.CalendarUI;
 import ch.bfh.bti7081.blue.PMS.Util;
 import ch.bfh.bti7081.blue.PMS.model.LoginAccount;
 import ch.bfh.bti7081.blue.PMS.model.LoginViewModel;
@@ -94,6 +96,10 @@ public class LoginViewPresenter extends CustomComponent implements LoginViewButt
 		SimonOrderedView orderedView = new SimonOrderedView();
 		new SimonOrderedPresenter(model, orderedView);
 		navigator.addView("OrderedView", orderedView);
+		
+		//CalendarView
+		/*CalendarUI calendarView = new CalendarUI();
+		new CalendarPresenter(model, calendarView);*/
 	
 		
 		
