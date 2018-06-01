@@ -5,6 +5,7 @@
         <class>ch.bfh.bti7081.blue.PMS.model.LoginAccount</class>
         <class>ch.bfh.bti7081.blue.PMS.model.OrderStatus</class>
         <class>ch.bfh.bti7081.blue.PMS.model.ChatModel</class>
+      <class>ch.bfh.bti7081.blue.PMS.model.OrderModel</class>
         <properties>
             <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
             <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/relativehelper?useTimezone=true&amp;serverTimezone=UTC"/>
