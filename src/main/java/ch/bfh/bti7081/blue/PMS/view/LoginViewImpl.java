@@ -3,6 +3,7 @@ package ch.bfh.bti7081.blue.PMS.view;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.vaadin.event.ShortcutAction;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.ui.Alignment;
@@ -16,6 +17,7 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
 import ch.bfh.bti7081.blue.PMS.presenter.interfaces.LoginViewButtonClickListener;
+import javafx.scene.input.KeyCode;
 
 
 public class LoginViewImpl extends CustomComponent implements View {
@@ -64,6 +66,7 @@ public class LoginViewImpl extends CustomComponent implements View {
 		
 		// Button Login
 		buttonLogin = new Button("Login");
+		buttonLogin.setClickShortcut(ShortcutAction.KeyCode.ENTER);
 		buttonLogin.addClickListener(e -> {
 			for (LoginViewButtonClickListener listener : listeners) {
 				listener.loginButtonClick();

@@ -34,6 +34,8 @@ public class ChatBox extends CustomComponent implements Broadcaster.BroadcastLis
         Panel messagesPanel = new Panel();
         messagesPanel.setSizeFull();
         messagesPanel.setContent(messages);
+        messagesPanel.setWidth("100%");
+        messagesPanel.setHeight("600px");
         content.addComponent(messagesPanel);
         content.setExpandRatio(messagesPanel, 1.0f);
 
