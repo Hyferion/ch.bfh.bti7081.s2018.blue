@@ -92,8 +92,8 @@ public class LoginViewPresenter extends CustomComponent implements LoginViewButt
 		navigator.addView("OrderedView", orderedView);
 
 		//ChatView
-		ChatBox chatBox = new ChatBox();
-		navigator.addView("Chat",chatBox);
+		/*ChatBox chatBox = new ChatBox();
+		navigator.addView("Chat",chatBox);*/
 
 	
 		

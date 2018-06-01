@@ -2,7 +2,7 @@ package ch.bfh.bti7081.blue.PMS.view;
 
 import ch.bfh.bti7081.blue.PMS.model.ChatModel;
 import ch.bfh.bti7081.blue.PMS.presenter.Broadcaster;
-import com.sun.tools.javac.comp.Todo;
+//import com.sun.tools.javac.comp.Todo;
 import com.vaadin.annotations.Push;
 import com.vaadin.event.ShortcutAction.KeyCode;
 import com.vaadin.navigator.View;

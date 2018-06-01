@@ -17,6 +17,7 @@ import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.GridLayout;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
+import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
 
@@ -28,29 +29,33 @@ public class SimonOrderView extends CustomComponent implements SimonOrderViewInt
 
 	private static final long serialVersionUID = 3958839843793423943L;
 
+	private EntityManagerFactory emFactory = Persistence.createEntityManagerFactory("relativeHelper");
+	private EntityManager em = emFactory.createEntityManager();
+
 	ArrayList<CheckBox> checkBoxList = new ArrayList<CheckBox>();
 	List<OrderViewListener> listeners = new ArrayList<OrderViewListener>();
 
 	public SimonOrderView() {
 
-		//Set root Layout with title
-		HeaderFooter root = new HeaderFooter("Order prescription"); 
+		// Set root Layout with title
+		HeaderFooter root = new HeaderFooter("Order prescription");
 
-		//MainLayout for this view
+		// MainLayout for this view
 		VerticalLayout mainLayout = new VerticalLayout();
 		mainLayout.setSizeFull(); // mainLayout
-		
-		//GridLayout to dispaly all the medicine with a Checkbox to select a certain medicine
-		GridLayout GridLayout = new GridLayout(3, 5); 
+
+		// GridLayout to dispaly all the medicine with a Checkbox to select a
+		// certain medicine
+		GridLayout GridLayout = new GridLayout(3, 5);
 		mainLayout.addComponent(GridLayout);
 		GridLayout.setSpacing(true);
 		GridLayout.setSizeFull();
-		
-	    Query q = em.createQuery("Select t FROM OrderModel t where t.LOGINACCOUNT_USERNAME < 2");  
-        List<OrderModel> chmod = q.getResultList();
-        
-		
-		//Captions for the table
+
+		Query q = em.createQuery("Select t FROM OrderModel t where t.LOGINACCOUNT_USERNAME = "
+				+ UI.getCurrent().getSession().getAttribute("user").toString());
+		List<OrderModel> chmod = q.getResultList();
+
+		// Captions for the table
 		Label captionFirstColumn = new Label("Medicine");
 		captionFirstColumn.addStyleName(ValoTheme.LABEL_H2);
 		GridLayout.addComponent(captionFirstColumn);
@@ -63,7 +68,6 @@ public class SimonOrderView extends CustomComponent implements SimonOrderViewInt
 		captionThirdColumn.addStyleName(ValoTheme.LABEL_H2);
 		GridLayout.addComponent(captionThirdColumn);
 
-		
 		int i = 0;
 		for (OrderModel mod : chmod) {
 			GridLayout.addComponent(new Label(mod.getName()));
@@ -71,11 +75,8 @@ public class SimonOrderView extends CustomComponent implements SimonOrderViewInt
 			checkBoxList.add(new CheckBox("", false));
 			GridLayout.addComponent(checkBoxList.get(i++));
 		}
-	         
-		
-	
-		
-		//HorizontalLayout for the Buttons "Order history" and "Send order"
+
+		// HorizontalLayout for the Buttons "Order history" and "Send order"
 		HorizontalLayout horizontalLayout = new HorizontalLayout();
 		horizontalLayout.setSizeFull();
 
@@ -91,18 +92,14 @@ public class SimonOrderView extends CustomComponent implements SimonOrderViewInt
 		horizontalLayout.addComponent(ButtonSend);
 		horizontalLayout.setComponentAlignment(ButtonSend, Alignment.TOP_RIGHT);
 
-		//Add horziontalLayout to the mainLayout
+		// Add horziontalLayout to the mainLayout
 		mainLayout.addComponent(horizontalLayout);
-		
-		//Add mainLayout to the root View
+
+		// Add mainLayout to the root View
 		root.getlayout().addComponent(mainLayout, 1);
 
 		setCompositionRoot(root);
 	}
-	
-	
-	private EntityManagerFactory emFactory = Persistence.createEntityManagerFactory("relativeHelper");
-    private EntityManager em = emFactory.createEntityManager();
 
 	public void addListener(OrderViewListener listener) {
 		listeners.add(listener);
@@ -111,7 +108,11 @@ public class SimonOrderView extends CustomComponent implements SimonOrderViewInt
 
 	@Override
 	public void buttonClick(ClickEvent event) {
+		
 		for (OrderViewListener listener : listeners)
 			listener.buttonClick(event.getButton().getCaption());
+		for (CheckBox checkbox : checkBoxList) {
+			checkbox.setValue(false);
+		}
 	}
 }

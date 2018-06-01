@@ -17,7 +17,7 @@ import ch.bfh.bti7081.blue.PMS.model.OrderStatus;
 import ch.bfh.bti7081.blue.PMS.view.interfaces.SimonOrderViewInterface;
 
 public class HeaderFooter extends CustomComponent implements View {
-	
+
 	VerticalLayout root = new VerticalLayout();
 	String titleName;
 
@@ -28,32 +28,31 @@ public class HeaderFooter extends CustomComponent implements View {
 
 		root.setSizeFull();
 		setCompositionRoot(root);
-
+	
+		
 		// Header
 		HorizontalLayout titleBar = new HorizontalLayout();
 		titleBar.setSizeFull();
 		root.addComponent(titleBar);
 		titleBar.setHeight("100");
-		
 
 		Button home = new Button("Home", e -> getUI().getNavigator().navigateTo("HomeView"));
 		home.setIcon(VaadinIcons.HOME);
 		titleBar.addComponent(home);
 		titleBar.setComponentAlignment(home, Alignment.TOP_LEFT);
 
-		
 		Label title = new Label(titleName);
 		title.addStyleName(ValoTheme.LABEL_H1);
 		title.setSizeUndefined();
 		titleBar.addComponent(title);
 		titleBar.setComponentAlignment(title, Alignment.TOP_CENTER);
-		
+
 		Button logout = new Button("Logout");
-		logout.setIcon(VaadinIcons.HAND);		
+		logout.setIcon(VaadinIcons.HAND);
 		titleBar.addComponent(logout);
 		titleBar.setComponentAlignment(logout, Alignment.TOP_RIGHT);
 
-		logout.addClickListener(e -> logOutButtonClick()); 
+		logout.addClickListener(e -> logOutButtonClick());
 
 		// Footer
 		HorizontalLayout footerBar = new HorizontalLayout();
@@ -61,16 +60,14 @@ public class HeaderFooter extends CustomComponent implements View {
 		footerBar.setDefaultComponentAlignment(Alignment.TOP_CENTER);
 		root.addComponent(footerBar);
 
-
-
-		Label footer = new Label("Platzhalter Footer");
-		footer.addStyleName(ValoTheme.LABEL_H1);
-		footerBar.addComponent(footer);
-
-	
+		/*
+		 * Label footer = new Label("Platzhalter Footer");
+		 * footer.addStyleName(ValoTheme.LABEL_H1);
+		 * footerBar.addComponent(footer);
+		 */
 
 		root.setExpandRatio(titleBar, 0.05f);
-		root.setExpandRatio(footerBar, 0.15f);
+		root.setExpandRatio(footerBar, 0.05f);
 
 	}
 
@@ -80,15 +77,12 @@ public class HeaderFooter extends CustomComponent implements View {
 
 	}
 
-	public VerticalLayout getlayout(){
+	public VerticalLayout getlayout() {
 		return root;
 	}
-	
-	
-	public VerticalLayout SetTitle(){
+
+	public VerticalLayout SetTitle() {
 		return root;
 	}
-	
-	
 
 }
