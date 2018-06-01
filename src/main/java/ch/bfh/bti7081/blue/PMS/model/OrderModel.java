@@ -11,7 +11,7 @@ public class OrderModel {
     private Long id;
     private String name;
 	private String description;
-	private String LOGINACCOUNT_USERNAME;w
+	private String LOGINACCOUNT_USERNAME;
     
     public String getLOGINACCOUNT_USERNAME() {
 		return LOGINACCOUNT_USERNAME;
