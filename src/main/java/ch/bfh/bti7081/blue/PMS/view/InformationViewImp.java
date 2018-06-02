@@ -1,134 +1,79 @@
 package ch.bfh.bti7081.blue.PMS.view;
 
-import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
-import com.vaadin.icons.VaadinIcons;
 import com.vaadin.navigator.View;
-import com.vaadin.server.FileDownloader;
-import com.vaadin.server.FileResource;
-import com.vaadin.server.Resource;
-import com.vaadin.server.ThemeResource;
-import com.vaadin.ui.Accordion;
-import com.vaadin.ui.Alignment;
-import com.vaadin.ui.Button;
-import com.vaadin.ui.Component;
+
+import com.vaadin.ui.CheckBox;
 import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.Grid;
+import com.vaadin.ui.GridLayout;
 import com.vaadin.ui.HorizontalLayout;
-import com.vaadin.ui.Image;
 import com.vaadin.ui.Label;
-import com.vaadin.ui.Layout;
-import com.vaadin.ui.Notification;
-import com.vaadin.ui.TabSheet.SelectedTabChangeEvent;
-import com.vaadin.ui.TabSheet.SelectedTabChangeListener;
-import com.vaadin.ui.TabSheet.Tab;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
 
+import ch.bfh.bti7081.blue.PMS.model.Information;
 import ch.bfh.bti7081.blue.PMS.model.OrderStatus;
+import ch.bfh.bti7081.blue.PMS.view.interfaces.SimonOrderViewInterface.OrderViewListener;
 
+/**
+ * 
+ * @author Sinthujah
+ *
+ */
 public class InformationViewImp extends CustomComponent implements View {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	
-	Grid<OrderStatus> grid;
+	Grid<Information> grid;
+
+	ArrayList<CheckBox> checkBoxList = new ArrayList<CheckBox>();
+	List<OrderViewListener> listeners = new ArrayList<OrderViewListener>();
 
 	public InformationViewImp() {
 
-		setSizeFull();
+		//Set root Layout with title
+		HeaderFooter root = new HeaderFooter("Informationen über Suchtkrankheiten"); 
 
-		// Set the root layout for the UI
-		VerticalLayout root = new VerticalLayout();
-		root.setSizeFull();
-		setCompositionRoot(root);
-
-		// Header
-		HorizontalLayout titleBar = new HorizontalLayout();
-		titleBar.setSizeFull();
-		root.addComponent(titleBar);
-
-		Button home = new Button("Home", e -> getUI().getNavigator().navigateTo("HomeView"));
-		home.setIcon(VaadinIcons.HOME);
-		titleBar.addComponent(home);
-		titleBar.setComponentAlignment(home, Alignment.TOP_LEFT);
-
-		titleBar.addComponent(home);
-		titleBar.setComponentAlignment(home, Alignment.TOP_LEFT);
-
-		Label title = new Label("Informationen über Suchtkrankheit");
-		title.addStyleName(ValoTheme.LABEL_H1);
-		title.setSizeUndefined();
-		titleBar.addComponent(title);
-		titleBar.setComponentAlignment(title, Alignment.TOP_CENTER);
-
-		Label order = new Label("Suchtkrankheiten");
-		order.addStyleName(ValoTheme.LABEL_H1);
-		root.addComponent(order);
-		root.setComponentAlignment(order, Alignment.TOP_LEFT);
-
-		// Main
-
+		//MainLayout for this view
+		VerticalLayout mainLayout = new VerticalLayout();
+		mainLayout.setSizeFull(); // mainLayout
+		
+		
 		grid = new Grid<>();
 		grid.setSizeFull();
-		grid.addColumn(OrderStatus::getId).setCaption("Art der Suchtkrankheit").setResizable(false);
+		grid.addColumn(Information::getName).setCaption("Suchtart").setResizable(false);
+		grid.addColumn(Information::getText).setCaption("Bescheibung").setResizable(false);
 
-		root.addComponent(grid);
+		mainLayout.addComponent(grid);
+		
+		mainLayout.setExpandRatio(grid, 0.6f);
 		
 		
-	
+		//HorizontalLayout for the Buttons "Order history" and "Send order"
+		HorizontalLayout horizontalLayout = new HorizontalLayout();
+		horizontalLayout.setSizeFull();
+
 		
-	
+		//Add horziontalLayout to the mainLayout
+		mainLayout.addComponent(horizontalLayout);
+		
+		//Add mainLayout to the root View
+		root.getlayout().addComponent(mainLayout, 1);
 
-
-		// Footer
-		HorizontalLayout footerBar = new HorizontalLayout();
-		footerBar.setSizeFull();
-		footerBar.setDefaultComponentAlignment(Alignment.TOP_CENTER);
-		root.addComponent(footerBar);
-
-		Button logout = new Button("Logout");
-		logout.setIcon(VaadinIcons.HAND);
-
-		logout.addClickListener(e -> logOutButtonClick());
-
-		Label footer = new Label("Platzhalter Footer");
-		footer.addStyleName(ValoTheme.LABEL_H1);
-		footerBar.addComponent(footer);
-
-		footerBar.addComponent(logout);
-
-		root.setExpandRatio(titleBar, 0.05f);
-		root.setExpandRatio(order, 0.2f);
-		root.setExpandRatio(grid, 0.6f);
-		root.setExpandRatio(footerBar, 0.15f);
-
-	}
-
-	private Button printButton(OrderStatus p) {
-		System.out.println(p.getStatus());
-		if ((p.getStatus().equals("Verfügbar"))) {
-			Button button = new Button(VaadinIcons.PRINT);
-			button.addStyleName(ValoTheme.BUTTON_SMALL);
-			Resource res = new FileResource(new File("C:\\Workspaces\\workspace_SEAD\\myapplication\\file.pdf"));
-			FileDownloader fd = new FileDownloader(res);
-			fd.extend(button);
-			return button;
-		}
-		return null;
-
+		setCompositionRoot(root);
 	}
 
 	public Grid getGrid() {
 		return this.grid;
 	}
-
-	public void logOutButtonClick() {
-		getUI().getSession().setAttribute("user", null);
-		getUI().getNavigator().navigateTo("LoginView");
+	
+	public void addListener(OrderViewListener listener) {
+		listeners.add(listener);
 
 	}
+
 
 }

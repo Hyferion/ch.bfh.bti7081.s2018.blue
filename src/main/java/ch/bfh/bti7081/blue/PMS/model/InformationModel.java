@@ -6,52 +6,41 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
-import ch.bfh.bti7081.blue.PMS.DB.DBConnector;
+//import ch.bfh.bti7081.blue.PMS.DB.DBConnector;
 
 @Entity
 public class InformationModel {
 
 	@Id
 	private String name;
-
-	private String krankheitTitle;
-	private String beschreibungKrankheit;
-
+	private String text;
 
 	public InformationModel() {
 	}
 	
-	public List<Information> getAllInformations() {
-		Information i = new Information();
-		i.setBeschreibungKrankheit("eine Beschreibung");
-		i.setName("Krankheit");
-		i.setKrankheitTitle("krankheitTitle");
-		List<Information> informationen = new ArrayList<>();
-		informationen.add(i);
-		return informationen;
-		
-		//return (List<Information>) DBConnector.getDBConnector().getAllInformations();
-	}
+	//public List<Information> getAllInformations() {
+	//	return (List<Information>) DBConnector.getDBConnector().getAllInformations();
+	//}
 
-	public InformationModel(String krankheitTitle, String beschreibungKrankheit) {
+	public InformationModel(String name, String text) {
 		super();
-		this.krankheitTitle = krankheitTitle;
-		this.beschreibungKrankheit = beschreibungKrankheit;
+		this.name = name;
+		this.text = text;
 	}
 
-	public String getKrankheitTitle() {
-		return krankheitTitle;
+	public String getName() {
+		return name;
 	}
 
-	public void setKrankheitTitle(String krankheitTitle) {
-		this.krankheitTitle = krankheitTitle;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public String getbeschreibungKrankheit() {
-		return beschreibungKrankheit;
+	public String getText() {
+		return text;
 	}
 
-	public void setBeschreibungKrankheit(String beschreibungKrankheit) {
-		this.beschreibungKrankheit = beschreibungKrankheit;
+	public void setText(String text) {
+		this.text = text;
 	}
 }

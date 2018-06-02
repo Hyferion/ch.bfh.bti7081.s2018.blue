@@ -9,26 +9,18 @@ public class Information {
 	@Id
 	private String name;
 
-	private String krankheitTitle;
-	private String beschreibungKrankheit;
+	private String text;
 	public String getName() {
 		return name;
 	}
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getKrankheitTitle() {
-		return krankheitTitle;
+	public String getText() {
+		return text;
 	}
-	public void setKrankheitTitle(String krankheitTitle) {
-		this.krankheitTitle = krankheitTitle;
+	public void setText(String text) {
+		this.text = text;
 	}
-	public String getBeschreibungKrankheit() {
-		return beschreibungKrankheit;
-	}
-	public void setBeschreibungKrankheit(String beschreibungKrankheit) {
-		this.beschreibungKrankheit = beschreibungKrankheit;
-	}
-
 	
 }
