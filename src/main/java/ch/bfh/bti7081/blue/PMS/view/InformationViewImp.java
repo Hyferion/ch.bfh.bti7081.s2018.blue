@@ -7,12 +7,21 @@ import com.vaadin.navigator.View;
 import com.vaadin.server.FileDownloader;
 import com.vaadin.server.FileResource;
 import com.vaadin.server.Resource;
+import com.vaadin.server.ThemeResource;
+import com.vaadin.ui.Accordion;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
+import com.vaadin.ui.Component;
 import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.Grid;
 import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.Image;
 import com.vaadin.ui.Label;
+import com.vaadin.ui.Layout;
+import com.vaadin.ui.Notification;
+import com.vaadin.ui.TabSheet.SelectedTabChangeEvent;
+import com.vaadin.ui.TabSheet.SelectedTabChangeListener;
+import com.vaadin.ui.TabSheet.Tab;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
 
@@ -53,9 +62,9 @@ public class InformationViewImp extends CustomComponent implements View {
 		title.addStyleName(ValoTheme.LABEL_H1);
 		title.setSizeUndefined();
 		titleBar.addComponent(title);
-		titleBar.setComponentAlignment(title, Alignment.TOP_LEFT);
+		titleBar.setComponentAlignment(title, Alignment.TOP_CENTER);
 
-		Label order = new Label("Suchtkrankheit");
+		Label order = new Label("Suchtkrankheiten");
 		order.addStyleName(ValoTheme.LABEL_H1);
 		root.addComponent(order);
 		root.setComponentAlignment(order, Alignment.TOP_LEFT);
@@ -64,9 +73,15 @@ public class InformationViewImp extends CustomComponent implements View {
 
 		grid = new Grid<>();
 		grid.setSizeFull();
-		grid.addColumn(OrderStatus::getId).setCaption("Krankheit").setResizable(false);
-		grid.addComponentColumn(this::printButton);
+		grid.addColumn(OrderStatus::getId).setCaption("Art der Suchtkrankheit").setResizable(false);
+
 		root.addComponent(grid);
+		
+		
+	
+		
+	
+
 
 		// Footer
 		HorizontalLayout footerBar = new HorizontalLayout();

@@ -27,10 +27,7 @@ public class InformationView extends CustomComponent implements View {
 				GridLayout.setSpacing(true);
 				GridLayout.setSizeFull();
 				
-				//Caption for the table
-				Label captionFirstColumn = new Label("Suchtkrankheiten");
-				captionFirstColumn.addStyleName(ValoTheme.LABEL_H2);
-				GridLayout.addComponent(captionFirstColumn);
+		
 				
 				
 				//Fill the table with informations from the database

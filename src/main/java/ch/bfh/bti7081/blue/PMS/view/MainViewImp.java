@@ -1,16 +1,11 @@
 package ch.bfh.bti7081.blue.PMS.view;
 
-import com.vaadin.icons.VaadinIcons;
 import com.vaadin.navigator.View;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.HorizontalLayout;
-import com.vaadin.ui.Label;
-import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
-
-import ch.bfh.bti7081.blue.PMS.model.OrderStatus;
 
 public class MainViewImp extends CustomComponent implements View {
 
@@ -30,7 +25,7 @@ public class MainViewImp extends CustomComponent implements View {
 		
 		Button butBest = new Button("Bestellungen", e -> getUI().getNavigator().navigateTo("OrderView"));
 		Button butChat = new Button("Chat", e -> getUI().getNavigator().navigateTo("Chat"));
-		Button butInfo = new Button("Informationen über Suchtkrankheiten", e -> getUI().getNavigator().navigateTo("InformationView"));
+		Button butInfo = new Button("Suchtkrankheiten", e -> getUI().getNavigator().navigateTo("InformationView"));
 		Button butKalender = new Button("Kalender");
 		
 		
