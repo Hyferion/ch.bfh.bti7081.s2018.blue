@@ -9,6 +9,8 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
+import org.eclipse.persistence.internal.libraries.asm.commons.GeneratorAdapter;
+
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
@@ -18,10 +20,9 @@ import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.GridLayout;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
-import com.vaadin.ui.PopupView;
-import com.vaadin.ui.TextField;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.Window;
 import com.vaadin.ui.themes.ValoTheme;
 
 import ch.bfh.bti7081.blue.PMS.model.OrderModel;
@@ -39,11 +40,12 @@ public class OrderView extends CustomComponent implements OrderViewInterface, Cl
 	List<OrderViewListener> listeners = new ArrayList<OrderViewListener>();
 	HeaderFooter root = new HeaderFooter("Order prescription");
 	VerticalLayout mainLayout = new VerticalLayout();
+	Window subWindow = new Window("Order");
+
 	public OrderView() {
 
 		// Set root Layout with title
-		
-		
+
 		// MainLayout for this view
 		VerticalLayout mainLayout = new VerticalLayout();
 		mainLayout.setSizeFull(); // mainLayout
@@ -110,13 +112,6 @@ public class OrderView extends CustomComponent implements OrderViewInterface, Cl
 
 	}
 
-	@Override
-	public void buttonClick(ClickEvent event) {
-
-		for (OrderViewListener listener : listeners)
-			listener.buttonClick(event.getButton().getCaption());
-	}
-
 	public void writeInDb() {
 
 		for (CheckBox checkbox : checkBoxList) {
@@ -136,23 +131,43 @@ public class OrderView extends CustomComponent implements OrderViewInterface, Cl
 	}
 
 	public void ask() {
-		VerticalLayout popupContent = new VerticalLayout();
-		
+
+		VerticalLayout verticalLayout = new VerticalLayout();
+		HorizontalLayout horizontalLayout = new HorizontalLayout();
+		verticalLayout.setSizeFull();
+		horizontalLayout.setSizeFull();
+
+		Button cancel = new Button("Cancel", this);
+		Button order = new Button("Order", this);
+		order.setSizeFull();
 		Label ensure = new Label("Are you sure you want to order?");
-		HorizontalLayout popupSubContent = new HorizontalLayout();
-		Button cancel = new Button("Cancel");
-		Button order = new Button("Order");
-		popupContent.setSizeFull();
-		popupSubContent.setSizeFull();
-		popupSubContent.addComponents(order, cancel);
-		popupContent.addComponents(ensure, popupSubContent);
-		PopupView popup = new PopupView(null, popupContent);
-		popup.setPopupVisible(true);
-		
-		popup.setHeight("200");
-		mainLayout.addComponent(popup);
-		mainLayout.setComponentAlignment(popup, Alignment.BOTTOM_CENTER);
-		setCompositionRoot(mainLayout);
-	
+
+		horizontalLayout.addComponents(cancel, order);
+		verticalLayout.addComponents(ensure, horizontalLayout);
+		verticalLayout.setComponentAlignment(ensure, Alignment.TOP_CENTER);
+		horizontalLayout.setComponentAlignment(cancel, Alignment.BOTTOM_LEFT);
+
+		subWindow.setResizable(false);
+		subWindow.center();
+		subWindow.setWidth("500");
+		subWindow.setHeight("200");
+		subWindow.setContent(verticalLayout);
+
+		UI.getCurrent().addWindow(subWindow);
+
 	}
+
+	public void closeSub() {
+		subWindow.close();
+
+	}
+
+	@Override
+	public void buttonClick(ClickEvent event) {
+
+		for (OrderViewListener listener : listeners) {
+			listener.buttonClick(event.getButton().getCaption());
+		}
+	}
+
 }

@@ -13,18 +13,24 @@ public class SimonOrderPresenter extends CustomComponent implements OrderView.Or
 	public SimonOrderPresenter(OrderModel model, OrderView view) {
 		this.model = model;
 		this.view = view;
-		view.addListener(this); 
+		view.addListener(this);
 	}
 
 	public void buttonClick(String operation) {
-		view.ask();
-		/*if (operation.equals("Send Order")) {
+
+		if (operation.equals("Send Order")) {
+			view.ask();
+		}
+		if (operation.equals("Order")) {
 			view.getUI().getNavigator().navigateTo("OrderedView");
 			view.writeInDb();
-		}*/
-
+			view.closeSub();
+		}
+		if (operation.equals("Cancel")) {
+			view.closeSub();
+		}
 		if (operation.equals("Order history")) {
 			view.getUI().getNavigator().navigateTo("Order");
 		}
 	}
-} 
+}
