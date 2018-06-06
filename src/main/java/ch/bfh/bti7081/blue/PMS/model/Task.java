@@ -1,13 +1,15 @@
 package ch.bfh.bti7081.blue.PMS.model;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 
@@ -15,21 +17,54 @@ import javax.persistence.Table;
 @Table(name = "tasks")
 public class Task {
 
-	private int id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int taskId;
 	private String subject;
 	private String content;
 	private String dueDate;
 	private boolean status;
 	
+	@OneToMany(mappedBy = "taskId")
+	private Set<File> files;
 	
-	public Task(LocalDateTime date) {
-		this.dueDate = date.format(DateTimeFormatter.ofPattern("dd.MM.yyyy, HH:MI"));
+	public Task() {
+		
 	}
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	public int getId() {
-		return id;
+	public Task(LocalDate date) {
+		this.dueDate = date.format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
+	}
+	
+	public void setTaskId(int id) {
+		this.taskId = id;
+	}
+
+	public void setSubject(String subject) {
+		this.subject = subject;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+
+	public void setDueDate(String dueDate) {
+		this.dueDate = dueDate;
+	}
+
+	public void setStatus(boolean status) {
+		this.status = status;
+	}
+	
+	public void setFile(File file) {
+		if (files == null) {
+			files = new HashSet<File>();
+		} 
+		this.files.add(file);
+	}
+
+	public int getTaskId() {
+		return taskId;
 	}
 
 	public String getSubject() {
@@ -48,6 +83,9 @@ public class Task {
 		return status;
 	}
 
+	public Set<File> getFiles() {
+		return files;
+	}
 
 
 	
