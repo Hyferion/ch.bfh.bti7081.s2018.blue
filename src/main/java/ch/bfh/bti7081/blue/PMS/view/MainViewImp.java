@@ -6,13 +6,8 @@ import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.HorizontalLayout;
-import com.vaadin.ui.Label;
 import com.vaadin.ui.UI;
-import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
-
-import ch.bfh.bti7081.blue.PMS.model.LoginViewModel;
-import ch.bfh.bti7081.blue.PMS.model.OrderStatus;
 
 public class MainViewImp extends CustomComponent implements View {
 
@@ -30,8 +25,8 @@ public class MainViewImp extends CustomComponent implements View {
 
 		setSizeFull();
 
-		HorizontalLayout but = new HorizontalLayout();
-		but.setWidth("1400");
+		HorizontalLayout horizontalLayout = new HorizontalLayout();
+		horizontalLayout.setWidth("1400");
 		
 		Button butBest = new Button("Bestellungen", e -> getUI().getNavigator().navigateTo("OrderView"));
 		Button butChat = new Button("Chat", e -> getUI().getNavigator().navigateTo("Chat"));
@@ -51,16 +46,16 @@ public class MainViewImp extends CustomComponent implements View {
 		butKalender.setHeight("200");
 
 		
-		but.addComponent(butBest);
-		but.addComponent(butChat);
-		but.addComponent(butKalender);
+		horizontalLayout.addComponent(butBest);
+		horizontalLayout.addComponent(butChat);
+		horizontalLayout.addComponent(butKalender);
 		
-		but.setComponentAlignment(butBest, Alignment.MIDDLE_CENTER);
-		but.setComponentAlignment(butChat, Alignment.MIDDLE_CENTER);
-		but.setComponentAlignment(butKalender, Alignment.MIDDLE_CENTER);
+		horizontalLayout.setComponentAlignment(butBest, Alignment.MIDDLE_CENTER);
+		horizontalLayout.setComponentAlignment(butChat, Alignment.MIDDLE_CENTER);
+		horizontalLayout.setComponentAlignment(butKalender, Alignment.MIDDLE_CENTER);
 
-		root.getlayout().addComponent(but, 1);
-		root.getlayout().setComponentAlignment(but, Alignment.MIDDLE_CENTER);
+		root.getlayout().addComponent(horizontalLayout, 1);
+		root.getlayout().setComponentAlignment(horizontalLayout, Alignment.MIDDLE_CENTER);
 
 		setCompositionRoot(root);
 	}

@@ -1,6 +1,7 @@
 package ch.bfh.bti7081.blue.PMS.view;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -17,29 +18,32 @@ import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.GridLayout;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
+import com.vaadin.ui.PopupView;
+import com.vaadin.ui.TextField;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
 
-import ch.bfh.bti7081.blue.PMS.model.ChatModel;
 import ch.bfh.bti7081.blue.PMS.model.OrderModel;
-import ch.bfh.bti7081.blue.PMS.view.interfaces.SimonOrderViewInterface;
+import ch.bfh.bti7081.blue.PMS.model.OrderModelWrite;
+import ch.bfh.bti7081.blue.PMS.view.interfaces.OrderViewInterface;
 
-public class SimonOrderView extends CustomComponent implements SimonOrderViewInterface, ClickListener {
+public class OrderView extends CustomComponent implements OrderViewInterface, ClickListener {
 
 	private static final long serialVersionUID = 3958839843793423943L;
 
 	private EntityManagerFactory emFactory = Persistence.createEntityManagerFactory("relativeHelper");
 	private EntityManager em = emFactory.createEntityManager();
-
+	List<OrderModel> orderModel = new ArrayList<OrderModel>();
 	ArrayList<CheckBox> checkBoxList = new ArrayList<CheckBox>();
 	List<OrderViewListener> listeners = new ArrayList<OrderViewListener>();
-
-	public SimonOrderView() {
+	HeaderFooter root = new HeaderFooter("Order prescription");
+	VerticalLayout mainLayout = new VerticalLayout();
+	public OrderView() {
 
 		// Set root Layout with title
-		HeaderFooter root = new HeaderFooter("Order prescription");
-
+		
+		
 		// MainLayout for this view
 		VerticalLayout mainLayout = new VerticalLayout();
 		mainLayout.setSizeFull(); // mainLayout
@@ -53,7 +57,7 @@ public class SimonOrderView extends CustomComponent implements SimonOrderViewInt
 
 		Query q = em.createQuery("Select t FROM OrderModel t where t.LOGINACCOUNT_USERNAME = "
 				+ UI.getCurrent().getSession().getAttribute("user").toString());
-		List<OrderModel> chmod = q.getResultList();
+		orderModel = q.getResultList();
 
 		// Captions for the table
 		Label captionFirstColumn = new Label("Medicine");
@@ -69,7 +73,7 @@ public class SimonOrderView extends CustomComponent implements SimonOrderViewInt
 		GridLayout.addComponent(captionThirdColumn);
 
 		int i = 0;
-		for (OrderModel mod : chmod) {
+		for (OrderModel mod : orderModel) {
 			GridLayout.addComponent(new Label(mod.getName()));
 			GridLayout.addComponent(new Label(mod.getDescription()));
 			checkBoxList.add(new CheckBox("", false));
@@ -108,11 +112,47 @@ public class SimonOrderView extends CustomComponent implements SimonOrderViewInt
 
 	@Override
 	public void buttonClick(ClickEvent event) {
-		
+
 		for (OrderViewListener listener : listeners)
 			listener.buttonClick(event.getButton().getCaption());
+	}
+
+	public void writeInDb() {
+
 		for (CheckBox checkbox : checkBoxList) {
+			if (checkbox.getValue() == true) {
+				OrderModelWrite orderModelWrite = new OrderModelWrite();
+				em.getTransaction().begin();
+				orderModelWrite.setLOGINACCOUNT_USERNAME(UI.getCurrent().getSession().getAttribute("user").toString());
+				orderModelWrite.setName(orderModel.get(checkbox.getTabIndex()).getName());
+				orderModelWrite.setDate(new Date().toLocaleString());
+				orderModelWrite.setStatus("Verfügbar");
+				em.persist(orderModelWrite);
+				em.getTransaction().commit();
+			}
 			checkbox.setValue(false);
 		}
+
+	}
+
+	public void ask() {
+		VerticalLayout popupContent = new VerticalLayout();
+		
+		Label ensure = new Label("Are you sure you want to order?");
+		HorizontalLayout popupSubContent = new HorizontalLayout();
+		Button cancel = new Button("Cancel");
+		Button order = new Button("Order");
+		popupContent.setSizeFull();
+		popupSubContent.setSizeFull();
+		popupSubContent.addComponents(order, cancel);
+		popupContent.addComponents(ensure, popupSubContent);
+		PopupView popup = new PopupView(null, popupContent);
+		popup.setPopupVisible(true);
+		
+		popup.setHeight("200");
+		mainLayout.addComponent(popup);
+		mainLayout.setComponentAlignment(popup, Alignment.BOTTOM_CENTER);
+		setCompositionRoot(mainLayout);
+	
 	}
 }

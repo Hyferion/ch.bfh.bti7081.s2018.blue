@@ -1,7 +1,5 @@
 package ch.bfh.bti7081.blue.PMS.presenter;
 
-import ch.bfh.bti7081.blue.PMS.model.*;
-import ch.bfh.bti7081.blue.PMS.view.*;
 import com.vaadin.navigator.Navigator;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
@@ -10,7 +8,17 @@ import com.vaadin.ui.Notification;
 import com.vaadin.ui.UI;
 
 import ch.bfh.bti7081.blue.PMS.Util;
+import ch.bfh.bti7081.blue.PMS.model.LoginAccount;
+import ch.bfh.bti7081.blue.PMS.model.LoginViewModel;
+import ch.bfh.bti7081.blue.PMS.model.OrderModel;
+import ch.bfh.bti7081.blue.PMS.model.OrderStatusModel;
 import ch.bfh.bti7081.blue.PMS.presenter.interfaces.LoginViewButtonClickListener;
+import ch.bfh.bti7081.blue.PMS.view.ChatBox;
+import ch.bfh.bti7081.blue.PMS.view.LoginViewImpl;
+import ch.bfh.bti7081.blue.PMS.view.MainViewImp;
+import ch.bfh.bti7081.blue.PMS.view.OrderStatusViewImp;
+import ch.bfh.bti7081.blue.PMS.view.OrderView;
+import ch.bfh.bti7081.blue.PMS.view.OrderedView;
 
 public class LoginViewPresenter extends CustomComponent implements LoginViewButtonClickListener, View {
 
@@ -81,18 +89,18 @@ public class LoginViewPresenter extends CustomComponent implements LoginViewButt
 		navigator.addView("Order", OrderStatusImpl);
 				
 		//OrderView		
-		SimonOrderView orderView = new SimonOrderView();
+		OrderView orderView = new OrderView();
 		OrderModel model = new OrderModel();
 		new SimonOrderPresenter(model, orderView);
 		navigator.addView("OrderView", orderView);
 		
 		//OrderedView
-		SimonOrderedView orderedView = new SimonOrderedView();
+		OrderedView orderedView = new OrderedView();
 		new SimonOrderedPresenter(model, orderedView);
 		navigator.addView("OrderedView", orderedView);
 
-		//ChatView
-		/*ChatBox chatBox = new ChatBox();
+		/*//ChatView
+		ChatBox chatBox = new ChatBox();
 		navigator.addView("Chat",chatBox);*/
 
 	

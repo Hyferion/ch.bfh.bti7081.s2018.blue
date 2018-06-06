@@ -10,10 +10,6 @@ import ch.bfh.bti7081.blue.PMS.model.OrderStatusModel;
 import ch.bfh.bti7081.blue.PMS.view.OrderStatusViewImp;
 
 public class OrderStatusViewPresenter implements View {
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private OrderStatusModel orderStatusModel;
 	private OrderStatusViewImp orderStatusViewImp;
@@ -29,8 +25,7 @@ public class OrderStatusViewPresenter implements View {
 	public Set<OrderStatus> getOrders() {
 		return this.orders;
 	}
-	
-	
+
 	@SuppressWarnings("unchecked")
 	public void initializeOrders() {
 		orderStatusViewImp.getGrid().setItems(DBConnector.getDBConnector().getLoginAccount().getOrderStatus());

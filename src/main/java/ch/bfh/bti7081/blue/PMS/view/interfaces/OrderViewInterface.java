@@ -7,7 +7,7 @@ import com.vaadin.navigator.View;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.CheckBox;
 
-public interface SimonOrderViewInterface extends View {
+public interface OrderViewInterface extends View {
 
 	interface OrderViewListener {
 
