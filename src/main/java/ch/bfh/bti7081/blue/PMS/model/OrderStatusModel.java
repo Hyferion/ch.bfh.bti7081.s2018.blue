@@ -13,8 +13,8 @@ private Set<OrderStatus> OrderStatus;
 		DBConnector dbConnector = DBConnector.getDBConnector();
 		LoginAccount loginAccount = dbConnector.getLoginAccount();
 		
-		for (OrderStatus contact : loginAccount.getOrderStatus()) {
-			OrderStatus.add(contact);
+		for (OrderStatus orderstatus : loginAccount.getOrderStatus()) {
+			OrderStatus.add(orderstatus);
 		}
 	}
 

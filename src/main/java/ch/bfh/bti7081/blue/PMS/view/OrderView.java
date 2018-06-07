@@ -41,6 +41,7 @@ public class OrderView extends CustomComponent implements OrderViewInterface, Cl
 	HeaderFooter root = new HeaderFooter("Order prescription");
 	VerticalLayout mainLayout = new VerticalLayout();
 	Window subWindow = new Window("Order");
+	OrderStatus orderstatus = new OrderStatus();
 
 	public OrderView() {
 
@@ -124,6 +125,7 @@ public class OrderView extends CustomComponent implements OrderViewInterface, Cl
 				orderModelWrite.setStatus("Verfügbar");
 				em.persist(orderModelWrite);
 				em.getTransaction().commit();
+				em.refresh(orderModelWrite);
 			}
 			checkbox.setValue(false);
 		}
