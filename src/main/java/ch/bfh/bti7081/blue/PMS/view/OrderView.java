@@ -26,7 +26,7 @@ import com.vaadin.ui.Window;
 import com.vaadin.ui.themes.ValoTheme;
 
 import ch.bfh.bti7081.blue.PMS.model.OrderModel;
-import ch.bfh.bti7081.blue.PMS.model.OrderModelWrite;
+import ch.bfh.bti7081.blue.PMS.model.OrderStatus;
 import ch.bfh.bti7081.blue.PMS.view.interfaces.OrderViewInterface;
 
 public class OrderView extends CustomComponent implements OrderViewInterface, ClickListener {
@@ -116,7 +116,7 @@ public class OrderView extends CustomComponent implements OrderViewInterface, Cl
 
 		for (CheckBox checkbox : checkBoxList) {
 			if (checkbox.getValue() == true) {
-				OrderModelWrite orderModelWrite = new OrderModelWrite();
+				OrderStatus orderModelWrite = new OrderStatus();
 				em.getTransaction().begin();
 				orderModelWrite.setLOGINACCOUNT_USERNAME(UI.getCurrent().getSession().getAttribute("user").toString());
 				orderModelWrite.setName(orderModel.get(checkbox.getTabIndex()).getName());

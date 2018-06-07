@@ -13,7 +13,6 @@ import com.vaadin.ui.Grid;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
 
-import ch.bfh.bti7081.blue.PMS.model.OrderModelWrite;
 import ch.bfh.bti7081.blue.PMS.model.OrderStatus;
 
 public class OrderStatusViewImp extends CustomComponent implements View{
@@ -23,7 +22,7 @@ public class OrderStatusViewImp extends CustomComponent implements View{
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	Grid<OrderModelWrite> grid;
+	Grid<OrderStatus> grid;
 
 	public OrderStatusViewImp() {
 
@@ -36,9 +35,9 @@ public class OrderStatusViewImp extends CustomComponent implements View{
 
 		grid = new Grid<>();
 		grid.setSizeFull();
-		grid.addColumn(OrderModelWrite::getId).setCaption("Bestellung").setResizable(false);
-		grid.addColumn(OrderModelWrite::getDate).setCaption("Datum").setResizable(false);
-		grid.addColumn(OrderModelWrite::getStatus).setCaption("Status").setResizable(false);
+		grid.addColumn(OrderStatus::getId).setCaption("Bestellung").setResizable(false);
+		grid.addColumn(OrderStatus::getDate).setCaption("Datum").setResizable(false);
+		grid.addColumn(OrderStatus::getStatus).setCaption("Status").setResizable(false);
 		grid.addComponentColumn(this::printButton);
 		mainLayout.addComponent(grid);
 
@@ -49,7 +48,7 @@ public class OrderStatusViewImp extends CustomComponent implements View{
 
 	}
 
-	private Button printButton(OrderModelWrite p) {
+	private Button printButton(OrderStatus p) {
 		if ((p.getStatus().equals("Verfügbar"))) {
 			Button button = new Button(VaadinIcons.PRINT);
 			button.addStyleName(ValoTheme.BUTTON_SMALL);
