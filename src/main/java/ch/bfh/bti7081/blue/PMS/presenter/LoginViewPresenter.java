@@ -11,9 +11,8 @@ import ch.bfh.bti7081.blue.PMS.Util;
 import ch.bfh.bti7081.blue.PMS.model.LoginAccount;
 import ch.bfh.bti7081.blue.PMS.model.LoginViewModel;
 import ch.bfh.bti7081.blue.PMS.model.OrderModel;
-import ch.bfh.bti7081.blue.PMS.model.OrderStatusModel;
+import ch.bfh.bti7081.blue.PMS.model.OrderStatus;
 import ch.bfh.bti7081.blue.PMS.presenter.interfaces.LoginViewButtonClickListener;
-import ch.bfh.bti7081.blue.PMS.view.ChatBox;
 import ch.bfh.bti7081.blue.PMS.view.LoginViewImpl;
 import ch.bfh.bti7081.blue.PMS.view.MainViewImp;
 import ch.bfh.bti7081.blue.PMS.view.OrderStatusViewImp;
@@ -83,10 +82,10 @@ public class LoginViewPresenter extends CustomComponent implements LoginViewButt
 		navigator.addView("HomeView", view);
 
 		//OrderStatus View
-		OrderStatusViewImp OrderStatusImpl = new OrderStatusViewImp();
-		OrderStatusModel OrderStatusModel = new OrderStatusModel();
-		new OrderStatusViewPresenter(OrderStatusModel, OrderStatusImpl);
-		navigator.addView("Order", OrderStatusImpl);
+		OrderStatusViewImp orderStatusImpl = new OrderStatusViewImp();
+		OrderStatus orderStatus = new OrderStatus();
+		new OrderStatusViewPresenter(orderStatus, orderStatusImpl);
+		navigator.addView("Order", orderStatusImpl);
 				
 		//OrderView		
 		OrderView orderView = new OrderView();

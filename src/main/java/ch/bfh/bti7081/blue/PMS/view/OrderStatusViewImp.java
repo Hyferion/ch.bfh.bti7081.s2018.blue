@@ -1,14 +1,17 @@
 package ch.bfh.bti7081.blue.PMS.view;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.navigator.View;
+import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.server.FileDownloader;
 import com.vaadin.server.FileResource;
 import com.vaadin.server.Resource;
@@ -16,12 +19,11 @@ import com.vaadin.shared.data.sort.SortDirection;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.Grid;
+import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
 
-import ch.bfh.bti7081.blue.PMS.DB.DBConnector;
 import ch.bfh.bti7081.blue.PMS.model.OrderStatus;
-import ch.bfh.bti7081.blue.PMS.model.OrderStatusModel;
 
 public class OrderStatusViewImp extends CustomComponent implements View{
 
@@ -29,8 +31,12 @@ public class OrderStatusViewImp extends CustomComponent implements View{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	Grid<OrderStatus> grid;
-	private OrderStatusViewImp orderStatusViewImp;
+	private EntityManagerFactory emFactory = Persistence.createEntityManagerFactory("relativeHelper");
+	private EntityManager em = emFactory.createEntityManager();
+	List<OrderStatus> orderStatus = new ArrayList<OrderStatus>();
+	VerticalLayout mainLayout = new VerticalLayout();
+	Grid<OrderStatus> grid = new Grid<>();
+	
 
 	public OrderStatusViewImp() {
 
@@ -38,20 +44,10 @@ public class OrderStatusViewImp extends CustomComponent implements View{
 		HeaderFooter root = new HeaderFooter("Bestellstatus");
 
 		// MainLayout for this view
-		VerticalLayout mainLayout = new VerticalLayout();
 		mainLayout.setSizeFull(); // mainLayout
 		
-		Button refresh = new Button("Refresh", a ->System.out.println(DBConnector.getDBConnector().getLoginAccount().getOrderStatus().toString()));
-		mainLayout.addComponent(refresh);
-
-		grid = new Grid<>();
-		grid.setSizeFull();
-		grid.addColumn(OrderStatus::getId).setId("1").setCaption("Bestellung").setResizable(false);
-		grid.addColumn(OrderStatus::getDate).setId("2").setCaption("Datum").setResizable(false);
-		grid.addColumn(OrderStatus::getStatus).setId("3").setCaption("Status").setResizable(false);
-		grid.addComponentColumn(this::printButton);
-		grid.sort("2", SortDirection.DESCENDING);
-		mainLayout.addComponent(grid);
+		Button order = new Button("Neue Bestellung", a -> getUI().getNavigator().navigateTo("OrderView"));
+		mainLayout.addComponent(order);
 
 		// Add mainLayout to the root View
 		root.getlayout().addComponent(mainLayout, 1);
@@ -72,10 +68,22 @@ public class OrderStatusViewImp extends CustomComponent implements View{
 		return null;
 
 	}
+	
+	public void enter(ViewChangeListener.ViewChangeEvent event) {
+		System.out.println("hallo");
 
-	public Grid<OrderStatus> getGrid() {
-		return this.grid;
+		Query q = em.createQuery("Select t FROM OrderStatus t where t.LOGINACCOUNT_USERNAME = "
+				+ UI.getCurrent().getSession().getAttribute("user").toString());
+		orderStatus = q.getResultList();
+		
+		grid.removeAllColumns();
+		grid.setSizeFull();
+		grid.setItems(orderStatus);
+		grid.addColumn(OrderStatus::getId).setId("1").setCaption("Bestellung").setResizable(false);
+		grid.addColumn(OrderStatus::getDate).setId("2").setCaption("Datum").setResizable(false);
+		grid.addColumn(OrderStatus::getStatus).setId("3").setCaption("Status").setResizable(false);
+		grid.addComponentColumn(this::printButton);
+		grid.sort("2", SortDirection.DESCENDING);
+		mainLayout.addComponent(grid);
 	}
-
-
 }

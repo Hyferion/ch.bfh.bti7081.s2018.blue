@@ -1,12 +1,9 @@
 package ch.bfh.bti7081.blue.PMS.model;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 @Entity
@@ -22,13 +19,7 @@ public class OrderStatus {
 	private String LOGINACCOUNT_USERNAME;
 	private String status;
 	
-	@ManyToOne(cascade = CascadeType.PERSIST)
-	@PrimaryKeyJoinColumn(name = "LOGINACCOUNT_USERNAME")
-	private LoginAccount loginAccount;
-
-	public OrderStatus() {
-	}
-
+	
 	public String getLOGINACCOUNT_USERNAME() {
 		return LOGINACCOUNT_USERNAME;
 	}
@@ -68,13 +59,5 @@ public class OrderStatus {
  
 	public void setStatus(String status) {
 		this.status = status;
-	}
-	
-	public LoginAccount getLoginAccount() {
-		return loginAccount;
-	}
-
-	public void setLoginAccount(LoginAccount loginAccount) {
-		this.loginAccount = loginAccount;
 	}
 }
