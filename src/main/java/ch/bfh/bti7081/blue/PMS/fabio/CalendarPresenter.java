@@ -7,13 +7,16 @@ import ch.bfh.bti7081.blue.PMS.steve.TaskWindowImpl;
 import ch.bfh.bti7081.blue.PMS.DB.DBConnector;
 import ch.bfh.bti7081.blue.PMS.fabio.CalendarView.CalendarButtonListener;
 import ch.bfh.bti7081.blue.PMS.fabio.CalendarView.CalendarNativeSelectListener;
+import ch.bfh.bti7081.blue.PMS.model.Task;
 
 public class CalendarPresenter implements CalendarNativeSelectListener, CalendarButtonListener {
 
 	private CalendarView view;
+	private Task model;
 	DBConnector db = DBConnector.getDBConnector();
 	
-	public CalendarPresenter(CalendarView view) {
+	public CalendarPresenter(Task model, CalendarView view) {
+		this.model = model;
 		this.view = view;
 		view.addButtonListener(this);
 		view.addNativeSelectListener(this);
@@ -23,7 +26,7 @@ public class CalendarPresenter implements CalendarNativeSelectListener, Calendar
 
 	@Override
 	public void buttonClick() {
-		System.out.println("I was here at" + LocalTime.now());
+		System.out.println("New Task Button: " + LocalTime.now());
     	TaskWindowImpl taskWindow = new TaskWindowImpl();
 		UI.getCurrent().addWindow(taskWindow);
 		
@@ -31,7 +34,7 @@ public class CalendarPresenter implements CalendarNativeSelectListener, Calendar
 
 	@Override
 	public void nativeSelectChange(String filter) {
-		
+		System.out.println("NativeSelect: " + LocalTime.now());
 //		switch (filter) {
 //		case "Today":
 //			filterList = list.stream().filter(t -> t.getDate().now() == LocalDate.now()).collect(Collectors.toList());

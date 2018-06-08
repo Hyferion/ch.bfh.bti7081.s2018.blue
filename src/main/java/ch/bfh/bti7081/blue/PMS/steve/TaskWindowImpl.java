@@ -6,7 +6,6 @@ import com.vaadin.shared.ui.ContentMode;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.CheckBox;
-import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
@@ -15,7 +14,13 @@ import com.vaadin.ui.themes.ValoTheme;
 
 public class TaskWindowImpl extends Window {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public TaskWindowImpl() {
+		
 		VerticalLayout layout = new VerticalLayout();
 		Label title = new Label("Task 1");//Name of Task
 		title.setStyleName(ValoTheme.LABEL_H1);
@@ -65,6 +70,9 @@ public class TaskWindowImpl extends Window {
 		
 		layout.addComponent(layouttaskbuttons);
 		
+		setHeight("550px");
+		setWidth("400px");
+		center();
 		setContent(layout);
 		
 			

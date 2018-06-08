@@ -39,12 +39,15 @@ public class CalendarViewImpl extends CustomComponent implements CalendarView, C
 		
 		// Create filter nativeSelect
 		nsFilter = new NativeSelect<String>();
+		nsFilter.addValueChangeListener(this::valueChange);
 		nsFilter.setItems("Today", "This Week", "This Month", "This Year", "Show All");
 		nsFilter.setEmptySelectionAllowed(false);
 		nsFilter.setSelectedItem("Today");
 		
+		
 		// Create task button
-		Button newTaskButton = new Button("New Task");
+		Button newTaskButton = new Button("New Task", this::buttonClick);
+		
 		
 		// Create task grid
 		grid = new Grid<>(Task.class);
@@ -90,6 +93,7 @@ public class CalendarViewImpl extends CustomComponent implements CalendarView, C
 	@Override
 	public void addButtonListener(CalendarButtonListener listener) {
 		buttonListener.add(listener);
+		
 	}
 
 	@Override
