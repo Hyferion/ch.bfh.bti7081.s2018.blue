@@ -1,46 +1,26 @@
 package ch.bfh.bti7081.blue.PMS.model;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import ch.bfh.bti7081.blue.PMS.DB.DBConnector;
 
-//import ch.bfh.bti7081.blue.PMS.DB.DBConnector;
-
-@Entity
 public class InformationModel {
-
-	@Id
-	private String name;
-	private String text;
-
-	public InformationModel() {
-	}
+private Set<Information> Information;
 	
-	//public List<Information> getAllInformations() {
-	//	return (List<Information>) DBConnector.getDBConnector().getAllInformations();
-	//}
-
-	public InformationModel(String name, String text) {
-		super();
-		this.name = name;
-		this.text = text;
+	public InformationModel(){
+		Information = new HashSet<>();
+		DBConnector dbConnector = DBConnector.getDBConnector();
+		LoginAccount loginAccount = dbConnector.getLoginAccount();
+		
+		//for (Information contact : loginAccount.getInformation()) {
+		//	Information.add(contact);
+		//}
+		
+		
 	}
 
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getText() {
-		return text;
-	}
-
-	public void setText(String text) {
-		this.text = text;
+	public Set<Information> getInformation() {
+		return this.Information;
 	}
 }

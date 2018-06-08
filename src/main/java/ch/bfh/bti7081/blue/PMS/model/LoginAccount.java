@@ -22,6 +22,7 @@ public class LoginAccount {
 
 	@OneToMany(mappedBy = "loginAccount", cascade = CascadeType.PERSIST)
 	private Set<OrderStatus> OrderStatus;
+	//private Set<Information> Information;
 
 	public LoginAccount() {
 	}
@@ -98,7 +99,15 @@ public class LoginAccount {
 		return OrderStatus;
 	}
 
+	//public Set<Information> getInformation() {
+	//	return Information;
+	//}
+	
 	public void setOrderStatus(Set<OrderStatus> OrderStatus) {
 		this.OrderStatus = OrderStatus;
 	}
+	
+	//public void setInformation(Set<Information> Information) {
+	//	this.Information = Information;
+	//}
 }

@@ -18,13 +18,13 @@ USE `relativehelper`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `informatio `
+-- Table structure for table `information `
 --
 
 DROP TABLE IF EXISTS `information`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `orderstatus` (
+CREATE TABLE `information` (
   `NAME` varchar(100) NOT NULL,
   `TEXT` text(10000) DEFAULT NULL,
   PRIMARY KEY (`NAME`)
