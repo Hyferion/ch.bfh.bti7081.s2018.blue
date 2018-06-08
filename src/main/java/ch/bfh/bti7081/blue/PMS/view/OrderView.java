@@ -110,7 +110,7 @@ public class OrderView extends CustomComponent implements OrderViewInterface, Cl
 					orderModelWrite.setDate(new Date().toLocaleString());
 					String[] status = {"Verfügbar", "Verfügbar", "In Bearbeitung", "Abgelehnt", "Verfügbar"};
 			         Random random = new Random();
-			         int select = random.nextInt(status.length);
+			         int select = random.nextInt(status.length); 
 					orderModelWrite.setStatus(status[select]);
 					em.persist(orderModelWrite);
 					em.getTransaction().commit();
