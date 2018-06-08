@@ -1,17 +1,23 @@
 package ch.bfh.bti7081.blue.PMS.view.interfaces;
 
-import java.util.ArrayList;
+import java.util.List;
 
-import com.vaadin.navigator.Navigator;
+import javax.persistence.EntityManager;
+
 import com.vaadin.navigator.View;
 import com.vaadin.ui.Button.ClickEvent;
-import com.vaadin.ui.CheckBox;
+
+import ch.bfh.bti7081.blue.PMS.model.OrderModel;
 
 public interface OrderViewInterface extends View {
 
 	interface OrderViewListener {
 
 		void buttonClick(String string);
+
+		EntityManager getQuery();
+
+		List<OrderModel> getResultList();
 
 	}
 

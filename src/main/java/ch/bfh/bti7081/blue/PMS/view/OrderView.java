@@ -3,14 +3,11 @@ package ch.bfh.bti7081.blue.PMS.view;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.Query;
 
-import org.eclipse.persistence.internal.libraries.asm.commons.GeneratorAdapter;
-
+import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
@@ -32,67 +29,48 @@ import ch.bfh.bti7081.blue.PMS.view.interfaces.OrderViewInterface;
 public class OrderView extends CustomComponent implements OrderViewInterface, ClickListener {
 
 	private static final long serialVersionUID = 3958839843793423943L;
-
-	private EntityManagerFactory emFactory = Persistence.createEntityManagerFactory("relativeHelper");
-	private EntityManager em = emFactory.createEntityManager();
-	List<OrderModel> orderModel = new ArrayList<OrderModel>();
+	// ArrayList for all the checkboxes that the user can order certain
+	// prescritpion
 	ArrayList<CheckBox> checkBoxList = new ArrayList<CheckBox>();
+
 	List<OrderViewListener> listeners = new ArrayList<OrderViewListener>();
+
+	// new rootLayout that all views has the same head and footer.
 	HeaderFooter root = new HeaderFooter("Order prescription");
+
+	// The mainLayout of this view
 	VerticalLayout mainLayout = new VerticalLayout();
+
+	// SubWindows is used to ensure that the user really wants to order
 	Window subWindow = new Window("Order");
-	OrderStatus orderstatus = new OrderStatus();
+
+	// In this GridLayout all the avaliable prescription will be displayed. 3
+	// Columns. The First is for the name of the medicine. the second for a
+	// description of the meidicin and the last one is for the checkbox
+	GridLayout gridLayout = new GridLayout(3, 1);
 
 	public OrderView() {
 
-		// Set root Layout with title
+		// Add the girdLayout to the mainLayout. The grid layout is still empty
+		// and will be filled when the user enters the view
+		mainLayout.addComponent(gridLayout);
+		mainLayout.setSizeFull();
 
-		// MainLayout for this view
-		VerticalLayout mainLayout = new VerticalLayout();
-		mainLayout.setSizeFull(); // mainLayout
-
-		// GridLayout to dispaly all the medicine with a Checkbox to select a
-		// certain medicine
-		GridLayout GridLayout = new GridLayout(3, 5);
-		mainLayout.addComponent(GridLayout);
-		GridLayout.setSpacing(true);
-		GridLayout.setSizeFull();
-
-		Query q = em.createQuery("Select t FROM OrderModel t where t.LOGINACCOUNT_USERNAME = "
-				+ UI.getCurrent().getSession().getAttribute("user").toString());
-		orderModel = q.getResultList();
-
-		// Captions for the table
-		Label captionFirstColumn = new Label("Medicine");
-		captionFirstColumn.addStyleName(ValoTheme.LABEL_H2);
-		GridLayout.addComponent(captionFirstColumn);
-
-		Label captionSecondColumn = new Label("Description");
-		captionSecondColumn.addStyleName(ValoTheme.LABEL_H2);
-		GridLayout.addComponent(captionSecondColumn);
-
-		Label captionThirdColumn = new Label("Select");
-		captionThirdColumn.addStyleName(ValoTheme.LABEL_H2);
-		GridLayout.addComponent(captionThirdColumn);
-
-		int i = 0;
-		for (OrderModel mod : orderModel) {
-			GridLayout.addComponent(new Label(mod.getName()));
-			GridLayout.addComponent(new Label(mod.getDescription()));
-			checkBoxList.add(new CheckBox("", false));
-			GridLayout.addComponent(checkBoxList.get(i++));
-		}
+		gridLayout.setSpacing(true);
+		gridLayout.setSizeFull();
 
 		// HorizontalLayout for the Buttons "Order history" and "Send order"
 		HorizontalLayout horizontalLayout = new HorizontalLayout();
 		horizontalLayout.setSizeFull();
 
+		// create new Button Order history
 		Button ButtonHistory = new Button("Order history", this);
 		ButtonHistory.setHeight("80");
 		ButtonHistory.setWidth("150");
 		horizontalLayout.addComponent(ButtonHistory);
 		horizontalLayout.setComponentAlignment(ButtonHistory, Alignment.TOP_LEFT);
 
+		// create new Button SendOrder
 		Button ButtonSend = new Button("Send Order", this);
 		ButtonSend.setHeight("120");
 		ButtonSend.setWidth("150");
@@ -113,21 +91,34 @@ public class OrderView extends CustomComponent implements OrderViewInterface, Cl
 
 	}
 
-	public void writeInDb() {
+	// this method is used to write all the orders in the db. each prescirption
+	// order gets a new line in the orderstatus db.
+	public void writeInDb(EntityManager em) {
 
-		for (CheckBox checkbox : checkBoxList) {
-			if (checkbox.getValue() == true) {
-				OrderStatus orderModelWrite = new OrderStatus();
-				em.getTransaction().begin();
-				orderModelWrite.setLOGINACCOUNT_USERNAME(UI.getCurrent().getSession().getAttribute("user").toString());
-				orderModelWrite.setName(orderModel.get(checkbox.getTabIndex()).getName());
-				orderModelWrite.setDate(new Date().toLocaleString());
-				orderModelWrite.setStatus("Verfügbar");
-				em.persist(orderModelWrite);
-				em.getTransaction().commit();
-				em.refresh(orderModelWrite);
+		List<OrderModel> orderModel = new ArrayList<OrderModel>();
+		for (OrderViewListener listener : listeners) {
+			orderModel = listener.getResultList();
+
+			int i = 0;
+			for (CheckBox checkbox : checkBoxList) {
+				if (checkbox.getValue() == true) {
+					OrderStatus orderModelWrite = new OrderStatus();
+					em.getTransaction().begin();
+					orderModelWrite
+							.setLOGINACCOUNT_USERNAME(UI.getCurrent().getSession().getAttribute("user").toString());
+					orderModelWrite.setName(orderModel.get(i).getName());
+					orderModelWrite.setDate(new Date().toLocaleString());
+					String[] status = {"Verfügbar", "Verfügbar", "In Bearbeitung", "Abgelehnt"};
+			         Random random = new Random();
+			         int select = random.nextInt(status.length);
+					orderModelWrite.setStatus(status[select]);
+					em.persist(orderModelWrite);
+					em.getTransaction().commit();
+					em.refresh(orderModelWrite);
+					i++;
+				}
+				checkbox.setValue(false);
 			}
-			checkbox.setValue(false);
 		}
 
 	}
@@ -165,11 +156,40 @@ public class OrderView extends CustomComponent implements OrderViewInterface, Cl
 	}
 
 	@Override
+	public void enter(ViewChangeEvent event) {
+		gridLayout.removeAllComponents();
+		List<OrderModel> orderModel = new ArrayList<OrderModel>();
+		for (OrderViewListener listener : listeners) {
+			orderModel = listener.getResultList();
+		}
+
+		// Captions for the table
+		Label captionFirstColumn = new Label("Medicine");
+		captionFirstColumn.addStyleName(ValoTheme.LABEL_H2);
+		gridLayout.addComponent(captionFirstColumn);
+
+		Label captionSecondColumn = new Label("Description");
+		captionSecondColumn.addStyleName(ValoTheme.LABEL_H2);
+		gridLayout.addComponent(captionSecondColumn);
+
+		Label captionThirdColumn = new Label("Select");
+		captionThirdColumn.addStyleName(ValoTheme.LABEL_H2);
+		gridLayout.addComponent(captionThirdColumn);
+
+		int i = 0;
+		for (OrderModel mod : orderModel) {
+			gridLayout.addComponent(new Label(mod.getName()));
+			gridLayout.addComponent(new Label(mod.getDescription()));
+			checkBoxList.add(new CheckBox("", false));
+			gridLayout.addComponent(checkBoxList.get(i++));
+		}
+	}
+
+	@Override
 	public void buttonClick(ClickEvent event) {
 
 		for (OrderViewListener listener : listeners) {
 			listener.buttonClick(event.getButton().getCaption());
 		}
 	}
-
 }

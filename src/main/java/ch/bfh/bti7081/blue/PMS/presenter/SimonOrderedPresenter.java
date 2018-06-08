@@ -1,14 +1,14 @@
 package ch.bfh.bti7081.blue.PMS.presenter;
 
-import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.EntityManager;
+
+import com.vaadin.ui.CustomComponent;
 
 import ch.bfh.bti7081.blue.PMS.model.OrderModel;
 import ch.bfh.bti7081.blue.PMS.view.OrderView;
 import ch.bfh.bti7081.blue.PMS.view.OrderedView;
-
-import com.vaadin.navigator.Navigator;
-import com.vaadin.ui.CheckBox;
-import com.vaadin.ui.CustomComponent;
 
 public class SimonOrderedPresenter extends CustomComponent implements OrderView.OrderViewListener {
 
@@ -29,9 +29,20 @@ public class SimonOrderedPresenter extends CustomComponent implements OrderView.
 		}
 
 		if (operation.equals("Order history")) {
-			System.out.println("bbbbbbbbbbbbbb");
+
 			view.getUI().getNavigator().navigateTo("Order");
 		}
+	}
+
+	@Override
+	public EntityManager getQuery() {
+		return null;
+	}
+
+	@Override
+	public List<OrderModel> getResultList() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

@@ -80,8 +80,9 @@ public class OrderStatusViewImp extends CustomComponent implements View{
 		grid.setSizeFull();
 		grid.setItems(orderStatus);
 		grid.addColumn(OrderStatus::getId).setId("1").setCaption("Bestellung").setResizable(false);
-		grid.addColumn(OrderStatus::getDate).setId("2").setCaption("Datum").setResizable(false);
-		grid.addColumn(OrderStatus::getStatus).setId("3").setCaption("Status").setResizable(false);
+		grid.addColumn(OrderStatus::getName).setId("2").setCaption("Name").setResizable(false);
+		grid.addColumn(OrderStatus::getDate).setId("3").setCaption("Datum").setResizable(false);
+		grid.addColumn(OrderStatus::getStatus).setId("4").setCaption("Status").setResizable(false);
 		grid.addComponentColumn(this::printButton);
 		grid.sort("2", SortDirection.DESCENDING);
 		mainLayout.addComponent(grid);
