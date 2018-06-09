@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import com.vaadin.ui.CustomComponent;
 
 import ch.bfh.bti7081.blue.PMS.model.OrderModel;
+import ch.bfh.bti7081.blue.PMS.model.OrderStatus;
 import ch.bfh.bti7081.blue.PMS.view.OrderView;
 import ch.bfh.bti7081.blue.PMS.view.OrderedView;
 
@@ -41,6 +42,12 @@ public class SimonOrderedPresenter extends CustomComponent implements OrderView.
 
 	@Override
 	public List<OrderModel> getResultList() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<OrderStatus> getResultListStatus() {
 		// TODO Auto-generated method stub
 		return null;
 	}

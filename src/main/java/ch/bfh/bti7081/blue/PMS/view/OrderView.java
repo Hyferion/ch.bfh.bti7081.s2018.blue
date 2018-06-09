@@ -187,7 +187,6 @@ public class OrderView extends CustomComponent implements OrderViewInterface, Cl
 
 	@Override
 	public void buttonClick(ClickEvent event) {
-
 		for (OrderViewListener listener : listeners) {
 			listener.buttonClick(event.getButton().getCaption());
 		}
