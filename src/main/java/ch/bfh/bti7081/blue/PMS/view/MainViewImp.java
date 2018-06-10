@@ -34,7 +34,7 @@ public class MainViewImp extends CustomComponent implements View {
 		but.setSpacing(true);
 		
 		Button butBest = new Button("Bestellungen", e -> getUI().getNavigator().navigateTo("OrderView"));
-		Button butChat = new Button("Chat", e -> getUI().getNavigator().navigateTo("Chat"));
+		Button butChat = new Button("Chat", e -> getUI().getNavigator().navigateTo("ChatRoom"));
 		Button butKalender = new Button("Kalender");
 		
 		

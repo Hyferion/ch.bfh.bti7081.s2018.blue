@@ -13,6 +13,15 @@ public class ChatModel {
 
     private String username;
 
+    private int chatroom;
+
+    public int getChatroom() {
+        return chatroom;
+    }
+
+    public void setChatroom(int chatroom) {
+        this.chatroom = chatroom;
+    }
 
     public String getUsername() {
         return username;
