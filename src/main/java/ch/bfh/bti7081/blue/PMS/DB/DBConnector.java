@@ -35,6 +35,10 @@ public class DBConnector {
 		em.clear();
 	}
 	
+	public EntityManager getEntityManager() {
+		return this.em;
+	}
+	
 	public String getAccountUsername() {
 		return accountUsername;
 	}

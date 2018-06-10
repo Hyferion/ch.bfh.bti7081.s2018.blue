@@ -40,7 +40,7 @@ public class CalendarViewImpl extends CustomComponent implements CalendarView, C
 		// Create filter nativeSelect
 		nsFilter = new NativeSelect<String>();
 		nsFilter.addValueChangeListener(this::valueChange);
-		nsFilter.setItems("Today", "This Week", "This Month", "This Year", "Show All");
+		nsFilter.setItems("Last 30 Days","Last 7 Days","Today","Next 7 Days", "Next 30 Days","Show All");
 		nsFilter.setEmptySelectionAllowed(false);
 		nsFilter.setSelectedItem("Today");
 		

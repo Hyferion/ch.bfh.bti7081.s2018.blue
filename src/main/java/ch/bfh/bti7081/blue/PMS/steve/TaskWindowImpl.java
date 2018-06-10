@@ -1,37 +1,66 @@
 package ch.bfh.bti7081.blue.PMS.steve;
 
+import com.vaadin.icons.VaadinIcons;
 import com.vaadin.server.ClassResource;
 import com.vaadin.server.FileDownloader;
+import com.vaadin.server.Sizeable.Unit;
 import com.vaadin.shared.ui.ContentMode;
+import com.vaadin.shared.ui.MarginInfo;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.CheckBox;
+import com.vaadin.ui.FormLayout;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
+import com.vaadin.ui.TextArea;
+import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
 import com.vaadin.ui.themes.ValoTheme;
 
+import ch.bfh.bti7081.blue.PMS.model.Task;
+
 public class TaskWindowImpl extends Window {
 	
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
+	private Task task;
+	
 
 	public TaskWindowImpl() {
 		
-		VerticalLayout layout = new VerticalLayout();
-		Label title = new Label("Task 1");//Name of Task
-		title.setStyleName(ValoTheme.LABEL_H1);
-		Label desctitle = new Label("Description");
-		Label description = new Label("Some\nMultiline\nDescription", ContentMode.PREFORMATTED);
-		Label filetitle = new Label ("Related Files");
-		layout.addComponent(title);
-		layout.addComponent(desctitle);
-		layout.addComponent(description);
-		layout.addComponent(filetitle);
+		VerticalLayout vLayout = new VerticalLayout();
 		
+		//Name of Task
+		Label title = new Label("Task");
+		title.setStyleName(ValoTheme.LABEL_H1);
+		title.setHeight("0px");
+		
+		// Create form layout
+		FormLayout fLayout = new FormLayout();
+		
+		// Create subject field
+		final TextField subjectField  = new TextField("Subject");
+		subjectField.setWidth(100.0f, Unit.PERCENTAGE);
+		subjectField.setReadOnly(true);
+		
+		// Create due date field
+		final TextField dueDateField  = new TextField("Due Date");
+		dueDateField.setWidth(20.0f, Unit.PERCENTAGE);
+		dueDateField.setReadOnly(true);
+		
+		// Create description Area
+		final TextArea descriptionField = new TextArea("Description");
+		descriptionField.setWidth(100.0f, Unit.PERCENTAGE);
+		descriptionField.setReadOnly(true);
+		
+		// Create status label
+		final Label statusLabel = new Label();
+		statusLabel.setCaption("Status");
+		statusLabel.setValue("Done");		
+	
+		// Files to download
+		HorizontalLayout hLayout = new HorizontalLayout();
 		ClassResource resourcefile1 = new ClassResource("File1.txt");
 		ClassResource resourcefile2 = new ClassResource("File2.txt");
 		ClassResource resourcefile3 = new ClassResource("File3.txt");
@@ -50,30 +79,27 @@ public class TaskWindowImpl extends Window {
 		FileDownloader downloaderfile3 = new FileDownloader(resourcefile3);
 		downloaderfile3.extend(downloadfile3button);
 		
-		layout.addComponent(downloadfile1button);
-		layout.addComponent(downloadfile2button);
-		layout.addComponent(downloadfile3button);
+		hLayout.addComponent(downloadfile1button);
+		hLayout.addComponent(downloadfile2button);
+		hLayout.addComponent(downloadfile3button);
+		hLayout.setCaption("Downloads");
+		hLayout.setMargin(false);
 		
-		HorizontalLayout layouttaskbuttons = new HorizontalLayout();
+		// Add components to form layout
+		fLayout.addComponents(subjectField, dueDateField, descriptionField, statusLabel, hLayout);
 		
-		CheckBox donecheckbox = new CheckBox("Done");
-		layouttaskbuttons.addComponent(donecheckbox);
 		
-		Button savebutton = new Button("Save");
-		layouttaskbuttons.addComponent(savebutton);
+		// components to vertical layout and set content		
+		vLayout.addComponents(title, fLayout);
 		
-		Button editbutton = new Button("Edit");
-		layouttaskbuttons.addComponent(editbutton);
+		setContent(vLayout);
 		
-		Button deletebutton = new Button("Delete");
-		layouttaskbuttons.addComponent(deletebutton);
-		
-		layout.addComponent(layouttaskbuttons);
-		
-		setHeight("550px");
-		setWidth("400px");
+		// Specify the window size
+		setHeight("500px");
+		setWidth("700px");
 		center();
-		setContent(layout);
+		
+		
 		
 			
 	}

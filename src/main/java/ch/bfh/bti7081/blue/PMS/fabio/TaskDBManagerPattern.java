@@ -1,5 +1,5 @@
-package ch.bfh.bti7081.blue.PMS.fabio;
-/*package ch.bfh.bti7081.blue.PMS;
+/*package ch.bfh.bti7081.blue.PMS.fabio;
+
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -57,7 +57,8 @@ public class TaskDBManager {
 		return query.getResultList();
 	}
 
-	private String dateTime(LocalDateTime now, int days) {
-		return LocalDateTime.now().plusDays(days).format(DateTimeFormatter.ofPattern("dd.MM.yyyy, HH:MI"));
+	private String dateTime(LocalDate now, int days) {
+		return LocalDate.now().plusDays(days).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
 	}
-}*/
+}
+*/

@@ -2,9 +2,8 @@ package ch.bfh.bti7081.blue.PMS.model;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.HashSet;
-import java.util.Set;
-
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -21,12 +20,12 @@ public class Task {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int taskId;
 	private String subject;
-	private String content;
+	private String description;
 	private String dueDate;
 	private boolean status;
 	
 	@OneToMany(mappedBy = "taskId")
-	private Set<File> files;
+	private List<File> files;
 	
 	public Task() {
 		
@@ -45,7 +44,7 @@ public class Task {
 	}
 
 	public void setContent(String content) {
-		this.content = content;
+		this.description = content;
 	}
 
 	public void setDueDate(String dueDate) {
@@ -58,7 +57,7 @@ public class Task {
 	
 	public void setFile(File file) {
 		if (files == null) {
-			files = new HashSet<File>();
+			files = new ArrayList<File>();
 		} 
 		this.files.add(file);
 	}
@@ -72,7 +71,7 @@ public class Task {
 	}
 
 	public String getContent() {
-		return content;
+		return description;
 	}
 
 	public String getDueDate() {
@@ -83,7 +82,7 @@ public class Task {
 		return status;
 	}
 
-	public Set<File> getFiles() {
+	public List<File> getFiles() {
 		return files;
 	}
 
