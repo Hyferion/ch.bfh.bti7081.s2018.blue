@@ -70,7 +70,8 @@ public class OrderedView extends CustomComponent implements OrderViewInterface, 
 	@Override
 	public void buttonClick(ClickEvent event) {
 		System.out.println(listeners.toString());
-		for (OrderViewListener listener : listeners)
+		for (OrderViewListener listener : listeners) {
 			listener.buttonClick(event.getButton().getCaption());
+		}
 	}
 }

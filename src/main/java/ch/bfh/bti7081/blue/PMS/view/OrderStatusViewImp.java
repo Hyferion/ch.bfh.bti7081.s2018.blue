@@ -23,15 +23,9 @@ import ch.bfh.bti7081.blue.PMS.view.interfaces.OrderViewInterface;
 
 public class OrderStatusViewImp extends CustomComponent implements OrderViewInterface, ClickListener{
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	
+	private static final long serialVersionUID = 5138985064356953846L;
 	VerticalLayout mainLayout = new VerticalLayout();
 	Grid<OrderStatus> grid = new Grid<>();
-	List<OrderViewListener> listeners = new ArrayList<OrderViewListener>();
-	
 
 	public OrderStatusViewImp() {
 
@@ -41,7 +35,7 @@ public class OrderStatusViewImp extends CustomComponent implements OrderViewInte
 		// MainLayout for this view
 		mainLayout.setSizeFull(); // mainLayout
 		
-		Button order = new Button("test", this);
+		Button order = new Button("Neue Bestellung", this);
 		mainLayout.addComponent(order);
 
 		// Add mainLayout to the root View
@@ -51,9 +45,10 @@ public class OrderStatusViewImp extends CustomComponent implements OrderViewInte
 
 	}
 	
+	List<OrderViewListener> listeners = new ArrayList<OrderViewListener>();
+	
 	public void addListener(OrderViewListener listener) {
 		listeners.add(listener);
-
 	}
 	
 	private Button printButton(OrderStatus p) {
@@ -90,7 +85,6 @@ public class OrderStatusViewImp extends CustomComponent implements OrderViewInte
 	@Override
 	public void buttonClick(ClickEvent event) {
 		for (OrderViewListener listener : listeners) {
-			System.out.println("hallo");
 			listener.buttonClick(event.getButton().getCaption());
 		}
 		

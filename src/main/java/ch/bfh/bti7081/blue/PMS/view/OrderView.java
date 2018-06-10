@@ -88,7 +88,6 @@ public class OrderView extends CustomComponent implements OrderViewInterface, Cl
 
 	public void addListener(OrderViewListener listener) {
 		listeners.add(listener);
-
 	}
 
 	// this method is used to write all the orders in the db. each prescirption
