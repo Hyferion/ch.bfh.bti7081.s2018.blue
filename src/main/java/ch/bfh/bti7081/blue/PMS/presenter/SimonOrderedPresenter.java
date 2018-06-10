@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 
+import com.vaadin.server.Resource;
 import com.vaadin.ui.CustomComponent;
 
 import ch.bfh.bti7081.blue.PMS.model.OrderModel;

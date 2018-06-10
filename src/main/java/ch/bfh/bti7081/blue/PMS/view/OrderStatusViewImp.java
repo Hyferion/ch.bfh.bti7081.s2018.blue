@@ -20,8 +20,9 @@ import com.vaadin.ui.themes.ValoTheme;
 
 import ch.bfh.bti7081.blue.PMS.model.OrderStatus;
 import ch.bfh.bti7081.blue.PMS.view.interfaces.OrderViewInterface;
+import ch.bfh.bti7081.blue.PMS.view.interfaces.OrderViewInterface.OrderViewListener;
 
-public class OrderStatusViewImp extends CustomComponent implements OrderViewInterface, ClickListener{
+public class OrderStatusViewImp extends CustomComponent implements OrderViewInterface, ClickListener {
 
 	private static final long serialVersionUID = 5138985064356953846L;
 	VerticalLayout mainLayout = new VerticalLayout();
@@ -34,7 +35,7 @@ public class OrderStatusViewImp extends CustomComponent implements OrderViewInte
 
 		// MainLayout for this view
 		mainLayout.setSizeFull(); // mainLayout
-		
+
 		Button order = new Button("Neue Bestellung", this);
 		mainLayout.addComponent(order);
 
@@ -44,16 +45,17 @@ public class OrderStatusViewImp extends CustomComponent implements OrderViewInte
 		setCompositionRoot(root);
 
 	}
-	
+
 	List<OrderViewListener> listeners = new ArrayList<OrderViewListener>();
-	
+
 	public void addListener(OrderViewListener listener) {
 		listeners.add(listener);
 	}
-	
+
 	private Button printButton(OrderStatus p) {
 		if ((p.getStatus().equals("Verfügbar"))) {
-			Button button = new Button(VaadinIcons.PRINT);
+			Button button = new Button("Print");
+			button.setIcon(VaadinIcons.PRINT);
 			button.addStyleName(ValoTheme.BUTTON_SMALL);
 			Resource res = new FileResource(new File("C:\\Users\\Lars Gertsch\\git\\ch.bfh.bti7081.s2018.blue\\file.pdf"));
 			FileDownloader fd = new FileDownloader(res);
@@ -63,13 +65,13 @@ public class OrderStatusViewImp extends CustomComponent implements OrderViewInte
 		return null;
 
 	}
-	
+
 	public void enter(ViewChangeListener.ViewChangeEvent event) {
 		List<OrderStatus> orderStatus = new ArrayList<OrderStatus>();
 		for (OrderViewListener listener : listeners) {
 			orderStatus = listener.getResultListStatus();
 		}
-		
+
 		grid.removeAllColumns();
 		grid.setSizeFull();
 		grid.setItems(orderStatus);
@@ -85,8 +87,9 @@ public class OrderStatusViewImp extends CustomComponent implements OrderViewInte
 	@Override
 	public void buttonClick(ClickEvent event) {
 		for (OrderViewListener listener : listeners) {
+			System.out.println("test");
 			listener.buttonClick(event.getButton().getCaption());
 		}
-		
+
 	}
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 
 import com.vaadin.navigator.View;
+import com.vaadin.server.Resource;
 import com.vaadin.ui.Button.ClickEvent;
 
 import ch.bfh.bti7081.blue.PMS.model.OrderModel;
