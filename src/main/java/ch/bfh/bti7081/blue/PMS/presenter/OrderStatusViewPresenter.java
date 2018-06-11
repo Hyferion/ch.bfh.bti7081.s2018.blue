@@ -28,19 +28,15 @@ public class OrderStatusViewPresenter extends CustomComponent implements OrderSt
 
 	}
 
+	//navigates to the right view
 	@Override
 	public void buttonClick(String operation) {
 		if (operation.equals("Neue Bestellung")) {
 			view.getUI().getNavigator().navigateTo("OrderView");
 		}
-		
-	}
-	
-	@Override
-	public EntityManager getQuery() {
-		return em;
 	}
 
+	//gets data from DB
 	@Override
 	public List<OrderStatus> getResultListStatus() {
 		List<OrderStatus> orderStatus = new ArrayList<OrderStatus>();

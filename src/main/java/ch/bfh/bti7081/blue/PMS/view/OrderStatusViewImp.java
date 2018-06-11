@@ -49,11 +49,12 @@ public class OrderStatusViewImp extends CustomComponent implements OrderStatusIn
 	}
 
 	List<OrderStatusListener> listeners = new ArrayList<OrderStatusListener>();
-
 	public void addListener(OrderStatusListener listener) {
 		listeners.add(listener);
 	}
 
+	//crates a Button to every status that is "Verfübgar" and
+	//creates a PDF for every prescription
 	private Button printButton(OrderStatus p) {
 		if ((p.getStatus().equals("Verfügbar"))) {
 			Button button = new Button("Print", this);
@@ -75,12 +76,12 @@ public class OrderStatusViewImp extends CustomComponent implements OrderStatusIn
 
 	}
 
+	// creates every time a new grid when entered the view
 	public void enter(ViewChangeListener.ViewChangeEvent event) {
 		List<OrderStatus> orderStatus = new ArrayList<OrderStatus>();
 		for (OrderStatusListener listener : listeners) {
 			orderStatus = listener.getResultListStatus();
 		}
-
 		grid.removeAllColumns();
 		grid.setSizeFull();
 		grid.setItems(orderStatus);

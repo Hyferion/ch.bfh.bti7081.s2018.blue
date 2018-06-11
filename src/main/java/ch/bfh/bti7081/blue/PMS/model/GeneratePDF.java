@@ -16,6 +16,7 @@ import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 
+//this class is to create a PDF File for every prescription
 public class GeneratePDF {
 
     public static File pfdGenerator(Long id, String name, String date, String medizin) throws DocumentException {
