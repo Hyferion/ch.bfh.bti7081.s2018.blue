@@ -14,7 +14,7 @@ public interface OrderStatusInterface extends View {
 
 	interface OrderStatusListener {
 
-		void buttonClick(String string, Button buton);
+		void buttonClick(String string);
 		
 		EntityManager getQuery();
 		
