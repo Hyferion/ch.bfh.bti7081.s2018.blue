@@ -1,14 +1,10 @@
 package ch.bfh.bti7081.blue.PMS.view;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.navigator.ViewChangeListener;
-import com.vaadin.server.FileDownloader;
-import com.vaadin.server.FileResource;
-import com.vaadin.server.Resource;
 import com.vaadin.shared.data.sort.SortDirection;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
@@ -19,10 +15,9 @@ import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
 
 import ch.bfh.bti7081.blue.PMS.model.OrderStatus;
-import ch.bfh.bti7081.blue.PMS.view.interfaces.OrderViewInterface;
-import ch.bfh.bti7081.blue.PMS.view.interfaces.OrderViewInterface.OrderViewListener;
+import ch.bfh.bti7081.blue.PMS.view.interfaces.OrderStatusInterface;
 
-public class OrderStatusViewImp extends CustomComponent implements OrderViewInterface, ClickListener {
+public class OrderStatusViewImp extends CustomComponent implements OrderStatusInterface, ClickListener {
 
 	private static final long serialVersionUID = 5138985064356953846L;
 	VerticalLayout mainLayout = new VerticalLayout();
@@ -46,20 +41,21 @@ public class OrderStatusViewImp extends CustomComponent implements OrderViewInte
 
 	}
 
-	List<OrderViewListener> listeners = new ArrayList<OrderViewListener>();
+	List<OrderStatusListener> listeners = new ArrayList<OrderStatusListener>();
 
-	public void addListener(OrderViewListener listener) {
+	public void addListener(OrderStatusListener listener) {
 		listeners.add(listener);
 	}
 
 	private Button printButton(OrderStatus p) {
 		if ((p.getStatus().equals("Verfügbar"))) {
-			Button button = new Button("Print");
+			Button button = new Button("Print", this);
 			button.setIcon(VaadinIcons.PRINT);
 			button.addStyleName(ValoTheme.BUTTON_SMALL);
-			Resource res = new FileResource(new File("C:\\Users\\Lars Gertsch\\git\\ch.bfh.bti7081.s2018.blue\\file.pdf"));
-			FileDownloader fd = new FileDownloader(res);
-			fd.extend(button);
+			//System.out.println(p.getId().toString());
+			//Resource res = new FileResource(new File("C:\\Users\\Lars Gertsch\\git\\ch.bfh.bti7081.s2018.blue\\file.pdf"));
+			//FileDownloader fd = new FileDownloader(res);
+			//fd.extend(button);
 			return button;
 		}
 		return null;
@@ -68,7 +64,7 @@ public class OrderStatusViewImp extends CustomComponent implements OrderViewInte
 
 	public void enter(ViewChangeListener.ViewChangeEvent event) {
 		List<OrderStatus> orderStatus = new ArrayList<OrderStatus>();
-		for (OrderViewListener listener : listeners) {
+		for (OrderStatusListener listener : listeners) {
 			orderStatus = listener.getResultListStatus();
 		}
 
@@ -86,9 +82,8 @@ public class OrderStatusViewImp extends CustomComponent implements OrderViewInte
 
 	@Override
 	public void buttonClick(ClickEvent event) {
-		for (OrderViewListener listener : listeners) {
-			System.out.println("test");
-			listener.buttonClick(event.getButton().getCaption());
+		for (OrderStatusListener listener : listeners) {
+			listener.buttonClick(event.getButton().getCaption(), event.getButton());
 		}
 
 	}

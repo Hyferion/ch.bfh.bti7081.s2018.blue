@@ -59,10 +59,4 @@ public class SimonOrderPresenter extends CustomComponent implements OrderView.Or
 		return orderModel;
 	}
 
-	@Override
-	public List<OrderStatus> getResultListStatus() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

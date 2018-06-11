@@ -1,5 +1,7 @@
 package ch.bfh.bti7081.blue.PMS.presenter;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,18 +10,21 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
+import com.itextpdf.text.DocumentException;
+import com.vaadin.server.DownloadStream;
 import com.vaadin.server.FileDownloader;
 import com.vaadin.server.FileResource;
 import com.vaadin.server.Resource;
+import com.vaadin.ui.Button;
 import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.UI;
 
 import ch.bfh.bti7081.blue.PMS.model.File;
-import ch.bfh.bti7081.blue.PMS.model.OrderModel;
+import ch.bfh.bti7081.blue.PMS.model.GeneratePDF;
 import ch.bfh.bti7081.blue.PMS.model.OrderStatus;
 import ch.bfh.bti7081.blue.PMS.view.OrderStatusViewImp;
 
-public class OrderStatusViewPresenter extends CustomComponent implements OrderStatusViewImp.OrderViewListener {
+public class OrderStatusViewPresenter extends CustomComponent implements OrderStatusViewImp.OrderStatusListener {
 
 	private OrderStatus model;
 	private OrderStatusViewImp view;
@@ -34,28 +39,24 @@ public class OrderStatusViewPresenter extends CustomComponent implements OrderSt
 	}
 
 	@Override
-	public void buttonClick(String operation) {
+	public void buttonClick(String operation, Button button) {
 		if (operation.equals("Neue Bestellung")) {
 			view.getUI().getNavigator().navigateTo("OrderView");
 		}
 
-		/*if (operation.equals("Print")) {
-			Resource res = new FileResource(new File("C:\\Users\\Lars_Gertsch\\git\\ch.bfh.bti7081.s2018.blue\\file.pdf"));
+		if (operation.equals("Print")) {
+			System.out.println("print");
+			java.io.File file = GeneratePDF.pfdGenerator("test");
+			Resource res = new FileResource(file);
 			FileDownloader fd = new FileDownloader(res);
-			//fd.extend(button);
-		}*/
+			fd.extend(button);
+		}
 
 	}
 
 	@Override
 	public EntityManager getQuery() {
 		return em;
-	}
-
-	@Override
-	public List<OrderModel> getResultList() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override
@@ -66,5 +67,4 @@ public class OrderStatusViewPresenter extends CustomComponent implements OrderSt
 		orderStatus = q.getResultList();
 		return orderStatus;
 	}
-
 }
