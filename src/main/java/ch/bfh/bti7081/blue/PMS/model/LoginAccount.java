@@ -1,5 +1,6 @@
 package ch.bfh.bti7081.blue.PMS.model;
 
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -12,7 +13,6 @@ public class LoginAccount {
 
 	@Id
 	private String username;
-
 	private String firstName;
 	private String lastName;
 	private String street;
@@ -22,6 +22,9 @@ public class LoginAccount {
 
 	@OneToMany(mappedBy = "loginAccount", cascade = CascadeType.PERSIST)
 	private Set<OrderStatus> OrderStatus;
+	
+	@OneToMany(mappedBy = "loginAccount", cascade = CascadeType.PERSIST)
+	private List<Task> tasks;
 
 	public LoginAccount() {
 	}

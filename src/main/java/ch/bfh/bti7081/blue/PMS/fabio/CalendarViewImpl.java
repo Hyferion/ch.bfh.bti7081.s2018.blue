@@ -43,6 +43,7 @@ public class CalendarViewImpl extends CustomComponent implements CalendarView, C
 		nsFilter.setItems("Last 30 Days","Last 7 Days","Today","Next 7 Days", "Next 30 Days","Show All");
 		nsFilter.setEmptySelectionAllowed(false);
 		nsFilter.setSelectedItem("Today");
+		nsFilter.setCaption("Filter");
 		
 		
 		// Create task button
@@ -51,7 +52,11 @@ public class CalendarViewImpl extends CustomComponent implements CalendarView, C
 		
 		// Create task grid
 		grid = new Grid<>(Task.class);
-		grid.setSizeFull();
+		grid.setColumns("dueDate", "subject", "status");
+		grid.setWidth("700px");
+		grid.getColumn("dueDate").setWidth(150).setResizable(false);
+		grid.getColumn("subject").setWidth(450).setResizable(false);
+		grid.getColumn("status").setWidth(100).setResizable(false);
 		
 		// Create horizontal layout for the nativeSelect filter & task button
 		HorizontalLayout hLayoutTasks = new HorizontalLayout();

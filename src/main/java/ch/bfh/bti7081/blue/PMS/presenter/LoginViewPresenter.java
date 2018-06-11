@@ -100,7 +100,7 @@ public class LoginViewPresenter extends CustomComponent implements LoginViewButt
 	
 		//CalendarView
 		CalendarViewImpl calendarViewImpl = new CalendarViewImpl();
-		new CalendarPresenter(new Task(), calendarViewImpl);
+		new CalendarPresenter(calendarViewImpl);
 		navigator.addView("CalendarView", calendarViewImpl);
 		
 

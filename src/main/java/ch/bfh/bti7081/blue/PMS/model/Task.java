@@ -1,13 +1,14 @@
 package ch.bfh.bti7081.blue.PMS.model;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -24,16 +25,15 @@ public class Task {
 	private String dueDate;
 	private boolean status;
 	
+	@ManyToOne(cascade = CascadeType.PERSIST)
+	@JoinColumn(name = "LOGINACCOUNT_USERNAME")
+	private LoginAccount loginAccount;
+	
 	@OneToMany(mappedBy = "taskId")
 	private List<File> files;
 	
-	public Task() {
-		
-	}
 	
-	public Task(LocalDate date) {
-		this.dueDate = date.format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
-	}
+	public Task() {}
 	
 	public void setTaskId(int id) {
 		this.taskId = id;
@@ -43,7 +43,7 @@ public class Task {
 		this.subject = subject;
 	}
 
-	public void setContent(String content) {
+	public void setDescription(String content) {
 		this.description = content;
 	}
 
@@ -70,7 +70,7 @@ public class Task {
 		return subject;
 	}
 
-	public String getContent() {
+	public String getDescription() {
 		return description;
 	}
 
