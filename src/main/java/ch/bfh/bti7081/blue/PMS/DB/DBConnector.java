@@ -32,7 +32,8 @@ public class DBConnector {
 		LoginAccount loginAccount = em.find(LoginAccount.class, accountUsername);
 		return loginAccount;
 	}
-
+	
+	
 	public void writeDataToDB() {
 		em.getTransaction().begin();
 		em.persist(this.getLoginAccount());

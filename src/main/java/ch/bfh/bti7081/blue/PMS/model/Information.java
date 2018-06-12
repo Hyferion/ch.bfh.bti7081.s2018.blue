@@ -3,6 +3,11 @@ package ch.bfh.bti7081.blue.PMS.model;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
+/**
+ * 
+ * @author Sinthujah Kaneshan
+ *
+ */
 @Entity
 public class Information {
 	

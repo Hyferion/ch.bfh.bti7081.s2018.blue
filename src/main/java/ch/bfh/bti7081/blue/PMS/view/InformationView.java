@@ -11,19 +11,21 @@ import com.vaadin.ui.Grid;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.VerticalLayout;
 import ch.bfh.bti7081.blue.PMS.model.Information;
+import ch.bfh.bti7081.blue.PMS.model.InformationModelController;
+import ch.bfh.bti7081.blue.PMS.presenter.InformationControllerView;
 
 /**
  * 
- * @author Sinthujah
+ * @author Sinthujah Kaneshan
  *
  */
-public class InformationViewImp extends CustomComponent implements View {
+public class InformationView extends CustomComponent implements View {
 
 	private static final long serialVersionUID = 1L;
 	
 	Grid<Information> grid;
 
-	public InformationViewImp() {
+	public InformationView() {
 
 		//Set root Layout with title
 		HeaderFooter root = new HeaderFooter("Informationen über Suchtkrankheiten"); 
@@ -32,10 +34,15 @@ public class InformationViewImp extends CustomComponent implements View {
 		VerticalLayout mainLayout = new VerticalLayout();
 		mainLayout.setSizeFull(); // mainLayout
 		
+		InformationModelController controller = new InformationModelController();
 		
+		// InformationControllerView infoView = new InformationControlerView();
 
-		
+		// List<Information <-- Model > VarName = infoView.getInformations
 	        
+		//Var^Name <-- Liste
+		
+		
 		grid = new Grid<>();
 		grid.setSizeFull();
 		grid.addColumn(Information::getName).setCaption("Suchtart").setResizable(false);
