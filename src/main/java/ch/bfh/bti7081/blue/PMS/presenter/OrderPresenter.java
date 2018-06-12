@@ -52,8 +52,8 @@ public class OrderPresenter extends CustomComponent implements OrderView.OrderVi
 	
 	public List<OrderModel> getResultList(){
 		List<OrderModel> orderModel = new ArrayList<OrderModel>();
-		Query q = em.createQuery("Select t FROM OrderModel t where t.LOGINACCOUNT_USERNAME = "
-				+ UI.getCurrent().getSession().getAttribute("user").toString());
+		Query q = em.createQuery("Select t FROM OrderModel t where t.LOGINACCOUNT_USERNAME =:name");
+		q.setParameter("name", UI.getCurrent().getSession().getAttribute("user").toString()); 
 		orderModel = q.getResultList();
 		return orderModel;
 	}

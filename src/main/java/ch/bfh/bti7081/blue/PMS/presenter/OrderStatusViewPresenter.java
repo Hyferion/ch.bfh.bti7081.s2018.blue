@@ -41,8 +41,8 @@ public class OrderStatusViewPresenter extends CustomComponent implements OrderSt
 	@Override
 	public List<OrderStatus> getResultListStatus() {
 		List<OrderStatus> orderStatus = new ArrayList<OrderStatus>();
-		Query q = em.createQuery("Select t FROM OrderStatus t where t.LOGINACCOUNT_USERNAME = "
-				+ UI.getCurrent().getSession().getAttribute("user").toString());
+		Query q = em.createQuery("Select t FROM OrderStatus t where t.LOGINACCOUNT_USERNAME =:name");
+		q.setParameter("name", UI.getCurrent().getSession().getAttribute("user").toString()); 
 		orderStatus = q.getResultList();
 		return orderStatus;
 	}
