@@ -20,6 +20,8 @@ public interface OrderViewInterface extends View {
 		EntityManager getQuery();
 
 		List<OrderModel> getResultList();
+		
+		List<OrderStatus> getResultListStatus();
 
 	}
 

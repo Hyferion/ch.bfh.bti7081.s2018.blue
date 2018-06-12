@@ -93,12 +93,12 @@ public class LoginViewPresenter extends CustomComponent implements LoginViewButt
 		//OrderView		
 		OrderView orderView = new OrderView();
 		OrderModel model = new OrderModel();
-		new SimonOrderPresenter(model, orderView);
+		new OrderPresenter(model, orderView);
 		navigator.addView("OrderView", orderView);
 		
 		//OrderedView
 		OrderedView orderedView = new OrderedView();
-		new SimonOrderedPresenter(model, orderedView);
+		new OrderedPresenter(model, orderedView);
 		navigator.addView("OrderedView", orderedView);
 
 		/*//ChatView

@@ -8,7 +8,6 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
-import com.vaadin.server.Resource;
 import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.UI;
 
@@ -16,7 +15,7 @@ import ch.bfh.bti7081.blue.PMS.model.OrderModel;
 import ch.bfh.bti7081.blue.PMS.model.OrderStatus;
 import ch.bfh.bti7081.blue.PMS.view.OrderView;
 
-public class SimonOrderPresenter extends CustomComponent implements OrderView.OrderViewListener {
+public class OrderPresenter extends CustomComponent implements OrderView.OrderViewListener {
 
 	private OrderModel model;
 	private OrderView view;
@@ -24,7 +23,7 @@ public class SimonOrderPresenter extends CustomComponent implements OrderView.Or
 	final EntityManager em = emFactory.createEntityManager();
 	
 
-	public SimonOrderPresenter(OrderModel model, OrderView view) {
+	public OrderPresenter(OrderModel model, OrderView view) {
 		this.model = model;
 		this.view = view;
 		view.addListener(this);
@@ -57,6 +56,12 @@ public class SimonOrderPresenter extends CustomComponent implements OrderView.Or
 				+ UI.getCurrent().getSession().getAttribute("user").toString());
 		orderModel = q.getResultList();
 		return orderModel;
+	}
+
+	@Override
+	public List<OrderStatus> getResultListStatus() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

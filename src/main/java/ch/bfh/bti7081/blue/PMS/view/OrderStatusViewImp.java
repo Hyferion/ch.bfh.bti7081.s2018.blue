@@ -22,9 +22,9 @@ import com.vaadin.ui.themes.ValoTheme;
 
 import ch.bfh.bti7081.blue.PMS.model.GeneratePDF;
 import ch.bfh.bti7081.blue.PMS.model.OrderStatus;
-import ch.bfh.bti7081.blue.PMS.view.interfaces.OrderStatusInterface;
+import ch.bfh.bti7081.blue.PMS.view.interfaces.OrderViewInterface;
 
-public class OrderStatusViewImp extends CustomComponent implements OrderStatusInterface, ClickListener {
+public class OrderStatusViewImp extends CustomComponent implements OrderViewInterface, ClickListener {
 
 	private static final long serialVersionUID = 5138985064356953846L;
 	VerticalLayout mainLayout = new VerticalLayout();
@@ -48,8 +48,8 @@ public class OrderStatusViewImp extends CustomComponent implements OrderStatusIn
 
 	}
 
-	List<OrderStatusListener> listeners = new ArrayList<OrderStatusListener>();
-	public void addListener(OrderStatusListener listener) {
+	List<OrderViewListener> listeners = new ArrayList<OrderViewListener>();
+	public void addListener(OrderViewListener listener) {
 		listeners.add(listener);
 	}
 
@@ -66,7 +66,7 @@ public class OrderStatusViewImp extends CustomComponent implements OrderStatusIn
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			Resource res = new FileResource(new File("C:\\Users\\Lars Gertsch\\git\\ch.bfh.bti7081.s2018.blue\\"+ p.getId().toString() + ".pdf"));
+			Resource res = new FileResource(new File(p.getId().toString() + ".pdf"));
 			
 			FileDownloader fd = new FileDownloader(res);
 			fd.extend(button);
@@ -79,7 +79,7 @@ public class OrderStatusViewImp extends CustomComponent implements OrderStatusIn
 	// creates every time a new grid when entered the view
 	public void enter(ViewChangeListener.ViewChangeEvent event) {
 		List<OrderStatus> orderStatus = new ArrayList<OrderStatus>();
-		for (OrderStatusListener listener : listeners) {
+		for (OrderViewListener listener : listeners) {
 			orderStatus = listener.getResultListStatus();
 		}
 		grid.removeAllColumns();
@@ -96,7 +96,7 @@ public class OrderStatusViewImp extends CustomComponent implements OrderStatusIn
 
 	@Override
 	public void buttonClick(ClickEvent event) {
-		for (OrderStatusListener listener : listeners) {
+		for (OrderViewListener listener : listeners) {
 			listener.buttonClick(event.getButton().getCaption());
 		}
 

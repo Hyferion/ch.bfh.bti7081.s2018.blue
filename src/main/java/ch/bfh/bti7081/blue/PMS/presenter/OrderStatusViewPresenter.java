@@ -11,10 +11,11 @@ import javax.persistence.Query;
 import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.UI;
 
+import ch.bfh.bti7081.blue.PMS.model.OrderModel;
 import ch.bfh.bti7081.blue.PMS.model.OrderStatus;
 import ch.bfh.bti7081.blue.PMS.view.OrderStatusViewImp;
 
-public class OrderStatusViewPresenter extends CustomComponent implements OrderStatusViewImp.OrderStatusListener {
+public class OrderStatusViewPresenter extends CustomComponent implements OrderStatusViewImp.OrderViewListener {
 
 	private OrderStatus model;
 	private OrderStatusViewImp view;
@@ -44,5 +45,17 @@ public class OrderStatusViewPresenter extends CustomComponent implements OrderSt
 				+ UI.getCurrent().getSession().getAttribute("user").toString());
 		orderStatus = q.getResultList();
 		return orderStatus;
+	}
+
+	@Override
+	public EntityManager getQuery() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<OrderModel> getResultList() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
