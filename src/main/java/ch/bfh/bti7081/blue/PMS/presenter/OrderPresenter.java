@@ -41,6 +41,9 @@ public class OrderPresenter extends CustomComponent implements OrderView.OrderVi
 		if (operation.equals("Cancel")) {
 			view.closeSub();
 		}
+		if (operation.equals("Return")) {
+			view.closeSub();
+		}
 		if (operation.equals("Order history")) {
 			view.getUI().getNavigator().navigateTo("Order");
 		}

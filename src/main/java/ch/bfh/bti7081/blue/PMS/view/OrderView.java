@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Random;
 
 import javax.persistence.EntityManager;
+import javax.swing.plaf.synth.SynthSplitPaneUI;
 
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.ui.Alignment;
@@ -107,9 +108,9 @@ public class OrderView extends CustomComponent implements OrderViewInterface, Cl
 							.setLOGINACCOUNT_USERNAME(UI.getCurrent().getSession().getAttribute("user").toString());
 					orderModelWrite.setName(orderModel.get(i).getName());
 					orderModelWrite.setDate(new Date().toLocaleString());
-					String[] status = {"Verfügbar", "Verfügbar", "In Bearbeitung", "Abgelehnt", "Verfügbar"};
-			         Random random = new Random();
-			         int select = random.nextInt(status.length); 
+					String[] status = { "Verfügbar", "Verfügbar", "In Bearbeitung", "Abgelehnt", "Verfügbar" };
+					Random random = new Random();
+					int select = random.nextInt(status.length);
 					orderModelWrite.setStatus(status[select]);
 					em.persist(orderModelWrite);
 					em.getTransaction().commit();
@@ -134,10 +135,26 @@ public class OrderView extends CustomComponent implements OrderViewInterface, Cl
 		order.setSizeFull();
 		Label ensure = new Label("Are you sure you want to order?");
 
-		horizontalLayout.addComponents(cancel, order);
-		verticalLayout.addComponents(ensure, horizontalLayout);
-		verticalLayout.setComponentAlignment(ensure, Alignment.TOP_CENTER);
-		horizontalLayout.setComponentAlignment(cancel, Alignment.BOTTOM_LEFT);
+		Button returnButton = new Button("Return", this);
+		Label returnText = new Label("Please select a medicine");
+		boolean state = false;
+		for (CheckBox checkBox : checkBoxList)
+			if (checkBox.getValue()) state = true;
+		if (state) {
+			horizontalLayout.addComponents(cancel, order);
+			verticalLayout.addComponents(ensure, horizontalLayout);
+			verticalLayout.setComponentAlignment(ensure, Alignment.TOP_CENTER);
+			horizontalLayout.setComponentAlignment(cancel, Alignment.BOTTOM_LEFT);
+			
+		}
+		
+		else {
+			System.out.println("afadsf");
+			horizontalLayout.addComponents(returnButton);
+			verticalLayout.addComponents(returnText, horizontalLayout);
+			verticalLayout.setComponentAlignment(returnText, Alignment.TOP_CENTER);
+			horizontalLayout.setComponentAlignment(returnButton, Alignment.BOTTOM_CENTER);
+		}
 
 		subWindow.setResizable(false);
 		subWindow.center();
