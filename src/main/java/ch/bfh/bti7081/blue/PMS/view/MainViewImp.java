@@ -1,5 +1,6 @@
 package ch.bfh.bti7081.blue.PMS.view;
 
+import com.vaadin.icons.VaadinIcons;
 import com.vaadin.navigator.View;
 import com.vaadin.server.ClassResource;
 import com.vaadin.ui.Alignment;
@@ -29,27 +30,28 @@ public class MainViewImp extends CustomComponent implements View {
 		horizontalLayout.setWidth("1400");
 		
 		Button butInfo = new Button("Suchtkrankheiten", e -> getUI().getNavigator().navigateTo("InformationView"));
+		butInfo.addStyleName(ValoTheme.BUTTON_LARGE);
+		butInfo.setWidth("300");
+		butInfo.setHeight("200");
+
+
 		Button butBest = new Button("", e -> getUI().getNavigator().navigateTo("OrderView"));
-		butBest.setIcon(new ClassResource("/icons/shopping-bag.png"));
-		Button butChat = new Button("", e -> getUI().getNavigator().navigateTo("ChatRoom"));
-		butChat.setIcon(new ClassResource("/icons/chat.png"));
-		Button butKalender = new Button("");
-		butKalender.setIcon(new ClassResource("/icons/calendar.png"));
-		
+//		butBest.setIcon(new ClassResource("/icons/shopping-bag.png"));
 		butBest.setIcon(VaadinIcons.FILE_TEXT);
 		butBest.addStyleName(ValoTheme.BUTTON_HUGE);
 		butBest.setWidth("300");
 		butBest.setHeight("200");
+
+		Button butChat = new Button("", e -> getUI().getNavigator().navigateTo("ChatRoom"));
+//		butChat.setIcon(new ClassResource("/icons/chat.png"));
 		butChat.setIcon(VaadinIcons.CHAT);
 		butChat.addStyleName(ValoTheme.BUTTON_HUGE);
 		butChat.setWidth("300");
 		butChat.setHeight("200");
-    
-		butInfo.addStyleName(ValoTheme.BUTTON_LARGE);
-		butInfo.setWidth("300");
-		butInfo.setHeight("200");
-		butKalender.addStyleName(ValoTheme.BUTTON_LARGE);
 
+		Button butKalender = new Button("");
+//		butKalender.setIcon(new ClassResource("/icons/calendar.png"));
+		butKalender.addStyleName(ValoTheme.BUTTON_LARGE);
 		butKalender.setIcon(VaadinIcons.CALENDAR);
 		butKalender.setWidth("300");
 		butKalender.setHeight("200");

@@ -1,5 +1,6 @@
 package ch.bfh.bti7081.blue.PMS.presenter;
 
+import ch.bfh.bti7081.blue.PMS.view.*;
 import com.vaadin.navigator.Navigator;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
@@ -15,12 +16,6 @@ import ch.bfh.bti7081.blue.PMS.model.LoginViewModel;
 import ch.bfh.bti7081.blue.PMS.model.OrderModel;
 import ch.bfh.bti7081.blue.PMS.model.OrderStatus;
 import ch.bfh.bti7081.blue.PMS.presenter.interfaces.LoginViewButtonClickListener;
-import ch.bfh.bti7081.blue.PMS.view.InformationView;
-import ch.bfh.bti7081.blue.PMS.view.LoginViewImpl;
-import ch.bfh.bti7081.blue.PMS.view.MainViewImp;
-import ch.bfh.bti7081.blue.PMS.view.OrderStatusViewImp;
-import ch.bfh.bti7081.blue.PMS.view.OrderView;
-import ch.bfh.bti7081.blue.PMS.view.OrderedView;
 
 import java.util.logging.Level;
 
