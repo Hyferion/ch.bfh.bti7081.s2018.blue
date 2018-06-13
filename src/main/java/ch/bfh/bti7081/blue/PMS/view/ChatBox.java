@@ -108,7 +108,7 @@ public class ChatBox extends CustomComponent implements Broadcaster.BroadcastLis
         q.setParameter("roomid", roomName);
         List<ChatModel> chmod = q.getResultList();
         for (ChatModel mod : chmod) {
-            addMessage(mod.getUsername() + mod.getMessage());
+            addMessage(mod.getUsername() +": "+ mod.getMessage());
         }
     }
 
