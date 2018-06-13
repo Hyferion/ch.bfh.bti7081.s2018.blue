@@ -1,14 +1,17 @@
-package ch.bfh.bti7081.blue.PMS.fabio;
+package ch.bfh.bti7081.blue.PMS.presenter;
 
 import java.util.List;
 
 import com.vaadin.ui.UI;
-import ch.bfh.bti7081.blue.PMS.steve.TaskWindowImpl;
+
 import ch.bfh.bti7081.blue.PMS.DB.DBConnector;
-import ch.bfh.bti7081.blue.PMS.fabio.CalendarView.GridItemListener;
-import ch.bfh.bti7081.blue.PMS.fabio.CalendarView.CalendarNativeSelectListener;
+import ch.bfh.bti7081.blue.PMS.DB.TaskDBHandler;
 import ch.bfh.bti7081.blue.PMS.model.File;
 import ch.bfh.bti7081.blue.PMS.model.Task;
+import ch.bfh.bti7081.blue.PMS.presenter.interfaces.CalendarView;
+import ch.bfh.bti7081.blue.PMS.presenter.interfaces.CalendarView.CalendarNativeSelectListener;
+import ch.bfh.bti7081.blue.PMS.presenter.interfaces.CalendarView.GridItemListener;
+import ch.bfh.bti7081.blue.PMS.view.TaskWindowImpl;
 
 public class CalendarPresenter implements CalendarNativeSelectListener, GridItemListener {
 
@@ -30,19 +33,26 @@ public class CalendarPresenter implements CalendarNativeSelectListener, GridItem
 		
 		// Task_ID from File class for file list query
 		ui.getSession().setAttribute("task", dbConnector.getDBConnector().getTaskId());
-	
+		
 	}
 
 	@Override
 	public void nativeSelectChange(String filter) {
+		for (File file : handler.getFileList()) {
+			System.out.println(file.getTASK_ID());
+		}
+		System.out.println(handler.getFileList().size());
+		
 		handler.filterTasks(filter);
 		List<Task> taskList = handler.getTaskList();
 		view.addTasksToGrid(taskList, taskList.size());
+		
 	}
 
 	@Override
 	public void itemClick(Task task) {
 		List<File> fileList = handler.getFileList();
+		
     	TaskWindowImpl taskWindow = new TaskWindowImpl(task, fileList);
 		ui.getCurrent().addWindow(taskWindow);
 	}

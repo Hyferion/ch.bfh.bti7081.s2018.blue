@@ -9,7 +9,7 @@ import ch.bfh.bti7081.blue.PMS.model.Task;
 public class DBConnector {
 
 	private String accountUsername;
-	private int taskIde;
+	private int taskId;
 	private static DBConnector dbConnector = null;
 	private EntityManagerFactory emFactory = Persistence.createEntityManagerFactory("relativeHelper");
 	private EntityManager em = emFactory.createEntityManager();
@@ -30,7 +30,7 @@ public class DBConnector {
 	}
 	
 	public Task getTaskId() {
-		return em.find(Task.class, taskIde);
+		return em.find(Task.class, taskId);
 	}
 
 	public void writeDataToDB() {

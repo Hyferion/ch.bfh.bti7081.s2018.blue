@@ -1,4 +1,4 @@
-package ch.bfh.bti7081.blue.PMS.fabio;
+package ch.bfh.bti7081.blue.PMS.view;
 
 
 import java.util.ArrayList;
@@ -23,7 +23,7 @@ import com.vaadin.ui.components.grid.ItemClickListener;
 
 import ch.bfh.bti7081.blue.PMS.model.File;
 import ch.bfh.bti7081.blue.PMS.model.Task;
-import ch.bfh.bti7081.blue.PMS.view.HeaderFooter;
+import ch.bfh.bti7081.blue.PMS.presenter.interfaces.CalendarView;
 
 
 public class CalendarViewImpl extends CustomComponent implements CalendarView, ItemClickListener<Task>, HasValue.ValueChangeListener<String>, View {

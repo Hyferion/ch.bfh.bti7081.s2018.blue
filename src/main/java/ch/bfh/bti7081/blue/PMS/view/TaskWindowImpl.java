@@ -1,5 +1,7 @@
-package ch.bfh.bti7081.blue.PMS.steve;
+package ch.bfh.bti7081.blue.PMS.view;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Iterator;
 import java.util.List;
 
@@ -75,7 +77,8 @@ public class TaskWindowImpl extends Window {
 		HorizontalLayout hLayout = new HorizontalLayout();
 		if (fileList != null) {
 		for (File file : fileList) {
-			ClassResource resourcefile = new ClassResource(file.getPath());
+			Path path = Paths.get(file.getPath());
+			ClassResource resourcefile = new ClassResource(path.toString());
 			Button downloadfile1button = new Button(resourcefile.getFilename()+"."+resourcefile.getMIMEType());
 			downloadfile1button.setStyleName(ValoTheme.BUTTON_LINK);
 			FileDownloader downloaderfile1 = new FileDownloader(resourcefile);

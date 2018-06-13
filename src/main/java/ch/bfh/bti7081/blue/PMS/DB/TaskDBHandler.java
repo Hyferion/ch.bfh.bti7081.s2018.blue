@@ -1,4 +1,4 @@
-package ch.bfh.bti7081.blue.PMS.fabio;
+package ch.bfh.bti7081.blue.PMS.DB;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -10,9 +10,9 @@ import javax.persistence.Query;
 
 import com.vaadin.ui.UI;
 
-import ch.bfh.bti7081.blue.PMS.DB.DBConnector;
 import ch.bfh.bti7081.blue.PMS.model.File;
 import ch.bfh.bti7081.blue.PMS.model.Task;
+import ch.bfh.bti7081.blue.PMS.presenter.comparators.TaskDateComparator;
 
 public class TaskDBHandler {
 
@@ -40,17 +40,18 @@ public class TaskDBHandler {
 		return query;
 	}
 	
-//	private Query userFilesQuery() {
-//		Query query = dbConnector.getEntityManager().createQuery("SELECT f FROM File f "
-//															   + "WHERE f.TASK_ID = :taskId");
-//		query.setParameter("taskId", UI.getCurrent().getSession().getAttribute("task").toString());
-//		return query;
-//	}
+	private Query userFilesQuery() {
+		Query query = dbConnector.getEntityManager().createQuery("SELECT f FROM File f "
+															   + "WHERE f.TASK_ID = :taskId");
+		query.setParameter("taskId", UI.getCurrent().getSession().getAttribute("task"));
+		return query;
+	}
 	
 	public void filterTasks(String filter) {
 		LocalDate dateToday = LocalDate.now();
 		List<Task> taskList = userTasksQuery().getResultList();
-		List<File> fileList = null; //userFilesQuery().getResultList();
+		List<File> fileList = userFilesQuery().getResultList();
+		
 		
 		switch(filter) {
 		
@@ -65,6 +66,7 @@ public class TaskDBHandler {
 		case "Next 30 Days": futureDateFilter(taskList, fileList, dateToday, 30);
 		 					 break;
 		case "Show All":	 allDatesFilter(taskList, fileList);
+		
 		 					 break;
 		default:			 allDatesFilter(taskList, fileList);
 		
@@ -76,7 +78,7 @@ public class TaskDBHandler {
 				 				.filter(t -> t.getDueDate()
 				 				.isAfter(dateToday.minusDays(minusDays)) && t.getDueDate()
 				 				.isBefore(dateToday))
-				 				.sorted(new DateComparator())
+				 				.sorted(new TaskDateComparator())
 				 				.collect(Collectors.toList());
 		this.fileList = fileList;
 	}
@@ -86,7 +88,7 @@ public class TaskDBHandler {
 				 				.filter(t -> t.getDueDate()
 				 				.isAfter(dateToday) && t.getDueDate()
 				 				.isBefore(dateToday.plusDays(plusDays)))
-				 				.sorted(new DateComparator())
+				 				.sorted(new TaskDateComparator())
 				 				.collect(Collectors.toList());
 		this.fileList = fileList;
 	}
@@ -94,14 +96,14 @@ public class TaskDBHandler {
 	private void presentDateFilter(List<Task> taskList, List<File> fileList, LocalDate dateToday) {
 		this.taskList = taskList.stream()
 								.filter(t -> t.getDueDate().isEqual(dateToday))
-								.sorted(new DateComparator())
+								.sorted(new TaskDateComparator())
 								.collect(Collectors.toList());
 		this.fileList = fileList;
 	}
 	
 	private void allDatesFilter(List<Task> taskList, List<File> fileList) {
 		this.taskList = taskList.stream()
-								.sorted(new DateComparator())
+								.sorted(new TaskDateComparator())
 								.collect(Collectors.toList());
 		this.fileList = fileList;
 	}

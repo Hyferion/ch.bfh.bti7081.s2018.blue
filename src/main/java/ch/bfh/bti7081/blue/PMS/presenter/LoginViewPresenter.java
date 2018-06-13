@@ -8,14 +8,13 @@ import com.vaadin.ui.Notification;
 import com.vaadin.ui.UI;
 
 import ch.bfh.bti7081.blue.PMS.Util;
-import ch.bfh.bti7081.blue.PMS.fabio.CalendarPresenter;
-import ch.bfh.bti7081.blue.PMS.fabio.CalendarViewImpl;
 import ch.bfh.bti7081.blue.PMS.model.LoginAccount;
 import ch.bfh.bti7081.blue.PMS.model.LoginViewModel;
 import ch.bfh.bti7081.blue.PMS.model.OrderStatusModel;
 import ch.bfh.bti7081.blue.PMS.model.Task;
 import ch.bfh.bti7081.blue.PMS.model.OrderModel;
 import ch.bfh.bti7081.blue.PMS.presenter.interfaces.LoginViewButtonClickListener;
+import ch.bfh.bti7081.blue.PMS.view.CalendarViewImpl;
 import ch.bfh.bti7081.blue.PMS.view.LoginViewImpl;
 import ch.bfh.bti7081.blue.PMS.view.MainViewImp;
 import ch.bfh.bti7081.blue.PMS.view.OrderStatusViewImp;
