@@ -2,6 +2,7 @@ package ch.bfh.bti7081.blue.PMS.view;
 
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.navigator.View;
+import com.vaadin.server.ClassResource;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.CustomComponent;
@@ -33,9 +34,12 @@ public class MainViewImp extends CustomComponent implements View {
 		HorizontalLayout but = new HorizontalLayout();
 		but.setSpacing(true);
 		
-		Button butBest = new Button("Bestellungen", e -> getUI().getNavigator().navigateTo("OrderView"));
-		Button butChat = new Button("Chat", e -> getUI().getNavigator().navigateTo("Chat"));
-		Button butKalender = new Button("Kalender");
+		Button butBest = new Button("", e -> getUI().getNavigator().navigateTo("OrderView"));
+		butBest.setIcon(new ClassResource("/icons/shopping-bag.png"));
+		Button butChat = new Button("", e -> getUI().getNavigator().navigateTo("ChatRoom"));
+		butChat.setIcon(new ClassResource("/icons/chat.png"));
+		Button butKalender = new Button("");
+		butKalender.setIcon(new ClassResource("/icons/calendar.png"));
 		
 		
 		butBest.addStyleName(ValoTheme.BUTTON_LARGE);

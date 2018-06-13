@@ -4,6 +4,7 @@ import ch.bfh.bti7081.blue.PMS.model.*;
 import ch.bfh.bti7081.blue.PMS.view.*;
 import com.vaadin.navigator.Navigator;
 import com.vaadin.navigator.View;
+import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.Notification;
@@ -11,6 +12,8 @@ import com.vaadin.ui.UI;
 
 import ch.bfh.bti7081.blue.PMS.Util;
 import ch.bfh.bti7081.blue.PMS.presenter.interfaces.LoginViewButtonClickListener;
+
+import java.util.logging.Level;
 
 public class LoginViewPresenter extends CustomComponent implements LoginViewButtonClickListener, View {
 
@@ -64,7 +67,8 @@ public class LoginViewPresenter extends CustomComponent implements LoginViewButt
 	}
 
 	@Override
-	public void enter(ViewChangeEvent event) {
+	public void enter(ViewChangeListener.ViewChangeEvent event) {
+
 	}
 
 	public void initializeViewsAfterLogin() {
@@ -94,6 +98,10 @@ public class LoginViewPresenter extends CustomComponent implements LoginViewButt
 		//ChatView
 		ChatBox chatBox = new ChatBox();
 		navigator.addView("Chat",chatBox);
+
+		//ChatRoomView
+		ChatRoomImpl chatRoom = new ChatRoomImpl();
+		navigator.addView("ChatRoom",chatRoom);
 
 	
 		
