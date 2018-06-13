@@ -9,11 +9,13 @@ import com.vaadin.ui.Notification;
 import com.vaadin.ui.UI;
 
 import ch.bfh.bti7081.blue.PMS.Util;
+import ch.bfh.bti7081.blue.PMS.model.InformationModelController;
 import ch.bfh.bti7081.blue.PMS.model.LoginAccount;
 import ch.bfh.bti7081.blue.PMS.model.LoginViewModel;
 import ch.bfh.bti7081.blue.PMS.model.OrderModel;
 import ch.bfh.bti7081.blue.PMS.model.OrderStatus;
 import ch.bfh.bti7081.blue.PMS.presenter.interfaces.LoginViewButtonClickListener;
+import ch.bfh.bti7081.blue.PMS.view.InformationView;
 import ch.bfh.bti7081.blue.PMS.view.LoginViewImpl;
 import ch.bfh.bti7081.blue.PMS.view.MainViewImp;
 import ch.bfh.bti7081.blue.PMS.view.OrderStatusViewImp;
@@ -87,12 +89,18 @@ public class LoginViewPresenter extends CustomComponent implements LoginViewButt
 		//HomeView
 		MainViewImp view = new MainViewImp();
 		navigator.addView("HomeView", view);
+		
+		//Information View
+		InformationView InformationImp = new InformationView();
+		InformationModelController InformationModel = new InformationModelController();
+		new InformationControllerView(InformationModel, InformationImp);
+		navigator.addView("InformationView", InformationImp);
 
-		//OrderStatus View
 		OrderStatusViewImp orderStatusImpl = new OrderStatusViewImp();
 		OrderStatus orderStatus = new OrderStatus();
 		new OrderStatusViewPresenter(orderStatus, orderStatusImpl);
 		navigator.addView("Order", orderStatusImpl);
+
 				
 		//OrderView		
 		OrderView orderView = new OrderView();
@@ -105,9 +113,9 @@ public class LoginViewPresenter extends CustomComponent implements LoginViewButt
 		new OrderedPresenter(model, orderedView);
 		navigator.addView("OrderedView", orderedView);
 
-		/*//ChatView
+		//ChatView
 		ChatBox chatBox = new ChatBox();
-		navigator.addView("Chat",chatBox);*/
+		navigator.addView("Chat",chatBox);
 
 		//ChatRoomView
 		ChatRoomImpl chatRoom = new ChatRoomImpl();

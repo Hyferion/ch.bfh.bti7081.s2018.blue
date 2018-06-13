@@ -16,6 +16,7 @@ public class LoginAccount {
 	private String city;
 	private String password;
 
+
 	public LoginAccount() {
 	}
 

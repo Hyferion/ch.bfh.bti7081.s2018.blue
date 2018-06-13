@@ -15,6 +15,7 @@ import ch.bfh.bti7081.blue.PMS.model.OrderModel;
 import ch.bfh.bti7081.blue.PMS.model.OrderStatus;
 import ch.bfh.bti7081.blue.PMS.view.OrderStatusViewImp;
 
+
 public class OrderStatusViewPresenter extends CustomComponent implements OrderStatusViewImp.OrderViewListener {
 
 	private OrderStatus model;
@@ -28,6 +29,7 @@ public class OrderStatusViewPresenter extends CustomComponent implements OrderSt
 		view.addListener(this);
 
 	}
+
 
 	//navigates to the right view
 	@Override
