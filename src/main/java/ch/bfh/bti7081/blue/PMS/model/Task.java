@@ -1,5 +1,6 @@
 package ch.bfh.bti7081.blue.PMS.model;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -23,14 +24,8 @@ public class Task {
 	private String subject;
 	private String description;
 	private String dueDate;
-	private boolean status;
-	
-	@ManyToOne(cascade = CascadeType.PERSIST)
-	@JoinColumn(name = "LOGINACCOUNT_USERNAME")
-	private LoginAccount loginAccount;
-	
-	@OneToMany(mappedBy = "taskId")
-	private List<File> files;
+	private String status;
+	private String USERNAME;
 	
 	
 	public Task() {}
@@ -51,16 +46,14 @@ public class Task {
 		this.dueDate = dueDate;
 	}
 
-	public void setStatus(boolean status) {
+	public void setStatus(String status) {
 		this.status = status;
 	}
 	
-	public void setFile(File file) {
-		if (files == null) {
-			files = new ArrayList<File>();
-		} 
-		this.files.add(file);
+	public void setUsername(String USERNAME) {
+		this.USERNAME = USERNAME;
 	}
+	
 
 	public int getTaskId() {
 		return taskId;
@@ -74,17 +67,19 @@ public class Task {
 		return description;
 	}
 
-	public String getDueDate() {
-		return dueDate;
+	public LocalDate getDueDate() {
+		return LocalDate.parse(dueDate);
 	}
 
-	public boolean isStatus() {
+	public String getStatus() {
 		return status;
 	}
-
-	public List<File> getFiles() {
-		return files;
+	
+	
+	public String getUSERNAME() {
+		return USERNAME;
 	}
+
 
 
 	

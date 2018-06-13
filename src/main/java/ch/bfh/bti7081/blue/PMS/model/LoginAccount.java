@@ -23,8 +23,6 @@ public class LoginAccount {
 	@OneToMany(mappedBy = "loginAccount", cascade = CascadeType.PERSIST)
 	private Set<OrderStatus> OrderStatus;
 	
-	@OneToMany(mappedBy = "loginAccount", cascade = CascadeType.PERSIST)
-	private List<Task> tasks;
 
 	public LoginAccount() {
 	}
@@ -81,6 +79,7 @@ public class LoginAccount {
 		this.city = city;
 	}
 
+	
 	public String getUsername() {
 		return username;
 	}

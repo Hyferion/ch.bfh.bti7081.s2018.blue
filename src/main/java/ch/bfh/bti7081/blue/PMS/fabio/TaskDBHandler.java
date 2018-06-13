@@ -2,82 +2,108 @@ package ch.bfh.bti7081.blue.PMS.fabio;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.persistence.Query;
+
+import com.vaadin.ui.UI;
+
 import ch.bfh.bti7081.blue.PMS.DB.DBConnector;
+import ch.bfh.bti7081.blue.PMS.model.File;
 import ch.bfh.bti7081.blue.PMS.model.Task;
 
 public class TaskDBHandler {
 
-	DBConnector dbConnector;
-	List<Task> taskList = new ArrayList<Task>();
+	private DBConnector dbConnector;
+	private List<Task> taskList = new ArrayList<Task>();
+	private List<File> fileList = new ArrayList<File>();
+
 	
-	
-	public TaskDBHandler(DBConnector dbConnector, String filter) {
+	public TaskDBHandler(DBConnector dbConnector) {
 		this.dbConnector = dbConnector;
-		filterTasks(filter);
 	}
 	
 	public List<Task> getTaskList() {
 		return taskList;
 	}
 	
-	private void filterTasks(String filter) {
-		
+	public List<File> getFileList() {
+		return fileList;
+	}
+	
+	private Query userTasksQuery() {
+		Query query = dbConnector.getEntityManager().createQuery("SELECT t FROM Task t "
+															   + "WHERE t.USERNAME = :name");
+		query.setParameter("name", UI.getCurrent().getSession().getAttribute("user").toString());
+		return query;
+	}
+	
+//	private Query userFilesQuery() {
+//		Query query = dbConnector.getEntityManager().createQuery("SELECT f FROM File f "
+//															   + "WHERE f.TASK_ID = :taskId");
+//		query.setParameter("taskId", UI.getCurrent().getSession().getAttribute("task").toString());
+//		return query;
+//	}
+	
+	public void filterTasks(String filter) {
 		LocalDate dateToday = LocalDate.now();
-		String sqlQuery = "";
+		List<Task> taskList = userTasksQuery().getResultList();
+		List<File> fileList = null; //userFilesQuery().getResultList();
 		
 		switch(filter) {
-		case "Last 30 Days": sqlQuery = pastDateFilter(dateToday, 30);
+		
+		case "Last 30 Days": pastDateFilter(taskList, fileList, dateToday, 30);
 							 break;
-		case "Last 7 Days":  sqlQuery = pastDateFilter(dateToday, 7);
+		case "Last 7 Days":  pastDateFilter(taskList, fileList, dateToday, 7);
 		 					 break;
-		case "Today":		 sqlQuery = presentDateFilter(dateToday, 0);
+		case "Today":		 presentDateFilter(taskList, fileList, dateToday);
 		 					 break;
-		case "Next 7 Days":  sqlQuery = futureDateFilter(dateToday, 7);
+		case "Next 7 Days":  futureDateFilter(taskList, fileList, dateToday, 7);
 		 					 break;
-		case "Next 30 Days": sqlQuery = futureDateFilter(dateToday, 30);
+		case "Next 30 Days": futureDateFilter(taskList, fileList, dateToday, 30);
 		 					 break;
-		case "Show All":	 sqlQuery = allDateFilter(dateToday, 0);
+		case "Show All":	 allDatesFilter(taskList, fileList);
 		 					 break;
-		}
+		default:			 allDatesFilter(taskList, fileList);
 		
-		Query query = dbConnector.getEntityManager().createQuery(sqlQuery);
-		taskList = query.getResultList();
-		for (Task task : taskList) {
-			System.out.println(task.getDueDate() + " " + task.getSubject());
 		}
 	}
 	
-	private String pastDateFilter(LocalDate dateToday, int days) {
-		return "SELECT t, f.fileId, f.name, f.path FROM LoginAccount l, Task t, File f " 
-		+ "WHERE l.username = t.username "
-		+ "AND t.taskId = f.taskId "
-		+ "AND t.dueDate BETWEEN " + dateToday.minusDays(days) + " AND " + dateToday;
-		
+	private void pastDateFilter(List<Task> taskList, List<File> fileList, LocalDate dateToday, int minusDays) {
+		this.taskList = taskList.stream()
+				 				.filter(t -> t.getDueDate()
+				 				.isAfter(dateToday.minusDays(minusDays)) && t.getDueDate()
+				 				.isBefore(dateToday))
+				 				.sorted(new DateComparator())
+				 				.collect(Collectors.toList());
+		this.fileList = fileList;
 	}
 	
-	private String futureDateFilter(LocalDate dateToday, int days) {
-		return "SELECT t, f.file_id, f.name, f.path FROM loginaccount l, tasks t, files f " 
-		+ "WHERE l.username = t.username "
-		+ "AND t.task_id = f.task_id "
-		+ "AND t.date BETWEEN " + dateToday + " AND " + dateToday.plusDays(days);
-		
+	private void futureDateFilter(List<Task> taskList, List<File> fileList, LocalDate dateToday, int plusDays) {
+		this.taskList = taskList.stream()
+				 				.filter(t -> t.getDueDate()
+				 				.isAfter(dateToday) && t.getDueDate()
+				 				.isBefore(dateToday.plusDays(plusDays)))
+				 				.sorted(new DateComparator())
+				 				.collect(Collectors.toList());
+		this.fileList = fileList;
 	}
 	
-	private String presentDateFilter(LocalDate dateToday, int days) {
-		return "SELECT t, f.file_id, f.name, f.path FROM loginaccount l, tasks t, files f " 
-		+ "WHERE l.username = t.username "
-		+ "AND t.task_id = f.task_id "
-		+ "AND t.date = " + dateToday;
-		
+	private void presentDateFilter(List<Task> taskList, List<File> fileList, LocalDate dateToday) {
+		this.taskList = taskList.stream()
+								.filter(t -> t.getDueDate().isEqual(dateToday))
+								.sorted(new DateComparator())
+								.collect(Collectors.toList());
+		this.fileList = fileList;
 	}
 	
-	private String allDateFilter(LocalDate dateToday, int days) {
-		return "SELECT t.*, f.file_id, f.name, f.path FROM loginaccount l, tasks t, files f " 
-		+ "WHERE l.username = t.username "
-		+ "AND t.task_id = f.task_id";
+	private void allDatesFilter(List<Task> taskList, List<File> fileList) {
+		this.taskList = taskList.stream()
+								.sorted(new DateComparator())
+								.collect(Collectors.toList());
+		this.fileList = fileList;
 	}
 	
 }

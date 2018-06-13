@@ -14,18 +14,21 @@ import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.Grid;
+import com.vaadin.ui.Grid.ItemClick;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.NativeSelect;
 import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.components.grid.ItemClickListener;
 
+import ch.bfh.bti7081.blue.PMS.model.File;
 import ch.bfh.bti7081.blue.PMS.model.Task;
 import ch.bfh.bti7081.blue.PMS.view.HeaderFooter;
 
 
-public class CalendarViewImpl extends CustomComponent implements CalendarView, ClickListener, HasValue.ValueChangeListener<String>, View {
+public class CalendarViewImpl extends CustomComponent implements CalendarView, ItemClickListener<Task>, HasValue.ValueChangeListener<String>, View {
 
-	List<CalendarButtonListener> buttonListener = new ArrayList<CalendarButtonListener>();
+	List<GridItemListener> itemListener = new ArrayList<GridItemListener>();
 	List<CalendarNativeSelectListener> nativeSelectListener = new ArrayList<CalendarNativeSelectListener>();
 	Grid<Task> grid;
 	NativeSelect<String> nsFilter;
@@ -35,8 +38,6 @@ public class CalendarViewImpl extends CustomComponent implements CalendarView, C
 		// Create header and footer for the calendar view
 		HeaderFooter root = new HeaderFooter("Calendar ");
 		
-		Label filterLabel = new Label("Filter Period: ");
-		
 		// Create filter nativeSelect
 		nsFilter = new NativeSelect<String>();
 		nsFilter.addValueChangeListener(this::valueChange);
@@ -45,23 +46,19 @@ public class CalendarViewImpl extends CustomComponent implements CalendarView, C
 		nsFilter.setSelectedItem("Today");
 		nsFilter.setCaption("Filter");
 		
-		
-		// Create task button
-		Button newTaskButton = new Button("New Task", this::buttonClick);
-		
-		
 		// Create task grid
 		grid = new Grid<>(Task.class);
+		grid.addItemClickListener(this::itemClick);
 		grid.setColumns("dueDate", "subject", "status");
-		grid.setWidth("700px");
+		grid.setWidth("750px");
 		grid.getColumn("dueDate").setWidth(150).setResizable(false);
 		grid.getColumn("subject").setWidth(450).setResizable(false);
-		grid.getColumn("status").setWidth(100).setResizable(false);
+		grid.getColumn("status").setWidth(150).setResizable(false);
 		
 		// Create horizontal layout for the nativeSelect filter & task button
 		HorizontalLayout hLayoutTasks = new HorizontalLayout();
 		hLayoutTasks.setSizeFull();
-		hLayoutTasks.addComponents(nsFilter, newTaskButton);
+		hLayoutTasks.addComponents(nsFilter);
 		
 		// Create vertical layout for the horizontal layout and task grid
 		VerticalLayout vLayoutCalendar = new VerticalLayout();
@@ -73,18 +70,17 @@ public class CalendarViewImpl extends CustomComponent implements CalendarView, C
 		setCompositionRoot(root);
     	
 	}
-
-	@Override
-	public void buttonClick(ClickEvent event) {
-		for (CalendarButtonListener listener : buttonListener) {
-			listener.buttonClick();
-		}
-		
-	}
 	
 	@Override
-	public void addTasksToGrid(List<Task> tasks) {
-		this.grid.setItems(tasks);
+	public void addTasksToGrid(List<Task> tasks, int taskListSize) {
+		grid.setItems(tasks);
+		if (taskListSize != 0) {
+			grid.setHeightByRows(taskListSize);
+		}
+		else {
+			grid.setHeightByRows(1);
+		}
+		
 		
 	}
 
@@ -96,14 +92,22 @@ public class CalendarViewImpl extends CustomComponent implements CalendarView, C
 	}
 
 	@Override
-	public void addButtonListener(CalendarButtonListener listener) {
-		buttonListener.add(listener);
+	public void addNativeSelectListener(CalendarNativeSelectListener listener) {
+		nativeSelectListener.add(listener);
 		
 	}
 
 	@Override
-	public void addNativeSelectListener(CalendarNativeSelectListener listener) {
-		nativeSelectListener.add(listener);
+	public void itemClick(ItemClick<Task> event) {
+		for (GridItemListener listener : itemListener) {
+			listener.itemClick(event.getItem());
+		}
+		
+	}
+
+	@Override
+	public void addGridItemListener(GridItemListener listener) {
+		itemListener.add(listener);
 		
 	}
 

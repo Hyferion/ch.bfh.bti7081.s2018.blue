@@ -19,10 +19,7 @@ public class File {
 	private String name;
 	private String path;
 	private String author;
-	
-	@ManyToOne(cascade = CascadeType.PERSIST)
-	@JoinColumn(name="TASK_ID")
-	private Task taskId;
+	private int TASK_ID;
 	
 	public File() {
 		
@@ -42,6 +39,10 @@ public class File {
 	public void setAuthor(String author) {
 		this.author = author;
 	}
+	
+	public void setTASK_ID(int TASK_ID) {
+		this.TASK_ID = TASK_ID;
+	}
 
 	public int getFileId() {
 		return fileId;
@@ -60,12 +61,8 @@ public class File {
 		return author;
 	}
 	
-	public int getTaskIdentification() {
-		return taskId.getTaskId();
+	public int getTASK_ID() {
+		return TASK_ID;
 	}
-	public void setTaskIdentification(Task taskIdentification) {
-		this.taskId = taskIdentification;
-	}
-	
 	
 }

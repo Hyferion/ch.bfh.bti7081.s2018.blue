@@ -1,5 +1,8 @@
 package ch.bfh.bti7081.blue.PMS.steve;
 
+import java.util.Iterator;
+import java.util.List;
+
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.server.ClassResource;
 import com.vaadin.server.FileDownloader;
@@ -18,6 +21,7 @@ import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
 import com.vaadin.ui.themes.ValoTheme;
 
+import ch.bfh.bti7081.blue.PMS.model.File;
 import ch.bfh.bti7081.blue.PMS.model.Task;
 
 public class TaskWindowImpl extends Window {
@@ -25,9 +29,12 @@ public class TaskWindowImpl extends Window {
 	
 	private static final long serialVersionUID = 1L;
 	private Task task;
+	private List<File> fileList;
 	
 
-	public TaskWindowImpl() {
+	public TaskWindowImpl(Task task, List<File> fileList) {
+		this.task = task;
+		this.fileList = fileList;
 		
 		VerticalLayout vLayout = new VerticalLayout();
 		
@@ -35,6 +42,7 @@ public class TaskWindowImpl extends Window {
 		Label title = new Label("Task");
 		title.setStyleName(ValoTheme.LABEL_H1);
 		title.setHeight("0px");
+		title.setValue(title.getValue() + " #" + task.getTaskId());
 		
 		// Create form layout
 		FormLayout fLayout = new FormLayout();
@@ -43,45 +51,39 @@ public class TaskWindowImpl extends Window {
 		final TextField subjectField  = new TextField("Subject");
 		subjectField.setWidth(100.0f, Unit.PERCENTAGE);
 		subjectField.setReadOnly(true);
+		subjectField.setValue(task.getSubject());
 		
 		// Create due date field
 		final TextField dueDateField  = new TextField("Due Date");
 		dueDateField.setWidth(20.0f, Unit.PERCENTAGE);
 		dueDateField.setReadOnly(true);
+		dueDateField.setValue(task.getDueDate().toString());
 		
 		// Create description Area
 		final TextArea descriptionField = new TextArea("Description");
 		descriptionField.setWidth(100.0f, Unit.PERCENTAGE);
 		descriptionField.setReadOnly(true);
+		descriptionField.setValue(task.getDescription());
+		
 		
 		// Create status label
 		final Label statusLabel = new Label();
 		statusLabel.setCaption("Status");
-		statusLabel.setValue("Done");		
+		statusLabel.setValue(task.getStatus());
 	
 		// Files to download
 		HorizontalLayout hLayout = new HorizontalLayout();
-		ClassResource resourcefile1 = new ClassResource("File1.txt");
-		ClassResource resourcefile2 = new ClassResource("File2.txt");
-		ClassResource resourcefile3 = new ClassResource("File3.txt");
-		
-		Button downloadfile1button = new Button("File1.txt");
-		downloadfile1button.setStyleName(ValoTheme.BUTTON_LINK);
-		Button downloadfile2button = new Button("File2.txt");
-		downloadfile2button.setStyleName(ValoTheme.BUTTON_LINK);
-		Button downloadfile3button = new Button("File3.txt");
-		downloadfile3button.setStyleName(ValoTheme.BUTTON_LINK);
-		
-		FileDownloader downloaderfile1 = new FileDownloader(resourcefile1);
-		downloaderfile1.extend(downloadfile1button);
-		FileDownloader downloaderfile2 = new FileDownloader(resourcefile2);
-		downloaderfile2.extend(downloadfile2button);
-		FileDownloader downloaderfile3 = new FileDownloader(resourcefile3);
-		downloaderfile3.extend(downloadfile3button);
-		
-		hLayout.addComponent(downloadfile1button);
-		hLayout.addComponent(downloadfile2button);
-		hLayout.addComponent(downloadfile3button);
+		if (fileList != null) {
+		for (File file : fileList) {
+			ClassResource resourcefile = new ClassResource(file.getPath());
+			Button downloadfile1button = new Button(resourcefile.getFilename()+"."+resourcefile.getMIMEType());
+			downloadfile1button.setStyleName(ValoTheme.BUTTON_LINK);
+			FileDownloader downloaderfile1 = new FileDownloader(resourcefile);
+			downloaderfile1.extend(downloadfile1button);
+			hLayout.addComponent(downloadfile1button);
+		}
+		}
+	
 		hLayout.setCaption("Downloads");
 		hLayout.setMargin(false);
 		
@@ -98,9 +100,6 @@ public class TaskWindowImpl extends Window {
 		setHeight("500px");
 		setWidth("700px");
 		center();
-		
-		
-		
 			
 	}
 	
