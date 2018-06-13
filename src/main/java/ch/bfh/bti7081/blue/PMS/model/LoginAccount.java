@@ -2,11 +2,9 @@ package ch.bfh.bti7081.blue.PMS.model;
 
 import java.util.List;
 import java.util.Set;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 
 @Entity
 public class LoginAccount {
@@ -19,10 +17,6 @@ public class LoginAccount {
 	private String zipCode;
 	private String city;
 	private String password;
-
-	@OneToMany(mappedBy = "loginAccount", cascade = CascadeType.PERSIST)
-	private Set<OrderStatus> OrderStatus;
-	
 
 	public LoginAccount() {
 	}
@@ -94,13 +88,5 @@ public class LoginAccount {
 
 	public void setPassword(String password) {
 		this.password = password;
-	}
-
-	public Set<OrderStatus> getOrderStatus() {
-		return OrderStatus;
-	}
-
-	public void setOrderStatus(Set<OrderStatus> OrderStatus) {
-		this.OrderStatus = OrderStatus;
 	}
 }

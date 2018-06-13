@@ -11,6 +11,25 @@ public class ChatModel {
 
     private String message;
 
+    private String username;
+
+    private String chatroom;
+
+    public String getChatroom() {
+        return chatroom;
+    }
+
+    public void setChatroom(String chatroom) {
+        this.chatroom = chatroom;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
     public Long getId() {
         return id;

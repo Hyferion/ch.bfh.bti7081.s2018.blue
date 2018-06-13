@@ -1,10 +1,18 @@
 package ch.bfh.bti7081.blue.PMS.DB;
 
+import java.awt.List;
+import java.util.Collection;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import ch.bfh.bti7081.blue.PMS.model.LoginAccount;
 import ch.bfh.bti7081.blue.PMS.model.Task;
+import javax.persistence.Query;
+
+import ch.bfh.bti7081.blue.PMS.model.LoginAccount;
+import ch.bfh.bti7081.blue.PMS.model.Information;
+
 
 public class DBConnector {
 
@@ -32,7 +40,6 @@ public class DBConnector {
 	public Task getTaskId() {
 		return em.find(Task.class, taskId);
 	}
-
 	public void writeDataToDB() {
 		em.getTransaction().begin();
 		em.persist(this.getLoginAccount());
@@ -50,6 +57,11 @@ public class DBConnector {
 
 	public void setAccountUsername(String accountUsername) {
 		this.accountUsername = accountUsername;
+	}
+	
+	public Collection<Information> getAllInformations() {
+		Query query= em.createQuery("SELECT i FROM Information i");
+		return (Collection<Information>) query.getResultList();
 	}
 	
 
