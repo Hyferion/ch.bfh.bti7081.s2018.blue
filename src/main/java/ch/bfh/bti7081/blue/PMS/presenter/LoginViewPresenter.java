@@ -68,6 +68,7 @@ public class LoginViewPresenter extends CustomComponent implements LoginViewButt
 
 	@Override
 	public void enter(ViewChangeListener.ViewChangeEvent event) {
+
 	}
 
 	public void initializeViewsAfterLogin() {

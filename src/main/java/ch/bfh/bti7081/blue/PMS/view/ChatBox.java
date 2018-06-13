@@ -9,6 +9,7 @@ import com.vaadin.event.ShortcutAction.KeyCode;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.server.*;
+import com.vaadin.shared.ui.ContentMode;
 import com.vaadin.ui.*;
 
 import javax.persistence.EntityManager;
@@ -25,6 +26,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.vaadin.server.VaadinService;
+import sun.jvm.hotspot.debugger.Page;
 
 @Push
 public class ChatBox extends CustomComponent implements Broadcaster.BroadcastListener, View {
@@ -36,31 +38,32 @@ public class ChatBox extends CustomComponent implements Broadcaster.BroadcastLis
     private EntityManager em = emFactory.createEntityManager();
     private final static Logger logger =
             Logger.getLogger(ChatBox.class.getName());
-/*
-    String msgs;
-    @Override
-    public void enter(ViewChangeListener.ViewChangeEvent event) {
-        if (event.getParameters() == null
-                || event.getParameters().isEmpty()) {
-            equalPanel.setContent(
-                    new Label("Nothing to see here, " +
-                            "just pass along."));
-            return;
-        } else
-            equalPanel.setContent(new AnimalViewer(
-                    event.getParameters()));
-    }
-*/
+    private String username;
+    private UI ui = UI.getCurrent();
+    private String roomName;
+
+
     public ChatBox() {
-        logger.log(Level.SEVERE,"I am HERE1!");
-        HeaderFooter root = new HeaderFooter("Chat " /*+ getUI().getSession().getAttribute("room")*/);
+        username = ui.getSession().getAttribute("user").toString();
 
-      //  String id = (String) getUI().getSession().getAttribute("room");
-       // setSizeFull();
-
+        String str =  ui.getPage().getLocation().getPath();
+        String [] strings = str.split("/");
+        if(strings.length > 0) {
+            roomName = strings[strings.length - 1];
+        }
+        else {
+            roomName = "";
+        }
+        // setSizeFull();
+        HeaderFooter root = new HeaderFooter("Chatroom " + roomName);
         VerticalLayout content = new VerticalLayout();
-       // content.sextSizeFull();
+        // content.sextSizeFull();
         setCompositionRoot(root);
+        Button backBtn = new Button("Back");
+        backBtn.addClickListener(clickEvent -> {
+            getUI().getNavigator().navigateTo("ChatRoom");
+        });
+        content.addComponent(backBtn);
 
         Panel messagesPanel = new Panel();
         messagesPanel.setSizeFull();
@@ -78,23 +81,24 @@ public class ChatBox extends CustomComponent implements Broadcaster.BroadcastLis
         sendBar.addComponent(input);
         sendBar.setExpandRatio(input, 1.0f);
 
-        Query q = em.createQuery("select t from ChatModel t");
+        Query q = em.createQuery("select t from ChatModel t where t.chatroom =:roomid");
+        q.setParameter("roomid",roomName);
         List<ChatModel> chmod = q.getResultList();
         for (ChatModel mod : chmod) {
-           addMessage(mod.getUsername()+ ": " + mod.getMessage());
+                addMessage(mod.getUsername() + mod.getMessage());
         }
 
         Button send = new Button("Send");
         send.setClickShortcut(KeyCode.ENTER);
         send.addClickListener(event -> { // Java 8
             // Broadcast the input to others
-            Broadcaster.broadcast(UI.getCurrent().getSession().getAttribute("user").toString() + ":" + input.getValue());
-         //   addMessage(input.getValue()); // Add to self
+            Broadcaster.broadcast(username + ":" + input.getValue());
+            //   addMessage(input.getValue()); // Add to self
             em.getTransaction().begin();
             ChatModel chmods = new ChatModel();
             chmods.setMessage(input.getValue());
-            chmods.setUsername(UI.getCurrent().getSession().getAttribute("user").toString());
-            chmods.setChatroom(8);
+            chmods.setUsername(username);
+            chmods.setChatroom(roomName);
             em.persist(chmods);
             em.getTransaction().commit();
 
@@ -104,7 +108,7 @@ public class ChatBox extends CustomComponent implements Broadcaster.BroadcastLis
         });
         sendBar.addComponent(send);
         content.addComponent(sendBar);
-        root.getlayout().addComponent(content,1);
+        root.getlayout().addComponent(content, 1);
 
         Broadcaster.register(this);
 
@@ -116,7 +120,7 @@ public class ChatBox extends CustomComponent implements Broadcaster.BroadcastLis
 
     @Override
     public void receiveBroadcast(final String message) {
-              messages.addComponent(new Label(message));
+        messages.addComponent(new Label(message));
     }
 
     @Override

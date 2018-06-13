@@ -13,13 +13,13 @@ public class ChatModel {
 
     private String username;
 
-    private int chatroom;
+    private String chatroom;
 
-    public int getChatroom() {
+    public String getChatroom() {
         return chatroom;
     }
 
-    public void setChatroom(int chatroom) {
+    public void setChatroom(String chatroom) {
         this.chatroom = chatroom;
     }
 
