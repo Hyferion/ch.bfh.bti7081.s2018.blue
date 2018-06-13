@@ -29,7 +29,7 @@ public class ChatRoomImpl extends CustomComponent implements View {
         com.vaadin.server.Page.getCurrent().replaceState("/");
     }
 
-    public ChatRoomImpl(){
+    public ChatRoomImpl() {
         HeaderFooter root = new HeaderFooter("ChatRoom");
         setCompositionRoot(root);
         VerticalLayout mainLayout = new VerticalLayout();
@@ -40,22 +40,12 @@ public class ChatRoomImpl extends CustomComponent implements View {
         TextField txtDescription = new TextField("Description");
         Image image = new Image(null, new ClassResource("/icons/add.png"));
         image.addClickListener(clickEvent -> {
-            em.getTransaction().begin();
-            ChatRoomModel chmods = new ChatRoomModel();
-            chmods.setName(txtTitle.getValue());
-            chmods.setDescription(txtDescription.getValue());
-            em.persist(chmods);
-            em.getTransaction().commit();
-
-            Notification.show("Chatroom created!",Notification.TYPE_TRAY_NOTIFICATION);
+            writetoDB(txtTitle.getValue(), txtDescription.getValue());
+            Notification.show("Chatroom created!", Notification.TYPE_TRAY_NOTIFICATION);
 
             Button btn = new Button("Name: " + txtTitle.getValue() + " Description: " + txtDescription.getValue());
-
             chatroomBtns.addComponent(btn);
         });
-        addBtns.addComponent(txtTitle);
-        addBtns.addComponent(txtDescription);
-        addBtns.addComponent(image);
 
         Query q = em.createQuery("select t from ChatRoomModel t");
         List<ChatRoomModel> chmod = q.getResultList();
@@ -70,17 +60,23 @@ public class ChatRoomImpl extends CustomComponent implements View {
             chatroomBtns.addComponent(btn);
         }
 
+        addBtns.addComponent(txtTitle);
+        addBtns.addComponent(txtDescription);
+        addBtns.addComponent(image);
+
         mainLayout.addComponent(addBtns);
         mainLayout.addComponent(chatroomBtns);
-        root.getlayout().addComponent(mainLayout,1);
+        root.getlayout().addComponent(mainLayout, 1);
 
     }
 
-
-
-
-
-
-
+    public void writetoDB(String txtTitle, String txtDescription) {
+        em.getTransaction().begin();
+        ChatRoomModel chmods = new ChatRoomModel();
+        chmods.setName(txtTitle);
+        chmods.setDescription(txtDescription);
+        em.persist(chmods);
+        em.getTransaction().commit();
+    }
 
 }

@@ -41,24 +41,25 @@ public class ChatBox extends CustomComponent implements Broadcaster.BroadcastLis
     private String username;
     private UI ui = UI.getCurrent();
     private String roomName;
+    private String[] strings;
+    private String str;
 
 
     public ChatBox() {
-        username = ui.getSession().getAttribute("user").toString();
-
-        String str =  ui.getPage().getLocation().getPath();
-        String [] strings = str.split("/");
-        if(strings.length > 0) {
+        String str = ui.getPage().getLocation().getPath();
+        String[] strings = str.split("/");
+        if (strings.length > 0) {
             roomName = strings[strings.length - 1];
-        }
-        else {
+        } else {
             roomName = "";
         }
-        // setSizeFull();
-        HeaderFooter root = new HeaderFooter("Chatroom " + roomName);
+
+        username = ui.getSession().getAttribute("user").toString();
+
+        HeaderFooter root = new HeaderFooter("ChatRoom " + roomName);
         VerticalLayout content = new VerticalLayout();
-        // content.sextSizeFull();
         setCompositionRoot(root);
+
         Button backBtn = new Button("Back");
         backBtn.addClickListener(clickEvent -> {
             getUI().getNavigator().navigateTo("ChatRoom");
@@ -81,28 +82,16 @@ public class ChatBox extends CustomComponent implements Broadcaster.BroadcastLis
         sendBar.addComponent(input);
         sendBar.setExpandRatio(input, 1.0f);
 
-        Query q = em.createQuery("select t from ChatModel t where t.chatroom =:roomid");
-        q.setParameter("roomid",roomName);
-        List<ChatModel> chmod = q.getResultList();
-        for (ChatModel mod : chmod) {
-                addMessage(mod.getUsername() + mod.getMessage());
-        }
+        readfromDB();
 
         Button send = new Button("Send");
         send.setClickShortcut(KeyCode.ENTER);
-        send.addClickListener(event -> { // Java 8
+        send.addClickListener(event -> {
             // Broadcast the input to others
             Broadcaster.broadcast(username + ":" + input.getValue());
-            //   addMessage(input.getValue()); // Add to self
-            em.getTransaction().begin();
-            ChatModel chmods = new ChatModel();
-            chmods.setMessage(input.getValue());
-            chmods.setUsername(username);
-            chmods.setChatroom(roomName);
-            em.persist(chmods);
-            em.getTransaction().commit();
-
-
+            //writeToDB
+            writetoDB(input.getValue(),username,roomName);
+            //reset chatInput
             input.setValue("");
 
         });
@@ -112,6 +101,25 @@ public class ChatBox extends CustomComponent implements Broadcaster.BroadcastLis
 
         Broadcaster.register(this);
 
+    }
+
+    private void readfromDB(){
+        Query q = em.createQuery("select t from ChatModel t where t.chatroom =:roomid");
+        q.setParameter("roomid", roomName);
+        List<ChatModel> chmod = q.getResultList();
+        for (ChatModel mod : chmod) {
+            addMessage(mod.getUsername() + mod.getMessage());
+        }
+    }
+
+    private void writetoDB(String msg, String username, String roomName){
+        em.getTransaction().begin();
+        ChatModel chmods = new ChatModel();
+        chmods.setMessage(msg);
+        chmods.setUsername(username);
+        chmods.setChatroom(roomName);
+        em.persist(chmods);
+        em.getTransaction().commit();
     }
 
     private void addMessage(String msg) {
