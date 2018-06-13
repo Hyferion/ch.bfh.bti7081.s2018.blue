@@ -54,11 +54,10 @@ public class HeaderFooter extends CustomComponent implements View {
 		footerBar.setDefaultComponentAlignment(Alignment.TOP_CENTER);
 		root.addComponent(footerBar);
 
-		/*
-		 * Label footer = new Label("Platzhalter Footer");
-		 * footer.addStyleName(ValoTheme.LABEL_H1);
-		 * footerBar.addComponent(footer);
-		 */
+
+		/*Label footer = new Label("Platzhalter Footer");
+		footer.addStyleName(ValoTheme.LABEL_H1);
+		footerBar.addComponent(footer);*/
 
 		root.setExpandRatio(titleBar, 0.05f);
 		root.setExpandRatio(footerBar, 0.05f);
