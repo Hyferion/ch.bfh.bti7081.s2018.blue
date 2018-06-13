@@ -1,22 +1,25 @@
 package ch.bfh.bti7081.blue.PMS.view;
 
-import ch.bfh.bti7081.blue.PMS.model.ChatModel;
-import ch.bfh.bti7081.blue.PMS.model.ChatRoomModel;
-import com.vaadin.navigator.Navigator;
-import com.vaadin.navigator.View;
-import com.vaadin.navigator.ViewChangeListener;
-import com.vaadin.server.ClassResource;
-import com.vaadin.server.VaadinService;
-import com.vaadin.ui.*;
-import sun.jvm.hotspot.debugger.Page;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
-import javax.servlet.http.HttpServletRequest;
-import javax.xml.soap.Text;
-import java.util.List;
+
+import com.vaadin.navigator.View;
+import com.vaadin.navigator.ViewChangeListener;
+import com.vaadin.server.ClassResource;
+import com.vaadin.ui.Button;
+import com.vaadin.ui.CustomComponent;
+import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.Image;
+import com.vaadin.ui.Notification;
+import com.vaadin.ui.TextField;
+import com.vaadin.ui.UI;
+import com.vaadin.ui.VerticalLayout;
+
+import ch.bfh.bti7081.blue.PMS.model.ChatRoomModel;
 
 public class ChatRoomImpl extends CustomComponent implements View {
     private EntityManagerFactory emFactory = Persistence.createEntityManagerFactory("relativeHelper");

@@ -49,7 +49,7 @@ public class MainViewImp extends CustomComponent implements View {
 		butChat.setWidth("300");
 		butChat.setHeight("200");
 
-		Button butKalender = new Button("");
+		Button butKalender = new Button("", e -> getUI().getNavigator().navigateTo(""));
 //		butKalender.setIcon(new ClassResource("/icons/calendar.png"));
 		butKalender.addStyleName(ValoTheme.BUTTON_LARGE);
 		butKalender.setIcon(VaadinIcons.CALENDAR);

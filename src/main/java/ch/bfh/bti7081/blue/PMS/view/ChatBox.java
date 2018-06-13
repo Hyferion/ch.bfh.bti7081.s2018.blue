@@ -1,32 +1,27 @@
 package ch.bfh.bti7081.blue.PMS.view;
 
-import ch.bfh.bti7081.blue.PMS.model.ChatModel;
-import ch.bfh.bti7081.blue.PMS.presenter.Broadcaster;
-import com.sun.tools.javac.comp.Todo;
-import com.sun.tools.javac.util.Log;
-import com.vaadin.annotations.Push;
-import com.vaadin.event.ShortcutAction.KeyCode;
-import com.vaadin.navigator.View;
-import com.vaadin.navigator.ViewChangeListener;
-import com.vaadin.server.*;
-import com.vaadin.shared.ui.ContentMode;
-import com.vaadin.ui.*;
+import java.util.List;
+import java.util.logging.Logger;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
-import javax.servlet.http.HttpServletRequest;
-import java.io.Console;
-import java.io.IOException;
-import java.net.URL;
-import java.util.List;
-import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-import com.vaadin.server.VaadinService;
-import sun.jvm.hotspot.debugger.Page;
+import com.vaadin.annotations.Push;
+import com.vaadin.event.ShortcutAction.KeyCode;
+import com.vaadin.navigator.View;
+import com.vaadin.ui.Button;
+import com.vaadin.ui.CustomComponent;
+import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.Label;
+import com.vaadin.ui.Panel;
+import com.vaadin.ui.TextField;
+import com.vaadin.ui.UI;
+import com.vaadin.ui.VerticalLayout;
+
+import ch.bfh.bti7081.blue.PMS.model.ChatModel;
+import ch.bfh.bti7081.blue.PMS.presenter.Broadcaster;
 
 @Push
 public class ChatBox extends CustomComponent implements Broadcaster.BroadcastListener, View {
