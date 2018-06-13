@@ -1,19 +1,19 @@
 package ch.bfh.bti7081.blue.PMS.model;
 
-
 import javax.persistence.*;
 
 @Entity
-@Table(name="medicine")
+@Table(name = "medicine")
 public class OrderModel {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String name;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	private String name;
 	private String description;
 	private String LOGINACCOUNT_USERNAME;
     
     public String getLOGINACCOUNT_USERNAME() {
+
 		return LOGINACCOUNT_USERNAME;
 	}
 
@@ -26,7 +26,6 @@ public class OrderModel {
 	}
 
 	public void setName(String name) {
-		this.name = name;
 	}
 
 	public String getDescription() {
@@ -37,14 +36,11 @@ public class OrderModel {
 		this.description = description;
 	}
 
+	public Long getId() {
+		return id;
+	}
 
-
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 }

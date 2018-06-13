@@ -1,7 +1,5 @@
 package ch.bfh.bti7081.blue.PMS.presenter;
 
-import ch.bfh.bti7081.blue.PMS.model.*;
-import ch.bfh.bti7081.blue.PMS.view.*;
 import com.vaadin.navigator.Navigator;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
@@ -11,7 +9,16 @@ import com.vaadin.ui.Notification;
 import com.vaadin.ui.UI;
 
 import ch.bfh.bti7081.blue.PMS.Util;
+import ch.bfh.bti7081.blue.PMS.model.LoginAccount;
+import ch.bfh.bti7081.blue.PMS.model.LoginViewModel;
+import ch.bfh.bti7081.blue.PMS.model.OrderModel;
+import ch.bfh.bti7081.blue.PMS.model.OrderStatus;
 import ch.bfh.bti7081.blue.PMS.presenter.interfaces.LoginViewButtonClickListener;
+import ch.bfh.bti7081.blue.PMS.view.LoginViewImpl;
+import ch.bfh.bti7081.blue.PMS.view.MainViewImp;
+import ch.bfh.bti7081.blue.PMS.view.OrderStatusViewImp;
+import ch.bfh.bti7081.blue.PMS.view.OrderView;
+import ch.bfh.bti7081.blue.PMS.view.OrderedView;
 
 import java.util.logging.Level;
 
@@ -26,6 +33,7 @@ public class LoginViewPresenter extends CustomComponent implements LoginViewButt
 	private boolean userMatched;
 	private String username;
 	private String firstname;
+	private String lastname;
 	private UI ui = UI.getCurrent();
 	
 	public LoginViewPresenter(LoginViewModel loginViewModel, LoginViewImpl loginViewImpl, Navigator navigator) {
@@ -39,8 +47,10 @@ public class LoginViewPresenter extends CustomComponent implements LoginViewButt
 		if (validateLogin()) {
 			username = loginViewModel.getLoginAccount().getUsername();
 			firstname = loginViewModel.getLoginAccount().getFirstName();
+			lastname = loginViewModel.getLoginAccount().getLastName();
 			ui.getSession().setAttribute("user", username);
 			ui.getSession().setAttribute("firstname", firstname);
+			ui.getSession().setAttribute("lastname", lastname);
 			initializeViewsAfterLogin();
 			navigator.navigateTo("HomeView");
 		}
@@ -79,25 +89,25 @@ public class LoginViewPresenter extends CustomComponent implements LoginViewButt
 		navigator.addView("HomeView", view);
 
 		//OrderStatus View
-		OrderStatusViewImp OrderStatusImpl = new OrderStatusViewImp();
-		OrderStatusModel OrderStatusModel = new OrderStatusModel();
-		new OrderStatusViewPresenter(OrderStatusModel, OrderStatusImpl);
-		navigator.addView("Order", OrderStatusImpl);
+		OrderStatusViewImp orderStatusImpl = new OrderStatusViewImp();
+		OrderStatus orderStatus = new OrderStatus();
+		new OrderStatusViewPresenter(orderStatus, orderStatusImpl);
+		navigator.addView("Order", orderStatusImpl);
 				
 		//OrderView		
-		SimonOrderView orderView = new SimonOrderView();
+		OrderView orderView = new OrderView();
 		OrderModel model = new OrderModel();
-		new SimonOrderPresenter(model, orderView);
+		new OrderPresenter(model, orderView);
 		navigator.addView("OrderView", orderView);
 		
 		//OrderedView
-		SimonOrderedView orderedView = new SimonOrderedView();
-		new SimonOrderedPresenter(model, orderedView);
+		OrderedView orderedView = new OrderedView();
+		new OrderedPresenter(model, orderedView);
 		navigator.addView("OrderedView", orderedView);
 
-		//ChatView
+		/*//ChatView
 		ChatBox chatBox = new ChatBox();
-		navigator.addView("Chat",chatBox);
+		navigator.addView("Chat",chatBox);*/
 
 		//ChatRoomView
 		ChatRoomImpl chatRoom = new ChatRoomImpl();

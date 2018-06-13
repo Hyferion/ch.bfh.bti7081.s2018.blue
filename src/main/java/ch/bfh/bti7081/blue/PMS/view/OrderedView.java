@@ -14,14 +14,14 @@ import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
 
-import ch.bfh.bti7081.blue.PMS.view.interfaces.SimonOrderViewInterface;
-import ch.bfh.bti7081.blue.PMS.view.interfaces.SimonOrderViewInterface.OrderViewListener;
+import ch.bfh.bti7081.blue.PMS.view.interfaces.OrderViewInterface;
+import ch.bfh.bti7081.blue.PMS.view.interfaces.OrderViewInterface.OrderViewListener;
 
-public class SimonOrderedView extends CustomComponent implements SimonOrderViewInterface, ClickListener {
+public class OrderedView extends CustomComponent implements OrderViewInterface, ClickListener {
 
 	private static final long serialVersionUID = 3958839843793423943L;
 
-	public SimonOrderedView() {
+	public OrderedView() {
 		
 		//Set root Layout with title
 		HeaderFooter root = new HeaderFooter("Danke für Ihre Bestellung");
@@ -70,7 +70,8 @@ public class SimonOrderedView extends CustomComponent implements SimonOrderViewI
 	@Override
 	public void buttonClick(ClickEvent event) {
 		System.out.println(listeners.toString());
-		for (OrderViewListener listener : listeners)
+		for (OrderViewListener listener : listeners) {
 			listener.buttonClick(event.getButton().getCaption());
+		}
 	}
 }
