@@ -1,105 +1,73 @@
 package ch.bfh.bti7081.blue.PMS.view;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
+import com.itextpdf.text.DocumentException;
 import com.vaadin.icons.VaadinIcons;
-import com.vaadin.navigator.View;
+import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.server.FileDownloader;
 import com.vaadin.server.FileResource;
 import com.vaadin.server.Resource;
-import com.vaadin.ui.Alignment;
+import com.vaadin.shared.data.sort.SortDirection;
 import com.vaadin.ui.Button;
+import com.vaadin.ui.Button.ClickEvent;
+import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.Grid;
-import com.vaadin.ui.HorizontalLayout;
-import com.vaadin.ui.Label;
+import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
 
+import ch.bfh.bti7081.blue.PMS.model.GeneratePDF;
 import ch.bfh.bti7081.blue.PMS.model.OrderStatus;
+import ch.bfh.bti7081.blue.PMS.view.interfaces.OrderViewInterface;
 
-public class OrderStatusViewImp extends CustomComponent implements View {
+public class OrderStatusViewImp extends CustomComponent implements OrderViewInterface, ClickListener {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	
-	Grid<OrderStatus> grid;
+	private static final long serialVersionUID = 5138985064356953846L;
+	VerticalLayout mainLayout = new VerticalLayout();
+	Grid<OrderStatus> grid = new Grid<>();
 
 	public OrderStatusViewImp() {
 
-		setSizeFull();
+		// Set root Layout with title
+		HeaderFooter root = new HeaderFooter("Bestellstatus");
 
-		// Set the root layout for the UI
-		VerticalLayout root = new VerticalLayout();
-		root.setSizeFull();
+		// MainLayout for this view
+		mainLayout.setSizeFull(); // mainLayout
+
+		Button order = new Button("Neue Bestellung", this);
+		mainLayout.addComponent(order);
+
+		// Add mainLayout to the root View
+		root.getlayout().addComponent(mainLayout, 1);
+
 		setCompositionRoot(root);
-
-		// Header
-		HorizontalLayout titleBar = new HorizontalLayout();
-		titleBar.setSizeFull();
-		root.addComponent(titleBar);
-
-		Button home = new Button("Home", e -> getUI().getNavigator().navigateTo("HomeView"));
-		home.setIcon(VaadinIcons.HOME);
-		titleBar.addComponent(home);
-		titleBar.setComponentAlignment(home, Alignment.TOP_LEFT);
-
-		titleBar.addComponent(home);
-		titleBar.setComponentAlignment(home, Alignment.TOP_LEFT);
-
-		Label title = new Label("Relative Helper");
-		title.addStyleName(ValoTheme.LABEL_H1);
-		title.setSizeUndefined();
-		titleBar.addComponent(title);
-		titleBar.setComponentAlignment(title, Alignment.TOP_LEFT);
-
-		Label order = new Label("Bestellungen");
-		order.addStyleName(ValoTheme.LABEL_H1);
-		root.addComponent(order);
-		root.setComponentAlignment(order, Alignment.TOP_LEFT);
-
-		// Main
-
-		grid = new Grid<>();
-		grid.setSizeFull();
-		grid.addColumn(OrderStatus::getId).setCaption("Bestellung").setResizable(false);
-		grid.addColumn(OrderStatus::getDate).setCaption("Datum").setResizable(false);
-		grid.addColumn(OrderStatus::getStatus).setCaption("Status").setResizable(false);
-		grid.addComponentColumn(this::printButton);
-		root.addComponent(grid);
-
-		// Footer
-		HorizontalLayout footerBar = new HorizontalLayout();
-		footerBar.setSizeFull();
-		footerBar.setDefaultComponentAlignment(Alignment.TOP_CENTER);
-		root.addComponent(footerBar);
-
-		Button logout = new Button("Logout");
-		logout.setIcon(VaadinIcons.HAND);
-
-		logout.addClickListener(e -> logOutButtonClick());
-
-		Label footer = new Label("Platzhalter Footer");
-		footer.addStyleName(ValoTheme.LABEL_H1);
-		footerBar.addComponent(footer);
-
-		footerBar.addComponent(logout);
-
-		root.setExpandRatio(titleBar, 0.05f);
-		root.setExpandRatio(order, 0.2f);
-		root.setExpandRatio(grid, 0.6f);
-		root.setExpandRatio(footerBar, 0.15f);
 
 	}
 
+	List<OrderViewListener> listeners = new ArrayList<OrderViewListener>();
+	public void addListener(OrderViewListener listener) {
+		listeners.add(listener);
+	}
+
+	//crates a Button to every status that is "Verfübgar" and
+	//creates a PDF for every prescription
 	private Button printButton(OrderStatus p) {
-		System.out.println(p.getStatus());
 		if ((p.getStatus().equals("Verfügbar"))) {
-			Button button = new Button(VaadinIcons.PRINT);
+			Button button = new Button("Print", this);
+			button.setIcon(VaadinIcons.PRINT);
 			button.addStyleName(ValoTheme.BUTTON_SMALL);
-			Resource res = new FileResource(new File("C:\\Workspaces\\workspace_SEAD\\myapplication\\file.pdf"));
+			try {
+				GeneratePDF.pfdGenerator(p.getId(), UI.getCurrent().getSession().getAttribute("firstname").toString() + " " + UI.getCurrent().getSession().getAttribute("lastname").toString(), p.getDate(), p.getName());
+			} catch (DocumentException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			Resource res = new FileResource(new File(p.getId().toString() + ".pdf"));
+			
 			FileDownloader fd = new FileDownloader(res);
 			fd.extend(button);
 			return button;
@@ -108,14 +76,29 @@ public class OrderStatusViewImp extends CustomComponent implements View {
 
 	}
 
-	public Grid getGrid() {
-		return this.grid;
+	// creates every time a new grid when entered the view
+	public void enter(ViewChangeListener.ViewChangeEvent event) {
+		List<OrderStatus> orderStatus = new ArrayList<OrderStatus>();
+		for (OrderViewListener listener : listeners) {
+			orderStatus = listener.getResultListStatus();
+		}
+		grid.removeAllColumns();
+		grid.setSizeFull();
+		grid.setItems(orderStatus);
+		grid.addColumn(OrderStatus::getId).setId("1").setCaption("Bestellung").setResizable(false);
+		grid.addColumn(OrderStatus::getName).setId("2").setCaption("Name").setResizable(false);
+		grid.addColumn(OrderStatus::getDate).setId("3").setCaption("Datum").setResizable(false);
+		grid.addColumn(OrderStatus::getStatus).setId("4").setCaption("Status").setResizable(false);
+		grid.addComponentColumn(this::printButton).setCaption("Drucken").setResizable(false);
+		grid.sort("3", SortDirection.DESCENDING);
+		mainLayout.addComponent(grid);
 	}
 
-	public void logOutButtonClick() {
-		getUI().getSession().setAttribute("user", null);
-		getUI().getNavigator().navigateTo("LoginView");
+	@Override
+	public void buttonClick(ClickEvent event) {
+		for (OrderViewListener listener : listeners) {
+			listener.buttonClick(event.getButton().getCaption());
+		}
 
 	}
-
 }

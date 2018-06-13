@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `relativehelper` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */;
-USE `relativehelper`;
 -- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)
 --
 -- Host: localhost    Database: relativehelper
@@ -18,32 +16,29 @@ USE `relativehelper`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `loginaccount`
+-- Table structure for table `medicine`
 --
 
-DROP TABLE IF EXISTS `loginaccount`;
+DROP TABLE IF EXISTS `medicine`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `loginaccount` (
-  `USERNAME` varchar(45) NOT NULL,
-  `CITY` varchar(45) DEFAULT NULL,
-  `FIRSTNAME` varchar(45) DEFAULT NULL,
-  `LASTNAME` varchar(45) DEFAULT NULL,
-  `PASSWORD` varchar(45) DEFAULT NULL,
-  `STREET` varchar(45) DEFAULT NULL,
-  `ZIPCODE` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`USERNAME`)
+CREATE TABLE `medicine` (
+  `id` int(11) NOT NULL,
+  `name` varchar(45) DEFAULT NULL,
+  `description` varchar(100) DEFAULT NULL,
+  `LOGINACCOUNT_USERNAME` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `loginaccount`
+-- Dumping data for table `medicine`
 --
 
-LOCK TABLES `loginaccount` WRITE;
-/*!40000 ALTER TABLE `loginaccount` DISABLE KEYS */;
-INSERT INTO `loginaccount` VALUES ('1',NULL,NULL,NULL,'1',NULL,NULL),('2',NULL,NULL,NULL,'2',NULL,NULL);
-/*!40000 ALTER TABLE `loginaccount` ENABLE KEYS */;
+LOCK TABLES `medicine` WRITE;
+/*!40000 ALTER TABLE `medicine` DISABLE KEYS */;
+INSERT INTO `medicine` VALUES (1,'Ascosal','Fieber und/oder Schmerzen bei ','2'),(2,'Tramadol plus Spirig HC','Mässiger bis starker Schmerzen','2'),(3,'Nebivolol Sandoz','Bluthochdruck und chronischer Herzschwäche ','1'),(4,'Terbinafin Axapharm','Nicht lokal behandelbare Mykosen der Haut und Haare','1'),(5,'CellCept','Fieber und/oder Schmerzen bei Erkältungskrankheiten ','1'),(6,'CYMBALTA','Depression, generalisierten Angststörung, Schmerzen','1'),(7,'Duloxalta ','Mittelschwere bis schwere Depressionen ','2'),(8,'Aponal ','Entzugserscheinungen bei Alkohol-, Arzneimittel- oder Drogenabhängigkeit','2'),(9,'Cipramil ','Antidepressivum in der Behandlung von Depressionen','2'),(10,'Trevilor','Antidepressivum','2');
+/*!40000 ALTER TABLE `medicine` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -55,4 +50,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-05-25 10:51:16
+-- Dump completed on 2018-06-01 11:24:21

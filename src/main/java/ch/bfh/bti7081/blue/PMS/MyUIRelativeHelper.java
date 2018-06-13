@@ -35,6 +35,7 @@ public class MyUIRelativeHelper extends UI {
 	protected void init(VaadinRequest vaadinRequest) {
 		this.navigator = new Navigator(this, this);
 
+
 		// Login View
 		LoginViewModel loginViewModel = new LoginViewModel();
 		LoginViewImpl loginViewImpl = new LoginViewImpl();
