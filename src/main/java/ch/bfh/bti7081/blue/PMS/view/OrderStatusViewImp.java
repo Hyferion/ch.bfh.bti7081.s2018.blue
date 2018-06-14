@@ -66,7 +66,7 @@ public class OrderStatusViewImp extends CustomComponent implements OrderViewInte
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			Resource res = new FileResource(new File(p.getId().toString() + ".pdf"));
+			Resource res = new FileResource(new File("C:\\PDF\\" + p.getId().toString() + ".pdf"));
 			
 			FileDownloader fd = new FileDownloader(res);
 			fd.extend(button);
