@@ -83,6 +83,7 @@ public class LoginViewPresenter extends CustomComponent implements LoginViewButt
 		
 		//HomeView
 		MainViewImp view = new MainViewImp();
+		new MainViewPresenter(view);
 		navigator.addView("HomeView", view);
 		
 		//Information View

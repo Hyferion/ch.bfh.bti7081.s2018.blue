@@ -21,7 +21,7 @@ public class GeneratePDF {
 
     public static File pfdGenerator(Long id, String name, String date, String medizin) throws DocumentException {
 
-        File file = new File(id + ".pdf");
+        File file = new File("C:\\PDF\\" + id + ".pdf");
         file.delete();
         Document document = new Document(PageSize.A4);
         try {

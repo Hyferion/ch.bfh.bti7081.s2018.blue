@@ -26,7 +26,7 @@ public class InformationView extends CustomComponent implements View {
 	public InformationView() {
 
 		//Set root Layout with title
-		HeaderFooter root = new HeaderFooter("Informationen über Suchtkrankheiten");
+		HeaderFooter root = new HeaderFooter("Information About Addictions");
 
 		//MainLayout for this view
 		VerticalLayout mainLayout = new VerticalLayout();
