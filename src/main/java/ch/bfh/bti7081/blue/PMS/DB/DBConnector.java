@@ -1,19 +1,19 @@
 package ch.bfh.bti7081.blue.PMS.DB;
 
-import java.awt.List;
 import java.util.Collection;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
 import ch.bfh.bti7081.blue.PMS.model.LoginAccount;
+import ch.bfh.bti7081.blue.PMS.model.Task;
 import ch.bfh.bti7081.blue.PMS.model.Information;
 
 public class DBConnector {
 
 	private String accountUsername;
+	private int taskId;
 	private static DBConnector dbConnector = null;
 	private EntityManagerFactory emFactory = Persistence.createEntityManagerFactory("relativeHelper");
 	private EntityManager em = emFactory.createEntityManager();
@@ -28,9 +28,17 @@ public class DBConnector {
 		return dbConnector;
 	}
 	
+	public EntityManager getEntityManager() {
+		return em;
+	}
+	
 	public LoginAccount getLoginAccount() {
 		LoginAccount loginAccount = em.find(LoginAccount.class, accountUsername);
 		return loginAccount;
+	}
+	
+	public Task getTaskId() {
+		return em.find(Task.class, taskId);
 	}
 	
 	

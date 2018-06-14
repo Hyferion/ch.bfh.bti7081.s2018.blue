@@ -21,7 +21,7 @@ public class MainViewImp extends CustomComponent implements View {
 	
 	public MainViewImp() {
 
-		HeaderFooter root = new HeaderFooter("Hello" + " " + UI.getCurrent().getSession().getAttribute("firstname").toString());
+		HeaderFooter root = new HeaderFooter("Hello "+ UI.getCurrent().getSession().getAttribute("firstname").toString());
 		
 
 		setSizeFull();
