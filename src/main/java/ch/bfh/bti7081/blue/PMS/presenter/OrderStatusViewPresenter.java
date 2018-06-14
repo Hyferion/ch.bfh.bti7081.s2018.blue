@@ -34,7 +34,7 @@ public class OrderStatusViewPresenter extends CustomComponent implements OrderSt
 	//navigates to the right view
 	@Override
 	public void buttonClick(String operation) {
-		if (operation.equals("Neue Bestellung")) {
+		if (operation.equals("New Order")) {
 			view.getUI().getNavigator().navigateTo("OrderView");
 		}
 	}

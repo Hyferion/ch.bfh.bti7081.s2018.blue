@@ -108,7 +108,7 @@ public class OrderView extends CustomComponent implements OrderViewInterface, Cl
 							.setLOGINACCOUNT_USERNAME(UI.getCurrent().getSession().getAttribute("user").toString());
 					orderModelWrite.setName(orderModel.get(i).getName());
 					orderModelWrite.setDate(new Date().toLocaleString());
-					String[] status = { "Verfügbar", "Verfügbar", "In Bearbeitung", "Abgelehnt", "Verfügbar" };
+					String[] status = { "Available", "Available", "In Process", "Declined", "Available" };
 					Random random = new Random();
 					int select = random.nextInt(status.length);
 					orderModelWrite.setStatus(status[select]);

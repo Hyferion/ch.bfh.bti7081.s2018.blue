@@ -1,6 +1,8 @@
 package ch.bfh.bti7081.blue.PMS;
 
+import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 import javax.xml.bind.DatatypeConverter;
 
@@ -18,22 +20,31 @@ public class Util {
 
 	// validate password for login
 	public static boolean validatePassword(LoginAccount loginAccount, String loginPassword) {
-	if (createSHA256(loginPassword).equals(loginAccount.getPassword())) {
+	if (createSHA256(loginPassword).equalsIgnoreCase(loginAccount.getPassword())) {
 		return true;
 	}
 	return false;
 	}
 	
-	private static String createSHA256(String s) {
-		String result = null;
+	public static String createSHA256(final String originalString) {
+        MessageDigest digest = null;
 		try {
-			MessageDigest digest = MessageDigest.getInstance("SHA-256");
-			byte[] hash = digest.digest(s.getBytes("UTF-8"));
-			return DatatypeConverter.printHexBinary(hash);
+			digest = MessageDigest.getInstance("SHA-256");
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
 		}
-		catch(Exception ex) {
-			ex.printStackTrace();
-		}
-		return result;
+        final byte[] encodedhash = digest.digest(originalString.getBytes(StandardCharsets.UTF_8));
+        return bytesToHex(encodedhash);
+	}
+	
+	private static String bytesToHex(byte[] hash) {
+        StringBuffer hexString = new StringBuffer();
+        for (int i = 0; i < hash.length; i++) {
+            String hex = Integer.toHexString(0xff & hash[i]);
+            if (hex.length() == 1)
+                hexString.append('0');
+            hexString.append(hex);
+        }
+        return hexString.toString();
 	}
 }

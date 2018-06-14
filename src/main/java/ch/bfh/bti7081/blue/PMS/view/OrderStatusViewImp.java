@@ -33,12 +33,12 @@ public class OrderStatusViewImp extends CustomComponent implements OrderViewInte
 	public OrderStatusViewImp() {
 
 		// Set root Layout with title
-		HeaderFooter root = new HeaderFooter("Bestellstatus");
+		HeaderFooter root = new HeaderFooter("Order Status");
 
 		// MainLayout for this view
 		mainLayout.setSizeFull(); // mainLayout
 
-		Button order = new Button("Neue Bestellung", this);
+		Button order = new Button("New Order", this);
 		mainLayout.addComponent(order);
 
 		// Add mainLayout to the root View
@@ -56,7 +56,7 @@ public class OrderStatusViewImp extends CustomComponent implements OrderViewInte
 	//crates a Button to every status that is "Verfübgar" and
 	//creates a PDF for every prescription
 	private Button printButton(OrderStatus p) {
-		if ((p.getStatus().equals("Verfügbar"))) {
+		if ((p.getStatus().equals("Available"))) {
 			Button button = new Button("Print", this);
 			button.setIcon(VaadinIcons.PRINT);
 			button.addStyleName(ValoTheme.BUTTON_SMALL);
@@ -85,11 +85,11 @@ public class OrderStatusViewImp extends CustomComponent implements OrderViewInte
 		grid.removeAllColumns();
 		grid.setSizeFull();
 		grid.setItems(orderStatus);
-		grid.addColumn(OrderStatus::getId).setId("1").setCaption("Bestellung").setResizable(false);
+		grid.addColumn(OrderStatus::getId).setId("1").setCaption("Order").setResizable(false);
 		grid.addColumn(OrderStatus::getName).setId("2").setCaption("Name").setResizable(false);
-		grid.addColumn(OrderStatus::getDate).setId("3").setCaption("Datum").setResizable(false);
+		grid.addColumn(OrderStatus::getDate).setId("3").setCaption("Date").setResizable(false);
 		grid.addColumn(OrderStatus::getStatus).setId("4").setCaption("Status").setResizable(false);
-		grid.addComponentColumn(this::printButton).setCaption("Drucken").setResizable(false);
+		grid.addComponentColumn(this::printButton).setCaption("Prescription").setResizable(false);
 		grid.sort("3", SortDirection.DESCENDING);
 		mainLayout.addComponent(grid);
 	}
