@@ -70,6 +70,11 @@ public class LoginViewPresenter extends CustomComponent implements LoginViewButt
 			if (userMatched && passwordMatched) {
 				return true;
 			}
+			
+			if (!passwordMatched) {
+				Notification.show("Username or password wrong", "try again", Notification.Type.WARNING_MESSAGE);
+			}
+			
 		} catch (NullPointerException e) {
 			Notification.show("Username or password wrong", "try again", Notification.Type.WARNING_MESSAGE);
 		}
