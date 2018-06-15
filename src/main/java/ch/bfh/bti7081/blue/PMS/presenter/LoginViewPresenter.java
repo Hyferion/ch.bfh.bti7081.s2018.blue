@@ -31,6 +31,7 @@ public class LoginViewPresenter extends CustomComponent implements LoginViewButt
 	private String username;
 	private String firstname;
 	private String lastname;
+	private String nameRelative;
 	private UI ui = UI.getCurrent();
 	
 	public LoginViewPresenter(LoginViewModel loginViewModel, LoginViewImpl loginViewImpl, Navigator navigator) {
@@ -45,9 +46,11 @@ public class LoginViewPresenter extends CustomComponent implements LoginViewButt
 			username = loginViewModel.getLoginAccount().getUsername();
 			firstname = loginViewModel.getLoginAccount().getFirstName();
 			lastname = loginViewModel.getLoginAccount().getLastName();
+			nameRelative = loginViewModel.getLoginAccount().getNameRelative();
 			ui.getSession().setAttribute("user", username);
 			ui.getSession().setAttribute("firstname", firstname);
 			ui.getSession().setAttribute("lastname", lastname);
+			ui.getSession().setAttribute("nameRelative", nameRelative);
 			initializeViewsAfterLogin();
 			navigator.navigateTo("HomeView");
 		}

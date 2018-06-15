@@ -61,7 +61,7 @@ public class OrderStatusViewImp extends CustomComponent implements OrderViewInte
 			button.setIcon(VaadinIcons.PRINT);
 			button.addStyleName(ValoTheme.BUTTON_SMALL);
 			try {
-				GeneratePDF.pfdGenerator(p.getId(), UI.getCurrent().getSession().getAttribute("firstname").toString() + " " + UI.getCurrent().getSession().getAttribute("lastname").toString(), p.getDate(), p.getName());
+				GeneratePDF.pfdGenerator(p.getId(), UI.getCurrent().getSession().getAttribute("nameRelative").toString(), p.getDate(), p.getName());
 			} catch (DocumentException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

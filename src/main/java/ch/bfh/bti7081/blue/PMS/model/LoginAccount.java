@@ -15,13 +15,14 @@ public class LoginAccount {
 	private String zipCode;
 	private String city;
 	private String password;
+	private String nameRelative;
 
 
 	public LoginAccount() {
 	}
 
 	public LoginAccount(String firstName, String lastName, String street, String zipCode, String city, String email,
-			String password) {
+			String password, String nameRelative) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -30,6 +31,7 @@ public class LoginAccount {
 		this.city = city;
 		this.username = email;
 		this.password = password;
+		this.nameRelative = nameRelative;
 	}
 
 	public String getFirstName() {
@@ -86,5 +88,13 @@ public class LoginAccount {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getNameRelative() {
+		return nameRelative;
+	}
+
+	public void setNameRelative(String nameRelative) {
+		this.nameRelative = nameRelative;
 	}
 }

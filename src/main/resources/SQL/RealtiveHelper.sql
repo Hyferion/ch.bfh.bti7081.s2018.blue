@@ -30,7 +30,7 @@ CREATE TABLE `chatmodel` (
   `username` varchar(45) NOT NULL,
   `chatroom` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=71 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=74 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -39,6 +39,7 @@ CREATE TABLE `chatmodel` (
 
 LOCK TABLES `chatmodel` WRITE;
 /*!40000 ALTER TABLE `chatmodel` DISABLE KEYS */;
+INSERT INTO `chatmodel` VALUES (71,'hallo ich brauche hilfe','gertl1',''),(72,'ich kann dir helfen','herrs1','');
 /*!40000 ALTER TABLE `chatmodel` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -54,7 +55,7 @@ CREATE TABLE `chatroommodel` (
   `title` varchar(45) NOT NULL,
   `description` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -63,6 +64,7 @@ CREATE TABLE `chatroommodel` (
 
 LOCK TABLES `chatroommodel` WRITE;
 /*!40000 ALTER TABLE `chatroommodel` DISABLE KEYS */;
+INSERT INTO `chatroommodel` VALUES (28,'RelativeHelper','Alcohol'),(29,'RelativeHelper','help');
 /*!40000 ALTER TABLE `chatroommodel` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -132,6 +134,7 @@ CREATE TABLE `loginaccount` (
   `PASSWORD` varchar(65) DEFAULT NULL,
   `STREET` varchar(45) DEFAULT NULL,
   `ZIPCODE` varchar(45) DEFAULT NULL,
+  `NAMERELATIVE` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`USERNAME`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -142,7 +145,7 @@ CREATE TABLE `loginaccount` (
 
 LOCK TABLES `loginaccount` WRITE;
 /*!40000 ALTER TABLE `loginaccount` DISABLE KEYS */;
-INSERT INTO `loginaccount` VALUES ('gertl1','Thun','Lars','Gertsch','03AC674216F3E15C761EE1A5E255F067953623C8B388B4459E13F978D7C846F4','Mittlere Strasse 22','3600'),('herrs1','Thun','Simon','Herrmann','F8638B979B2F4F793DDB6DBD197E0EE25A7A6EA32B0AE22F5E3C5D119D839E75','Mittlere Strasse 22','3600');
+INSERT INTO `loginaccount` VALUES ('gertl1','Thun','Lars','Gertsch','03AC674216F3E15C761EE1A5E255F067953623C8B388B4459E13F978D7C846F4','Mittlere Strasse 22','3600','Steve Nyffenegger'),('herrs1','Thun','Simon','Herrmann','F8638B979B2F4F793DDB6DBD197E0EE25A7A6EA32B0AE22F5E3C5D119D839E75','Mittlere Strasse 22','3600','Peter Fischer');
 /*!40000 ALTER TABLE `loginaccount` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -186,7 +189,7 @@ CREATE TABLE `orderstatus` (
   `date` varchar(45) DEFAULT NULL,
   `status` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1066 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1091 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -195,6 +198,7 @@ CREATE TABLE `orderstatus` (
 
 LOCK TABLES `orderstatus` WRITE;
 /*!40000 ALTER TABLE `orderstatus` DISABLE KEYS */;
+INSERT INTO `orderstatus` VALUES (1066,'gertl1','Nebivolol Sandoz','14.06.2018, 21:42:58','Available'),(1090,'herrs1','Aponal ','15.06.2018, 08:41:18','Available');
 /*!40000 ALTER TABLE `orderstatus` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -283,4 +287,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-06-14 18:05:12
+-- Dump completed on 2018-06-15  8:43:40
