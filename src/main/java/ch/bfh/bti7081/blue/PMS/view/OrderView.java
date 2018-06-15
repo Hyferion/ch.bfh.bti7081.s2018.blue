@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Random;
 
 import javax.persistence.EntityManager;
-import javax.swing.plaf.synth.SynthSplitPaneUI;
 
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.ui.Alignment;
@@ -37,7 +36,7 @@ public class OrderView extends CustomComponent implements OrderViewInterface, Cl
 	List<OrderViewListener> listeners = new ArrayList<OrderViewListener>();
 
 	// new rootLayout that all views has the same head and footer.
-	HeaderFooter root = new HeaderFooter("Order prescription");
+	HeaderFooter root = new HeaderFooter("Prescription Order");
 
 	// The mainLayout of this view
 	VerticalLayout mainLayout = new VerticalLayout();
